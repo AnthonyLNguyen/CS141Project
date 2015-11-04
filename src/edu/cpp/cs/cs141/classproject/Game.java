@@ -24,6 +24,12 @@ public class Game {
 	}
 
 	/**
+	 * Uses the look ability
+	 */
+	public void look() {
+	}
+
+	/**
 	 * Creates the map and randomly places objects into the map such as ninjas
 	 * and powerups
 	 */
@@ -67,8 +73,8 @@ public class Game {
 	}
 
 	/**
-	 * Imports a save game state from a previously saved file in the
-	 * workspace directory.
+	 * Imports a save game state from a previously saved file in the workspace
+	 * directory.
 	 * 
 	 * @param file
 	 *            the name of the save file
