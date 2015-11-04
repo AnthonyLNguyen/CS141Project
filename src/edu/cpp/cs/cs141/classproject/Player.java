@@ -55,5 +55,9 @@ public class Player {
 	public void setNumLives(int numLives) {
 		this.numLives = numLives;
 	}
- //memes are dank
+	
+	public String toString(){
+		return "P";
+		
+	}
 }

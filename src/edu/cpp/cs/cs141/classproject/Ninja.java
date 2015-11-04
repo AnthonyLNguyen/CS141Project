@@ -23,4 +23,13 @@ public class Ninja {
 	public void move() {
 
 	}
+	
+	
+	/* this show Ninja to the Map
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString(){
+		return "N";
+		
+	}
 }
