@@ -8,7 +8,7 @@ public class Game {
 	private boolean isFinished;
 	private boolean win;
 	/**
-	 * The amount of moves steps in the game.
+	 * The amount of moves steps in the game. Used to keep of duration of powerups.
 	 */
 	private int moveCount;
 
