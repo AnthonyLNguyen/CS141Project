@@ -28,7 +28,8 @@ public class UserInterface {
 	}
 
 	/**
-	 * Prints the main menu to the user and prompts for their input.
+	 * Prints the main menu to the user and prompts for their input, and
+	 * responds appropriately.
 	 * 
 	 * @return an integer relating to the input that they chose.
 	 */
