@@ -16,6 +16,6 @@ public class Game {
 		
 	}
 
-	public void setRoomPos(int row, int col) {
+	public void generateRooms(){
 	}
 }
