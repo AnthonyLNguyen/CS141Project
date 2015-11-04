@@ -15,4 +15,8 @@ public class Map {
 		return null;
 
 	}
+
+	public void addObject(int row, int col, Object o) {
+	}
+	
 }
