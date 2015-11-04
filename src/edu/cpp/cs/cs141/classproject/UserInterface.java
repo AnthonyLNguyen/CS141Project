@@ -18,7 +18,7 @@ private void printWelcomeMessage(){
 }
 
 private int mainMenu(){
-	
+	return -1;
 }
 
 public void playGame(){
