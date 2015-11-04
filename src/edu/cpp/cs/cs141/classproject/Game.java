@@ -13,6 +13,7 @@ public class Game {
 
 	public void shoot() {
 
+		
 	}
 
 	public void setRoomPos(int row, int col) {
