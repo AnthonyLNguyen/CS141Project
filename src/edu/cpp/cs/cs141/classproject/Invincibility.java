@@ -11,7 +11,7 @@ public class Invincibility extends AbstractPowerUp {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString(){
-		return "I";
+		return "I"; 
 		
 	}
 }
