@@ -8,7 +8,8 @@ public class Game {
 	private boolean isFinished;
 	private boolean win;
 	/**
-	 * The amount of moves steps in the game. Used to keep of duration of powerups.
+	 * The amount of moves steps in the game. Used to keep of duration of
+	 * powerups.
 	 */
 	private int moveCount;
 
@@ -20,6 +21,19 @@ public class Game {
 	 */
 	public void move(int row, int col) {
 
+	}
+
+	/**
+	 * Creates the map and randomly places objects into the map such as ninjas
+	 * and powerups
+	 */
+	public void generateMap() {
+	}
+
+	/**
+	 * Randomly places powerups in the map.
+	 */
+	public void randomizePowerups() {
 	}
 
 	/**
