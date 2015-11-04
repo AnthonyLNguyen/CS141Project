@@ -20,16 +20,20 @@ public class Ninja {
 		this.col = col;
 	}
 
+	/**
+	 * Moves the ninja to a random adjacent spot to its current location.
+	 */
 	public void move() {
 
 	}
-	
-	
-	/* this show Ninja to the Map
+
+	/*
+	 * this show Ninja to the Map
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
-	public String toString(){
+	public String toString() {
 		return "N";
-		
+
 	}
 }
