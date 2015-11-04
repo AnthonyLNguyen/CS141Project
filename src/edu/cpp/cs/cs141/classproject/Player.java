@@ -55,8 +55,8 @@ public class Player {
 	public void setNumLives(int numLives) {
 		this.numLives = numLives;
 	}
-	
-	public String toString(){
-		return "P";	
+
+	public String toString() {
+		return "P";
 	}
 }
