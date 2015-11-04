@@ -61,13 +61,13 @@ public class Game {
 	}
 
 	/**
-	 * Exports the save game state as a .dat file in the workspace directory.
+	 * Exports the save game state as a file in the workspace directory.
 	 */
 	public void saveGame() {
 	}
 
 	/**
-	 * Imports a save game state from a previously saved .dat file in the
+	 * Imports a save game state from a previously saved file in the
 	 * workspace directory.
 	 * 
 	 * @param file
