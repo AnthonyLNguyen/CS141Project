@@ -6,7 +6,7 @@ public class Invincibility extends AbstractPowerUp {
 
 	}
 
-	/**
+	/*
 	 * This shows the the Invincibility to the Map
 	 * 
 	 * @see java.lang.Object#toString()
