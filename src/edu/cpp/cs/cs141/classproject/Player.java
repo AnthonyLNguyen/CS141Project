@@ -56,6 +56,9 @@ public class Player {
 		this.numLives = numLives;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "P";
 	}
