@@ -57,7 +57,6 @@ public class Player {
 	}
 	
 	public String toString(){
-		return "P";
-		
+		return "P";	
 	}
 }
