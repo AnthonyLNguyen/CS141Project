@@ -19,14 +19,14 @@ public class Game {
 	 * @param row
 	 * @param col
 	 */
-	public void move(int row, int col) {
+	public void movePlayer(int row, int col) {
 
 	}
 
 	/**
 	 * Uses the look ability
 	 */
-	public void look() {
+	public void playerLook() {
 	}
 
 	/**
