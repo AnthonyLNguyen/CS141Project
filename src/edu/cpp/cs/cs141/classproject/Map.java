@@ -16,12 +16,11 @@ public class Map {
 		for (int i = 0; i < GRID_SIZE; i++){
 			for (int j = 0; j < GRID_SIZE; j++){
 				if (grid[i][j] == null)
-					result += " [ ";
-				result += " [ " + grid[i][j].toString() + " ] ";
+					result += " [X] ";
+				result += " [" + grid[i][j].toString() + "] ";
 			}
-			
+			result += "\n";
 		}
-		
 		return result;
 	}
 
