@@ -12,8 +12,17 @@ public class Map {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		return null;
-
+		String result = "";
+		for (int i = 0; i < GRID_SIZE; i++){
+			for (int j = 0; j < GRID_SIZE; j++){
+				if (grid[i][j] == null)
+					result += " [ ";
+				result += " [ " + grid[i][j].toString() + " ] ";
+			}
+			
+		}
+		
+		return result;
 	}
 
 	public void addObject(int row, int col, Object o) {
