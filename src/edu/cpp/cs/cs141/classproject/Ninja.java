@@ -34,6 +34,5 @@ public class Ninja {
 	 */
 	public String toString() {
 		return "N";
-
 	}
 }

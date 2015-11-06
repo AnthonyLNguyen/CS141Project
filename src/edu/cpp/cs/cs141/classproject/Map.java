@@ -2,7 +2,7 @@ package edu.cpp.cs.cs141.classproject;
 
 public class Map {
 
-	public static final int GRID_SIZE = 4;
+	public static final int GRID_SIZE = 9;
 
 	private Object[][] grid = new Object[GRID_SIZE][GRID_SIZE];
 
@@ -16,8 +16,9 @@ public class Map {
 		for (int i = 0; i < GRID_SIZE; i++){
 			for (int j = 0; j < GRID_SIZE; j++){
 				if (grid[i][j] == null)
-					result += " [X] ";
-				result += " [" + grid[i][j].toString() + "] ";
+					result += " [X]";
+				else
+					result += " [" + grid[i][j].toString() + "]";
 			}
 			result += "\n";
 		}
@@ -25,6 +26,7 @@ public class Map {
 	}
 
 	public void addObject(int row, int col, Object o) {
+		grid[row][col] = o;
 	}
 	
 }
