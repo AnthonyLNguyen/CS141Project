@@ -29,4 +29,22 @@ public class Map {
 		grid[row][col] = o;
 	}
 	
+	public Object getObject (int row, int col) {
+		return grid[row][col];
+	}
+	
+	public Object removeObject(int row, int col){
+		Object o = grid[row][col];
+		grid[row][col] = null;
+		return o;
+	}
+	
+	public boolean moveObject(int row, int col, int newRow, int newCol){
+		if (grid[row][col] != null && grid[newRow][newCol] == null){
+			grid[newRow][newCol] = removeObject(row, col);
+			return true;
+		}
+		return false;
+	}
+	
 }
