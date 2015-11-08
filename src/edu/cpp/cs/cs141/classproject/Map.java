@@ -46,5 +46,4 @@ public class Map {
 		}
 		return false;
 	}
-	
 }
