@@ -3,6 +3,8 @@
  */
 package edu.cpp.cs.cs141.classproject;
 
+import java.util.ArrayList;
+
 public class Game {
 	private Map gameMap;
 	private boolean isFinished;
@@ -34,6 +36,12 @@ public class Game {
 	 * and powerups
 	 */
 	public void generateMap() {
+		ArrayList<Object> entities = new ArrayList<Object>();
+		for (int i = 0 ; i < 5 ; i++) 
+		entities.add(new Ninja());
+		entities.add(new Invincibility());
+		entities.add(new Bullet());
+		entities.add(new Radar());
 	}
 
 	/**
