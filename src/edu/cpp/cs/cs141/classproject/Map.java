@@ -18,7 +18,7 @@ public class Map {
 		for (int i = 0; i < GRID_SIZE; i++){
 			for (int j = 0; j < GRID_SIZE; j++){
 				if (grid[i][j] == null)
-					result += " [X]";
+					result += " [*]";
 				else
 					result += " [" + grid[i][j].toString() + "]";
 			}
@@ -27,15 +27,18 @@ public class Map {
 		return result;
 	}
 
-	public void addObject(int row, int col, Object o) {
-		if (grid[row][col] == null)
+	public boolean addObject(int row, int col, Object o) {
+		if (grid[row][col] == null){
 			grid[row][col] = o;
+			return true;
+		}
+		return false;	
 	}
 	
 	public void randomlyAddObjects(ArrayList<Object> objectArray){
 		while (objectArray.size() > 0){
-			addObject(((int) Math.random() * GRID_SIZE), ((int) Math.random() * GRID_SIZE), objectArray.get(0));
-			objectArray.remove(0);
+			if (addObject((int) (Math.random() * GRID_SIZE), (int) (Math.random() * GRID_SIZE), objectArray.get(0)))
+				objectArray.remove(0);
 		}
 	}
 	

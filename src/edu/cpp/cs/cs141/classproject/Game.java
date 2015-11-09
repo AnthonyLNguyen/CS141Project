@@ -24,6 +24,10 @@ public class Game {
 	public void movePlayer(int row, int col) {
 
 	}
+	
+	public Game (){
+		gameMap = new Map();
+	}
 
 	/**
 	 * Uses the look ability
@@ -42,6 +46,7 @@ public class Game {
 		entities.add(new Invincibility());
 		entities.add(new Bullet());
 		entities.add(new Radar());
+		gameMap.randomlyAddObjects(entities);
 	}
 
 	/**
@@ -88,5 +93,9 @@ public class Game {
 	 *            the name of the save file
 	 */
 	public void loadGame(String file) {
+	}
+	
+	public Map getMap(){
+		return gameMap;
 	}
 }

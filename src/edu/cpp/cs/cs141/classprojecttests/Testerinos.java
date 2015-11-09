@@ -5,7 +5,7 @@ import edu.cpp.cs.cs141.classproject.*;
 public class Testerinos {
 	
 	public static void main(String[] args) {
-		testMapMove();
+		testGenerateMap();
 	}
 	
 	public static void testMapPrint(){
@@ -37,5 +37,11 @@ public class Testerinos {
 				col = j;
 			}
 		}
+	}
+	
+	public static void testGenerateMap(){
+		Game g = new Game();
+		g.generateMap();
+		System.out.println(g.getMap().toString());
 	}
 }
