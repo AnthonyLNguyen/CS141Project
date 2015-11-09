@@ -3,7 +3,7 @@ package edu.cpp.cs.cs141.classproject;
 public class Invincibility extends AbstractPowerUp {
 
 	public void effect(Player p) {
-
+		p.setInvincible(true);
 	}
 
 	/*
@@ -13,6 +13,5 @@ public class Invincibility extends AbstractPowerUp {
 	 */
 	public String toString() {
 		return "I";
-
 	}
 }

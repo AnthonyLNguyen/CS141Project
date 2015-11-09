@@ -1,5 +1,7 @@
 package edu.cpp.cs.cs141.classproject;
 
+import java.util.ArrayList;
+
 public class Map {
 
 	public static final int GRID_SIZE = 9;
@@ -26,7 +28,15 @@ public class Map {
 	}
 
 	public void addObject(int row, int col, Object o) {
-		grid[row][col] = o;
+		if (grid[row][col] == null)
+			grid[row][col] = o;
+	}
+	
+	public void randomlyAddObjects(ArrayList<Object> objectArray){
+		while (objectArray.size() > 0){
+			addObject(((int) Math.random() * GRID_SIZE), ((int) Math.random() * GRID_SIZE), objectArray.get(0));
+			objectArray.remove(0);
+		}
 	}
 	
 	public Object getObject (int row, int col) {
