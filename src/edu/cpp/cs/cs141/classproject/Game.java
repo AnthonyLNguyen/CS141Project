@@ -38,7 +38,7 @@ public class Game {
 	public void generateMap() {
 		ArrayList<Object> entities = new ArrayList<Object>();
 		for (int i = 0 ; i < 5 ; i++) 
-		entities.add(new Ninja());
+			entities.add(new Ninja());
 		entities.add(new Invincibility());
 		entities.add(new Bullet());
 		entities.add(new Radar());
