@@ -38,7 +38,7 @@ public class Map {
 	public void randomlyAddObjects(ArrayList<Object> objectArray){
 		while (objectArray.size() > 0){
 			if (addObject((int) (Math.random() * GRID_SIZE), (int) (Math.random() * GRID_SIZE), objectArray.get(0)))
-				objectArray.remove(0);
+			objectArray.remove(0);
 		}
 	}
 	
