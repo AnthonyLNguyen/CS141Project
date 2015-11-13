@@ -14,7 +14,7 @@ public class Bullet extends AbstractPowerUp {
 	 */
 	public String toString() {
 		if (isHidden)
-			return " ";
+			return "*";
 		else
 			return "B";
 	}

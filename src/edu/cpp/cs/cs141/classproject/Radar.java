@@ -12,7 +12,7 @@ public class Radar extends AbstractPowerUp {
 	 */
 	public String toString() {
 		if (isHidden)
-			return " ";
+			return "*";
 		else
 			return "R";
 	}
