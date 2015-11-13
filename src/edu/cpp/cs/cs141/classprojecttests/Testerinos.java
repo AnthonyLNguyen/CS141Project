@@ -5,7 +5,7 @@ import edu.cpp.cs.cs141.classproject.*;
 public class Testerinos {
 	
 	public static void main(String[] args) {
-		testMapMove();
+		testGenerateMap();
 	}
 	
 	public static void testMapPrint(){
