@@ -10,4 +10,7 @@ public class Room {
 	public boolean getHasDocument() {
 		return hasDocument;
 	}
+	public String toString() {
+		return "=";
+	}
 }
