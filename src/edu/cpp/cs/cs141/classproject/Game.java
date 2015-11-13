@@ -40,9 +40,10 @@ public class Game {
 	 * and powerups
 	 */
 	public void generateMap() {
-		for (int i = 1 ; i < 10 ; i += 3 )
-			for (int j = 1 ; j < 10 ; j += 3 )
-				gameMap.addObject(i, j, new Room(false));
+		gameMap.addObject(8, 0, new Player());
+		for (int i = 1 ; i <= 7 ; i += 3 )
+			for (int j = 1 ; j <= 7 ; j += 3 )
+				gameMap.addObject(i, j, new Room(false)); //adds an empty room to predetermined locations
 		gameMap.addObject(1, 1, new Room(false));
 		ArrayList<Object> entities = new ArrayList<Object>();
 		for (int i = 0 ; i < 5 ; i++) 
