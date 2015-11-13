@@ -3,7 +3,9 @@ package edu.cpp.cs.cs141.classproject;
 public class Ninja {
 	private int row;
 	private int col;
+
 	private boolean isHidden = true;
+
 
 	public int getRow() {
 		return row;
@@ -31,11 +33,15 @@ public class Ninja {
 	public void move() {
 
 	}
+<<<<<<< HEAD
 
 	public void setHidden(boolean isHidden) {
 		this.isHidden = isHidden;
 	}
 
+=======
+	
+>>>>>>> branch 'master' of https://github.com/Thingon/CS141Project.git
 	/*
 	 * this show Ninja to the Map
 	 * 
