@@ -28,7 +28,7 @@ public class Map {
 	}
 
 	public boolean addObject(int row, int col, Object o) {
-		if (grid[row][col] == null && !((row > 4 && col < 4) && o instanceof Ninja)) { // prevents ninjas from spawning too close to the player
+		if (grid[row][col] == null && !((row > 3 && col < 4) && o instanceof Ninja)) { // prevents ninjas from spawning too close to the player
 			grid[row][col] = o;
 			return true;
 		}
