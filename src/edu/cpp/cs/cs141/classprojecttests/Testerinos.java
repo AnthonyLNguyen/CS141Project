@@ -42,6 +42,7 @@ public class Testerinos {
 	public static void testGenerateMap(){
 		Game g = new Game();
 		g.generateMap();
+		System.out.println(g.getMap().toString());
 		g.showAll();
 		System.out.println(g.getMap().toString());
 	}
