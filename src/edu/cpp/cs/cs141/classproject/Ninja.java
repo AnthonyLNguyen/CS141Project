@@ -33,15 +33,13 @@ public class Ninja {
 	public void move() {
 
 	}
-<<<<<<< HEAD
+
 
 	public void setHidden(boolean isHidden) {
 		this.isHidden = isHidden;
 	}
 
-=======
-	
->>>>>>> branch 'master' of https://github.com/Thingon/CS141Project.git
+
 	/*
 	 * this show Ninja to the Map
 	 * 
