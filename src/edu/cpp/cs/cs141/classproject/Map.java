@@ -42,6 +42,22 @@ public class Map {
 		}
 	}
 	
+	public void revealObject(int row, int col){
+		if (grid[row][col] instanceof AbstractPowerUp)
+		((AbstractPowerUp) grid[row][col]).setHidden(false);
+		if (grid[row][col] instanceof Ninja)
+		((Ninja) grid[row][col]).setHidden(false);
+		else;
+	}
+	
+	public void revealAll(){
+		for (int i = 0; i < 9; i++)
+			for (int j = 0; j < 9; j++)
+				if (grid[i][j] != null)
+					revealObject(i,j);
+			
+	}
+	
 	public Object getObject (int row, int col) {
 		return grid[row][col];
 	}

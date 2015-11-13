@@ -11,7 +11,7 @@ public class Radar extends AbstractPowerUp {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		if (isHidden = true)
+		if (isHidden)
 			return "*";
 		else
 			return "R";

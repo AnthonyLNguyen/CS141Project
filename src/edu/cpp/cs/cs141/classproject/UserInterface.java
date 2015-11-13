@@ -16,7 +16,37 @@ public class UserInterface {
 	 * prompts the user with {@link #mainMenu()}
 	 */
 	public void startGame() {
+		printWelcomeMessage();
 
+		boolean quit = false;
+		while (!quit) {
+
+			switch (menuSelection()) {
+			case 1:
+				playGame();
+				break;
+			case 2:
+				quit = true;
+				System.out.println("GAME QUIT");
+				break;
+			default:
+				System.out.println("Invalid option. Try again...");
+				break;
+			}
+		}
+	}
+
+	/**
+	 * @return The option chosen whether to start the game or quit.
+	 */
+	public int menuSelection() {
+		int option;
+		System.out.println("Select an option:\n" + "\t1. Start New Game.\n" + "\t2. Quit.");
+
+		option = userinput.nextInt();
+		userinput.nextLine();
+
+		return option;
 	}
 
 	/**
@@ -24,7 +54,7 @@ public class UserInterface {
 	 * are playing.
 	 */
 	private void printWelcomeMessage() {
-
+		System.out.println("Welcome to Game");
 	}
 
 	/**

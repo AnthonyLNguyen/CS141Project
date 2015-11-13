@@ -9,6 +9,7 @@ public class Game {
 	private Map gameMap;
 	private boolean isFinished;
 	private boolean win;
+	private ArrayList<Object> entities = new ArrayList<Object>();
 	/**
 	 * The amount of moves steps in the game. Used to keep of duration of
 	 * powerups.
@@ -45,7 +46,6 @@ public class Game {
 			for (int j = 1 ; j <= 7 ; j += 3 )
 				gameMap.addObject(i, j, new Room(false)); //adds an empty room to predetermined locations
 		gameMap.addObject(1, 1, new Room(false));
-		ArrayList<Object> entities = new ArrayList<Object>();
 		for (int i = 0 ; i < 5 ; i++) 
 			entities.add(new Ninja());
 		entities.add(new Invincibility());
@@ -53,12 +53,10 @@ public class Game {
 		entities.add(new Radar());
 		gameMap.randomlyAddObjects(entities);
 	}
-
-	/**
-	 * Randomly places powerups in the map.
-	 */
-	public void randomizePowerups() {
+	public void showAll(){
+		gameMap.revealAll();
 	}
+
 
 	/**
 	 * Tests if {@link edu.cpp.cs.cs141.classproject.Player#getNumBullets(int)}
@@ -66,14 +64,6 @@ public class Game {
 	 * map if there is one in front of the player.
 	 */
 	public void shoot() {
-	}
-
-	/**
-	 * Generates the rooms and randomly makes only one of the rooms
-	 * {@link edu.cpp.cs.cs141.classproject.Room#getHasDocument()} as
-	 * {@code true}
-	 */
-	public void generateRooms() {
 	}
 
 	/**
