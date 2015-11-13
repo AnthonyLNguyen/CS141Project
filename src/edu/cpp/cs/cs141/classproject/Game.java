@@ -55,7 +55,7 @@ public class Game {
 			for (int j = 1; j <= 7; j += 3)
 				gameMap.addObject(i, j, new Room(false));
 		// change a random room to true
-		int randRow = (((int) (Math.random() * 3)) * 3) + 1; 
+		int randRow = (((int) (Math.random() * 3)) * 3) + 1;
 		int randCol = (((int) (Math.random() * 3)) * 3) + 1;
 		gameMap.removeObject(randRow, randCol);
 		gameMap.addObject(randRow, randCol, new Room(true));
