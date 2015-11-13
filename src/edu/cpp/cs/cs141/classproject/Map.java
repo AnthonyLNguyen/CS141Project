@@ -28,7 +28,8 @@ public class Map {
 	}
 
 	public boolean addObject(int row, int col, Object o) {
-		if (grid[row][col] == null && !((row > 3 && col < 4) && o instanceof Ninja)) { // prevents ninjas from spawning too close to the player
+		// prevents ninjas from spawning too close to the player
+		if (grid[row][col] == null && !((row > 3 && col < 4) && o instanceof Ninja)) {
 			grid[row][col] = o;
 			return true;
 		}
@@ -58,7 +59,7 @@ public class Map {
 				((Ninja) grid[row][col]).setHidden(false);
 			if (grid[row][col] instanceof Room)
 				((Room) grid[row][col]).setHidden(false);
-		} 
+		}
 	}
 
 	/**

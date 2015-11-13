@@ -11,8 +11,7 @@ public class Game {
 	private boolean win;
 	private ArrayList<Object> entities = new ArrayList<Object>();
 	private Player player = new Player();
-	private Ninja[] ninjas = {new Ninja(),new Ninja(),new Ninja(),new Ninja(),new Ninja(),new Ninja()};
-	private AbstractPowerUp[] powers = {new Invincibility(),new Bullet(),new Radar()};
+	private int amountNinjas = 6;
 	/**
 	 * The amount of moves steps in the game. Used to keep of duration of
 	 * powerups.
@@ -27,12 +26,12 @@ public class Game {
 	 */
 	public void movePlayer(int row, int col) {
 		Object[][] gameGrid = new Object[9][9];
-				gameGrid = gameMap.getGrid();
-		if(gameGrid[row][col] == null)
-		gameGrid[row][col] = player;
+		gameGrid = gameMap.getGrid();
+		if (gameGrid[row][col] == null)
+			gameGrid[row][col] = player;
 	}
-	
-	public Game (){
+
+	public Game() {
 		gameMap = new Map();
 	}
 
@@ -49,26 +48,34 @@ public class Game {
 	public void generateMap() {
 
 		gameMap.addObject(8, 0, player);
-		for (int i = 1 ; i <= 7 ; i += 3 )
-			for (int j = 1 ; j <= 7 ; j += 3 )
-				gameMap.addObject(i, j, new Room(false)); //adds an empty room to predetermined locations
-		int randRow = (((int)(Math.random() *3))*3)+1; //change a random room to true
-		int randCol = (((int)(Math.random() *3))*3)+1;
+
+		// Rooms
+		// adds an empty room to predetermined locations
+		for (int i = 1; i <= 7; i += 3)
+			for (int j = 1; j <= 7; j += 3)
+				gameMap.addObject(i, j, new Room(false));
+		// change a random room to true
+		int randRow = (((int) (Math.random() * 3)) * 3) + 1;
+		int randCol = (((int) (Math.random() * 3)) * 3) + 1;
 		gameMap.removeObject(randRow, randCol);
 		gameMap.addObject(randRow, randCol, new Room(true));
-		
-		
-		for (int i = 0 ; i < ninjas.length ; i++) 
-			entities.add(ninjas[i]);
-		entities.add(powers[0]);
-		entities.add(powers[1]);
-		entities.add(powers[2]);
+
+		// Ninjas
+		// 6 ninjas
+		for (int i = 0; i < amountNinjas; i++)
+			entities.add(new Ninja());
+
+		// Powerups
+		entities.add(new Invincibility());
+		entities.add(new Bullet());
+		entities.add(new Radar());
+
 		gameMap.randomlyAddObjects(entities);
 	}
-	public void showAll(){
+
+	public void showAll() {
 		gameMap.revealAll();
 	}
-
 
 	/**
 	 * Tests if {@link edu.cpp.cs.cs141.classproject.Player#getNumBullets(int)}
@@ -101,8 +108,8 @@ public class Game {
 	 */
 	public void loadGame(String file) {
 	}
-	
-	public Map getMap(){
+
+	public Map getMap() {
 		return gameMap;
 	}
 }

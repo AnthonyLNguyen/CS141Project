@@ -2,7 +2,7 @@ package edu.cpp.cs.cs141.classprojecttests;
 
 import edu.cpp.cs.cs141.classproject.*;
 
-public class Testerinos {
+public class Tests {
 	
 	public static void main(String[] args) {
 		testGenerateMap();

@@ -6,7 +6,6 @@ public class Ninja {
 
 	private boolean isHidden = true;
 
-
 	public int getRow() {
 		return row;
 	}
@@ -14,8 +13,6 @@ public class Ninja {
 	public void setRow(int row) {
 		this.row = row;
 	}
-
-
 
 	public int getCol() {
 		return col;
@@ -32,10 +29,10 @@ public class Ninja {
 
 	}
 
-
 	public void setHidden(boolean isHidden) {
 		this.isHidden = isHidden;
 	}
+
 	public boolean isHidden() {
 		return isHidden;
 	}
