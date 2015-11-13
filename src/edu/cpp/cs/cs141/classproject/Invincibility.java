@@ -13,7 +13,7 @@ public class Invincibility extends AbstractPowerUp {
 	 */
 	public String toString() {
 		if (isHidden)
-			return "*";
+			return " ";
 		else
 			return "I";
 	}

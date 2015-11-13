@@ -44,7 +44,7 @@ public class Ninja {
 	 */
 	public String toString() {
 		if (isHidden)
-			return "*";
+			return " ";
 		else
 			return "N";
 	}
