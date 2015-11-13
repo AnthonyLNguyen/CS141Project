@@ -11,7 +11,7 @@ public class Game {
 	private boolean win;
 	private ArrayList<Object> entities = new ArrayList<Object>();
 	private Player player = new Player();
-	private Ninja[] ninjas = {new Ninja(),new Ninja(),new Ninja(),new Ninja(),new Ninja()};
+	private Ninja[] ninjas = {new Ninja(),new Ninja(),new Ninja(),new Ninja(),new Ninja(),new Ninja()};
 	private AbstractPowerUp[] powers = {new Invincibility(),new Bullet(),new Radar()};
 	/**
 	 * The amount of moves steps in the game. Used to keep of duration of
@@ -53,7 +53,7 @@ public class Game {
 			for (int j = 1 ; j <= 7 ; j += 3 )
 				gameMap.addObject(i, j, new Room(false)); //adds an empty room to predetermined locations
 		gameMap.addObject(1, 1, new Room(false));
-		for (int i = 0 ; i < 5 ; i++) 
+		for (int i = 0 ; i < ninjas.length ; i++) 
 			entities.add(ninjas[i]);
 		entities.add(powers[0]);
 		entities.add(powers[1]);

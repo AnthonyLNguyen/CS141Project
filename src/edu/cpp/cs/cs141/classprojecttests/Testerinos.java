@@ -43,8 +43,10 @@ public class Testerinos {
 	public static void testGenerateMap(){
 		Game g = new Game();
 		g.generateMap();
-		System.out.println(g.getMap().toString());
+		System.out.println("Hidden \n" + g.getMap().toString());
 		g.showAll();
-		System.out.println(g.getMap().toString());
+		System.out.println("Revealed \n" + g.getMap().toString());
+		g.getMap().moveObject(8,0,8,1);
+		System.out.println("Player Moved \n" + g.getMap().toString());
 	}
 }
