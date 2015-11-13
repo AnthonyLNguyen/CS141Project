@@ -26,7 +26,7 @@ public class Ninja {
 	 * Moves the ninja to a random adjacent spot to its current location.
 	 */
 	public void move() {
-
+		
 	}
 
 	public void setHidden(boolean isHidden) {

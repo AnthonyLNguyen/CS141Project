@@ -25,10 +25,9 @@ public class Game {
 	 * @param col
 	 */
 	public void movePlayer(int row, int col) {
-		Object[][] gameGrid = new Object[9][9];
-		gameGrid = gameMap.getGrid();
-		if (gameGrid[row][col] == null)
-			gameGrid[row][col] = player;
+		gameMap.moveObject(player.getRow(), player.getCol(), row, col);
+		player.setCol(col);
+		player.setRow(row);
 	}
 
 	public Game() {
@@ -47,9 +46,9 @@ public class Game {
 	 */
 	public void generateMap() {
 
-		gameMap.addObject(8, 0, player);
+		gameMap.addObject(player.getRow(), player.getCol(), player);
 
-		// Rooms
+		// Rooms 
 		// adds an empty room to predetermined locations
 		for (int i = 1; i <= 7; i += 3)
 			for (int j = 1; j <= 7; j += 3)

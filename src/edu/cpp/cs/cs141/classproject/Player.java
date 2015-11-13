@@ -5,8 +5,12 @@ public class Player {
 	private int numLives;
 	private int row;
 	private int col;
-	private int dir;
 	private boolean isInvincible;
+	
+	public Player(){
+		row = 8;
+		col = 0;
+	}
 
 	public boolean isInvincible() {
 		return isInvincible;
@@ -14,14 +18,6 @@ public class Player {
 
 	public void setInvincible(boolean isInvincible) {
 		this.isInvincible = isInvincible;
-	}
-
-	public int getDir() {
-		return dir;
-	}
-
-	public void setDir(int dir) {
-		this.dir = dir;
 	}
 
 	public int getRow() {

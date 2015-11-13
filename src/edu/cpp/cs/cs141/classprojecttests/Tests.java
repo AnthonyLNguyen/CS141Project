@@ -46,7 +46,7 @@ public class Tests {
 		System.out.println("Hidden \n" + g.getMap().toString());
 		g.showAll();
 		System.out.println("Revealed \n" + g.getMap().toString());
-		g.getMap().moveObject(8,0,8,1);
+		g.movePlayer(8, 1);
 		System.out.println("Player Moved \n" + g.getMap().toString());
 	}
 }
