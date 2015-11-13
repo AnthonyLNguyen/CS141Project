@@ -3,6 +3,8 @@ package edu.cpp.cs.cs141.classproject;
 public class Ninja {
 	private int row;
 	private int col;
+	
+	private boolean isHidden = false;
 
 	public int getRow() {
 		return row;
@@ -26,8 +28,6 @@ public class Ninja {
 	public void move() {
 
 	}
-	
-	private boolean isHidden = false;
 	
 	/*
 	 * this show Ninja to the Map
