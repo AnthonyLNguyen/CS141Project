@@ -12,11 +12,12 @@ public class Game {
 	private ArrayList<Object> entities = new ArrayList<Object>();
 	private Player player = new Player();
 	private int amountNinjas = 6;
+	private Ninja[] ninjas = new Ninja[amountNinjas];
 	/**
 	 * The amount of moves steps in the game. Used to keep of duration of
 	 * powerups.
 	 */
-	private int moveCount;
+	private int moveCount = 0;
 
 	/**
 	 * Moves the character
@@ -28,7 +29,17 @@ public class Game {
 		gameMap.moveObject(player.getRow(), player.getCol(), row, col);
 		player.setCol(col);
 		player.setRow(row);
+		moveCount++;
 	}
+	/*
+	public void moveNinjas() {
+		for (int i = 0 ; i < amountNinjas; i++){
+		gameMap.moveObject(ninjas[i].getRow(), ninjas[i].getCol(), row, col);
+		ninjas[i].setCol(col);
+		ninjas[i].setRow(row);
+		moveCount++;
+		}
+	}*/
 
 	public Game() {
 		gameMap = new Map();
@@ -62,7 +73,7 @@ public class Game {
 		// Ninjas
 		// 6 ninjas
 		for (int i = 0; i < amountNinjas; i++)
-			entities.add(new Ninja());
+			entities.add(ninjas[i]);
 
 		// Powerups
 		entities.add(new Invincibility());
