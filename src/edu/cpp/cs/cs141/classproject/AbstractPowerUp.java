@@ -6,4 +6,17 @@ public abstract class AbstractPowerUp {
 	 * the player.
 	 */
 	public abstract void effect(Player p);
+	
+	public boolean isHidden() {
+		return isHidden;
+	}
+
+	public void setHidden(boolean isHidden) {
+		this.isHidden = isHidden;
+	}
+
+	protected boolean isHidden = false;
+	
+
+		
 }

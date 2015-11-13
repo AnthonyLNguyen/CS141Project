@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Map {
 
 	public static final int GRID_SIZE = 9;
-
+	
 	private Object[][] grid = new Object[GRID_SIZE][GRID_SIZE];
 
 	/*

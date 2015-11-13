@@ -5,12 +5,17 @@ public class Bullet extends AbstractPowerUp {
 
 	}
 
+	
+	
 	/*
 	 * this shows the Bullet to the Map
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		return "B";
+		if (isHidden = true)
+			return "*";
+		else
+			return "B";
 	}
 }

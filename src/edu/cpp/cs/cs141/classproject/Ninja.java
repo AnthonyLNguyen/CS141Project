@@ -26,13 +26,18 @@ public class Ninja {
 	public void move() {
 
 	}
-
+	
+	private boolean isHidden = false;
+	
 	/*
 	 * this show Ninja to the Map
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		return "N";
+		if (isHidden = true)
+			return "*";
+		else
+			return "N";
 	}
 }

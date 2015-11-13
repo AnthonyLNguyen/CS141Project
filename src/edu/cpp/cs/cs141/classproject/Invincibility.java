@@ -12,6 +12,9 @@ public class Invincibility extends AbstractPowerUp {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		return "I";
+		if (isHidden = true)
+			return "*";
+		else
+			return "I";
 	}
 }
