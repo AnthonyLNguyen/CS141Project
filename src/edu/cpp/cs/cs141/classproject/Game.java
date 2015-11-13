@@ -52,7 +52,12 @@ public class Game {
 		for (int i = 1 ; i <= 7 ; i += 3 )
 			for (int j = 1 ; j <= 7 ; j += 3 )
 				gameMap.addObject(i, j, new Room(false)); //adds an empty room to predetermined locations
-		gameMap.addObject(1, 1, new Room(false));
+		int randRow = (((int)(Math.random() *3))*3)+1; //change a random room to true
+		int randCol = (((int)(Math.random() *3))*3)+1;
+		gameMap.removeObject(randRow, randCol);
+		gameMap.addObject(randRow, randCol, new Room(true));
+		
+		
 		for (int i = 0 ; i < ninjas.length ; i++) 
 			entities.add(ninjas[i]);
 		entities.add(powers[0]);

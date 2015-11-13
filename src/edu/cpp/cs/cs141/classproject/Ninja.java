@@ -15,9 +15,7 @@ public class Ninja {
 		this.row = row;
 	}
 
-	public boolean isHidden() {
-		return isHidden;
-	}
+
 
 	public int getCol() {
 		return col;
@@ -38,7 +36,9 @@ public class Ninja {
 	public void setHidden(boolean isHidden) {
 		this.isHidden = isHidden;
 	}
-
+	public boolean isHidden() {
+		return isHidden;
+	}
 
 	/*
 	 * this show Ninja to the Map
