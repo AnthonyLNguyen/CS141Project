@@ -58,8 +58,7 @@ public class Map {
 				((Ninja) grid[row][col]).setHidden(false);
 			if (grid[row][col] instanceof Room)
 				((Room) grid[row][col]).setHidden(false);
-		} else
-			;
+		} 
 	}
 
 	/**
