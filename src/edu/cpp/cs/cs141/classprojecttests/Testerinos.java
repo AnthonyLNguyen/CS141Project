@@ -5,7 +5,7 @@ import edu.cpp.cs.cs141.classproject.*;
 public class Testerinos {
 	
 	public static void main(String[] args) {
-		testGenerateMap();
+		testMapMove();
 	}
 	
 	public static void testMapPrint(){
@@ -28,6 +28,7 @@ public class Testerinos {
 	public static void testMapMove(){
 		Map m = new Map();
 		m.addObject(0, 0, new Ninja());
+		m.revealAll();
 		int row = 0, col = 0;
 		for (int i = 0; i < Map.GRID_SIZE; i++){
 			for (int j = 0; j < Map.GRID_SIZE; j++){

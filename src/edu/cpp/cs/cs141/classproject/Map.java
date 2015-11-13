@@ -75,4 +75,8 @@ public class Map {
 		}
 		return false;
 	}
+
+	public Object[][] getGrid() {
+		return grid;
+	}
 }
