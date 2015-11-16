@@ -18,7 +18,7 @@ public class Map {
 		for (int i = 0; i < GRID_SIZE; i++) {
 			for (int j = 0; j < GRID_SIZE; j++) {
 				if (grid[i][j] == null)
-					result += " [ ]";
+					result += " [*]";
 				else
 					result += " [" + grid[i][j].toString() + "]";
 			}
@@ -38,7 +38,13 @@ public class Map {
 
 	public void randomlyAddObjects(ArrayList<Object> objectArray) {
 		while (objectArray.size() > 0) {
-			if (addObject((int) (Math.random() * GRID_SIZE), (int) (Math.random() * GRID_SIZE), objectArray.get(0)))
+			int row = (int) (Math.random() * GRID_SIZE);
+			int col = (int) (Math.random() * GRID_SIZE);
+			if (objectArray.get(0) instanceof Ninja){
+				((Ninja) (objectArray.get(0))).setRow(row);
+				((Ninja) (objectArray.get(0))).setCol(col);	
+			}
+			if (addObject(row, col, objectArray.get(0)))
 				objectArray.remove(0);
 		}
 	}
