@@ -38,7 +38,7 @@ public class Map {
 
 	public boolean canMove(int row, int col)
 	{
-		if(grid [row][col] != null || (row > 8 || col > 8))
+		if(grid [row][col] != null || (row > 8 || col > 8 || row < 0 || col < 0))
 			return false;
 		return true;
 	}
