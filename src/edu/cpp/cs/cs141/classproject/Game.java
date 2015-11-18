@@ -36,16 +36,17 @@ public class Game {
 		for (Ninja n : ninjas) {
 			int row = n.getRow();
 			int col = n.getCol();
-			if (Math.random() > .5)
+			while (!gameMap.canMove(row, col)) {
 				if (Math.random() > .5)
-					row++;
-				else
-					row--;
-			else
-				if (Math.random() > .5)
+					if (Math.random() > .5)
+						row++;
+					else
+						row--;
+				else if (Math.random() > .5)
 					col++;
 				else
-					col--;				
+					col--;
+			}
 			gameMap.moveObject(n.getRow(), n.getCol(), row, col);
 			n.setCol(col);
 			n.setRow(row);
@@ -88,7 +89,6 @@ public class Game {
 			ninjas[i] = new Ninja();
 			entities.add(ninjas[i]);
 		}
-			
 
 		// Powerups
 		entities.add(new Invincibility());

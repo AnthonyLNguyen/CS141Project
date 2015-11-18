@@ -38,11 +38,9 @@ public class Map {
 
 	public boolean canMove(int row, int col)
 	{
-		if(grid [row][col] == null)
+		if(grid [row][col] != null || (row > 9 || col > 9))
 			return false;
-		if(row < 9 || col < 9)
-			return true;
-		return false;
+		return true;
 	}
 	
 	public void randomlyAddObjects(ArrayList<Object> objectArray) {
