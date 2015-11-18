@@ -36,6 +36,15 @@ public class Map {
 		return false;
 	}
 
+	public boolean canMove(int row, int col)
+	{
+		if(grid [row][col] == null)
+			return false;
+		if(row < 9 || col < 9)
+			return true;
+		return false;
+	}
+	
 	public void randomlyAddObjects(ArrayList<Object> objectArray) {
 		while (objectArray.size() > 0) {
 			int row = (int) (Math.random() * GRID_SIZE);
