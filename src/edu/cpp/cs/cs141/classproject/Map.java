@@ -38,9 +38,10 @@ public class Map {
 
 	public boolean canMove(int row, int col)
 	{
-		if(grid [row][col] != null || (row > 8 || col > 8 || row < 0 || col < 0))
-			return false;
-		return true;
+		// since the and operator returns false if the first one is false we can do this
+		if((row < 8 && col < 8 && row > 0 && col > 0) && grid[row][col] == null)
+			return true;
+		return false;
 	}
 	
 	public void randomlyAddObjects(ArrayList<Object> objectArray) {

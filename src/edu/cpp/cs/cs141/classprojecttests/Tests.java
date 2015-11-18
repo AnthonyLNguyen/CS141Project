@@ -1,11 +1,13 @@
 package edu.cpp.cs.cs141.classprojecttests;
 
+import java.util.Scanner;
+
 import edu.cpp.cs.cs141.classproject.*;
 
 public class Tests {
 	
 	public static void main(String[] args) {
-		testGenerateMap();
+		testNinjaMove();
 	}
 	
 	public static void testMapPrint(){
@@ -49,5 +51,13 @@ public class Tests {
 		g.movePlayer(8, 1);
 		g.moveNinjas();
 		System.out.println("Player Moved \n" + g.getMap().toString());
+	}
+	
+	public static void testNinjaMove(){
+		Game g = new Game();
+		g.generateMap();
+		for (int i = 0; i < 5; i++)
+			g.moveNinjas();
+		System.out.println(g.getMap().toString());
 	}
 }
