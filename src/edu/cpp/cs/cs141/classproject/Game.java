@@ -39,13 +39,13 @@ public class Game {
 			while (!gameMap.canMove(row, col)) {
 				if (Math.random() > .5)
 					if (Math.random() > .5)
-						row++;
+						row = n.getRow() + 1;
 					else
-						row--;
+						row = n.getRow() - 1;
 				else if (Math.random() > .5)
-					col++;
+					col = n.getCol() + 1;
 				else
-					col--;
+					col = n.getCol() + 1;
 			}
 			gameMap.moveObject(n.getRow(), n.getCol(), row, col);
 			n.setCol(col);
