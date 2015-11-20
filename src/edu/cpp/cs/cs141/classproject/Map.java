@@ -44,6 +44,19 @@ public class Map {
 		return false;
 	}
 	
+	public boolean[] whereCanMove(Ninja n){
+		boolean[] b = {true, true, true, true};
+		if (n.getRow() + 1 > 8 || grid[n.getRow() + 1][n.getCol()] != null)
+			b[0] = false;
+		if (n.getCol() + 1 > 8 || grid[n.getRow()][n.getCol() + 1] != null)
+			b[1] = false;
+		if (n.getRow() - 1 < 0 || grid[n.getRow() - 1][n.getCol()] != null)
+			b[2] = false;
+		if (n.getCol() - 1 < 0 || grid[n.getRow()][n.getCol() - 1] != null)
+			b[3] = false;
+		return b;
+	}
+	
 	public void randomlyAddObjects(ArrayList<Object> objectArray) {
 		while (objectArray.size() > 0) {
 			int row = (int) (Math.random() * GRID_SIZE);

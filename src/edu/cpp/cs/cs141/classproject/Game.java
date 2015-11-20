@@ -34,23 +34,25 @@ public class Game {
 
 	public void moveNinjas() {
 		for (Ninja n : ninjas) {
-			int row = n.getRow();
-			int col = n.getCol();
-			while (!gameMap.canMove(row, col)) {
-				if (Math.random() > .5)
-					if (Math.random() > .5)
-						row = n.getRow() + 1;
-					else
-						row = n.getRow() - 1;
-				else if (Math.random() > .5)
-					col = n.getCol() + 1;
-				else
-					col = n.getCol() + 1;
+			boolean[] moveableSpaces = gameMap.whereCanMove(n);
+			int choice = (int) (Math.random() * 4);
+			while (!moveableSpaces[choice]){
+				choice = (int) (Math.random() * 4);
 			}
-			gameMap.moveObject(n.getRow(), n.getCol(), row, col);
-			n.setCol(col);
-			n.setRow(row);
-			moveCount++;
+			switch (choice){
+			case 0: 
+				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow() + 1, n.getCol());
+				break;
+			case 1: 
+				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow() + 1, n.getCol());
+				break;
+			case 2:
+				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow() + 1, n.getCol());
+				break;
+			case 3:
+				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow() + 1, n.getCol());
+				break;
+			}
 		}
 	}
 
