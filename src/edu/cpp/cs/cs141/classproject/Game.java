@@ -26,15 +26,37 @@ public class Game {
 	 * @param col
 	 */
 	public void movePlayer(int row, int col) {
-		if (!gameMap.canMove(row,col)){
-			//placeholder
+		if (gameMap.playerCollision(player.getRow() + row, player.getCol() + col) != 3) {
+			
+			int collisionType = gameMap.playerCollision(player.getRow() + row, player.getCol() + col);
+			switch (collisionType) {
+			case 1:
+				player.setNumLives(player.getNumLives() - 1);
+				gameMap.moveObject(player.getRow(), player.getCol(), 8, 0);
+				player.setCol(0);
+				player.setRow(8);
+				break;
+			case 2:
+				System.out.println("POWER UP!");
+				gameMap.removeObject(player.getRow() + row, player.getCol() + col);
+				break;
+			case 3:
+				System.out.println("CAN'T ENTER ROOM");
+				break;
+			default:
+				System.out.println("");
+				break;
+			}
+			
+			gameMap.moveObject(player.getRow(), player.getCol(), player.getRow() + row, player.getCol() + col);
+			player.setCol(player.getCol() + col);
+			player.setRow(player.getRow() + row);
+			moveCount++;
+
 		}
-		gameMap.moveObject(player.getRow(), player.getCol(), player.getRow() + row, player.getCol() + col);
-		player.setCol(player.getCol() + col);
-		player.setRow(player.getRow() + row);
-		moveCount++;
+		else{System.out.println("Cannot move");}
 	}
-	
+
 	public void moveNinjas() {
 		for (Ninja n : ninjas) {
 			int row = n.getRow();

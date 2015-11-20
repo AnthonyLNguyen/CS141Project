@@ -43,6 +43,17 @@ public class Map {
 			return true;
 		return false;
 	}
+	public int playerCollision(int row, int col)
+	{
+		// since the and operator returns false if the first one is false we can do this
+		if((row <= 8 && col <= 8 && row >= 0 && col >= 0) && grid[row][col] instanceof Ninja)
+			return 1;
+		if((row <= 8 && col <= 8 && row >= 0 && col >= 0) && grid[row][col] instanceof AbstractPowerUp)
+			return 2;
+		if((row <= 8 && col <= 8 && row >= 0 && col >= 0) && grid[row][col] instanceof Room)
+			return 3;
+		return 0;
+	}
 	
 	public void randomlyAddObjects(ArrayList<Object> objectArray) {
 		while (objectArray.size() > 0) {
