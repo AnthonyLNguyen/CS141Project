@@ -7,7 +7,7 @@ import edu.cpp.cs.cs141.classproject.*;
 public class Tests {
 	
 	public static void main(String[] args) {
-		testNinjaMove();
+		testGenerateMap();
 	}
 	
 	public static void testMapPrint(){
@@ -44,13 +44,16 @@ public class Tests {
 	
 	public static void testGenerateMap(){
 		Game g = new Game();
+		UserInterface u = new UserInterface(g);
 		g.generateMap();
 		System.out.println("Hidden \n" + g.getMap().toString());
 		g.showAll();
 		System.out.println("Revealed \n" + g.getMap().toString());
-		g.movePlayer(8, 1);
+		while(true){
+		u.playerMove();
 		g.moveNinjas();
 		System.out.println("Player Moved \n" + g.getMap().toString());
+		}
 	}
 	
 	public static void testNinjaMove(){

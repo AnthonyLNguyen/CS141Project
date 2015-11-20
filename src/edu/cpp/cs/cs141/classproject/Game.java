@@ -26,31 +26,46 @@ public class Game {
 	 * @param col
 	 */
 	public void movePlayer(int row, int col) {
-		gameMap.moveObject(player.getRow(), player.getCol(), row, col);
-		player.setCol(col);
-		player.setRow(row);
+		if (!gameMap.canMove(row, col)) {
+			// placeholder
+		}
+		gameMap.moveObject(player.getRow(), player.getCol(), player.getRow() + row, player.getCol() + col);
+		player.setCol(player.getCol() + col);
+		player.setRow(player.getRow() + row);
 		moveCount++;
 	}
 
 	public void moveNinjas() {
 		for (Ninja n : ninjas) {
+
 			boolean[] moveableSpaces = gameMap.whereCanMove(n);
 			int choice = (int) (Math.random() * 4);
-			while (!moveableSpaces[choice]){
-				choice = (int) (Math.random() * 4);
+			if (moveableSpaces[0] || moveableSpaces[1] || moveableSpaces[2] || moveableSpaces[3]) {
+				while (!moveableSpaces[choice]) {
+					choice = (int) (Math.random() * 4);
+				}
 			}
-			switch (choice){
-			case 0: 
+			else
+				choice = -1;
+
+			switch (choice) {
+			case 0:
 				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow() + 1, n.getCol());
+				n.setRow(n.getRow() + 1);
 				break;
-			case 1: 
-				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow() + 1, n.getCol());
+			case 1:
+				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow(), n.getCol() + 1);
+				n.setCol(n.getCol() + 1);
 				break;
 			case 2:
-				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow() + 1, n.getCol());
+				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow() - 1, n.getCol());
+				n.setRow(n.getRow() - 1);
 				break;
 			case 3:
-				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow() + 1, n.getCol());
+				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow(), n.getCol() - 1);
+				n.setCol(n.getCol() - 1);
+				break;
+			default:
 				break;
 			}
 		}

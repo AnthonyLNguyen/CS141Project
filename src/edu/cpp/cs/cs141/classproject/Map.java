@@ -39,7 +39,7 @@ public class Map {
 	public boolean canMove(int row, int col)
 	{
 		// since the and operator returns false if the first one is false we can do this
-		if((row < 8 && col < 8 && row > 0 && col > 0) && grid[row][col] == null)
+		if((row <= 8 && col <= 8 && row >= 0 && col >= 0) && grid[row][col] == null)
 			return true;
 		return false;
 	}
