@@ -26,15 +26,18 @@ public class Game {
 	 * @param col
 	 */
 	public void movePlayer(int row, int col) {
-		if (gameMap.playerCollision(player.getRow() + row, player.getCol() + col) != 3) {
-			
+		if (gameMap.playerCollision(player.getRow() + row, player.getCol() + col) != 3 && (player.getRow() + row <= 8
+				&& player.getCol() + col <= 8 && player.getRow() + row >= 0 && player.getCol() + col >= 0)) {
+
 			int collisionType = gameMap.playerCollision(player.getRow() + row, player.getCol() + col);
 			switch (collisionType) {
 			case 1:
-				player.setNumLives(player.getNumLives() - 1);
-				gameMap.moveObject(player.getRow(), player.getCol(), 8, 0);
-				player.setCol(0);
-				player.setRow(8);
+				if (player.isInvincible()) {
+					player.setNumLives(player.getNumLives() - 1);
+					gameMap.moveObject(player.getRow(), player.getCol(), 8, 0);
+					player.setCol(0);
+					player.setRow(8);
+				}
 				break;
 			case 2:
 				System.out.println("POWER UP!");
@@ -47,14 +50,16 @@ public class Game {
 				System.out.println("");
 				break;
 			}
-			
+
 			gameMap.moveObject(player.getRow(), player.getCol(), player.getRow() + row, player.getCol() + col);
 			player.setCol(player.getCol() + col);
 			player.setRow(player.getRow() + row);
+			moveNinjas();
 			moveCount++;
 
+		} else {
+			System.out.println("Cannot move");
 		}
-		else{System.out.println("Cannot move");}
 	}
 
 	public void moveNinjas() {
@@ -66,8 +71,7 @@ public class Game {
 				while (!moveableSpaces[choice]) {
 					choice = (int) (Math.random() * 4);
 				}
-			}
-			else
+			} else
 				choice = -1;
 
 			switch (choice) {
@@ -101,6 +105,30 @@ public class Game {
 	 * Uses the look ability
 	 */
 	public void playerLook() {
+	}
+
+	public void playerPowerup(Object power) {
+		int p = 0;
+		if (power instanceof Bullet)
+			p = 1;
+		if (power instanceof Invincibility)
+			p = 2;
+		if (power instanceof Radar)
+			p = 3;
+
+		switch (p) {
+		case 1:
+			player.setNumBullets(player.getNumBullets() + 1);
+			break;
+		case 2:
+			player.setInvincible(true);
+			break;
+		case 3:
+			showAll();
+			break;
+		default:
+			break;
+		}
 	}
 
 	/**
