@@ -73,7 +73,30 @@ public class UserInterface {
 	 * returns that it is finished.
 	 */
 	public void playGame() {
-
+		gameEngine.generateMap();
+		playerMove();
+		gameEngine.moveNinjas();
 	}
 
+	public void playerMove() {
+		System.out.println("Enter a Direction: 1- UP | 2- DOWN | 3- RIGHT | 4- LEFT");
+		int direction = userinput.nextInt();
+		switch (direction) {
+		case 1:
+			gameEngine.movePlayer(-1, 0);
+			break;
+		case 2:
+			gameEngine.movePlayer(1, 0);
+			break;
+		case 3:
+			gameEngine.movePlayer(0, 1);
+			break;
+		case 4:
+			gameEngine.movePlayer(0, -1);
+			break;
+		default:
+			System.out.println("Invalid option. Try again...");
+			break;
+		}
+	}
 }

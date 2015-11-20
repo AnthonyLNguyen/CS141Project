@@ -26,9 +26,9 @@ public class Game {
 	 * @param col
 	 */
 	public void movePlayer(int row, int col) {
-		gameMap.moveObject(player.getRow(), player.getCol(), row, col);
-		player.setCol(col);
-		player.setRow(row);
+		gameMap.moveObject(player.getRow(), player.getCol(), player.getRow()+row, player.getCol()+col);
+		player.setCol(player.getCol()+col);
+		player.setRow(player.getRow()+row);
 		moveCount++;
 	}
 
