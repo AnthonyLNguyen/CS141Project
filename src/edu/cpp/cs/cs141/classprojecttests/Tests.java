@@ -49,9 +49,11 @@ public class Tests {
 		System.out.println("Hidden \n" + g.getMap().toString());
 		g.showAll();
 		System.out.println("Revealed \n" + g.getMap().toString());
+		while(true){
 		u.playerMove();
 		g.moveNinjas();
 		System.out.println("Player Moved \n" + g.getMap().toString());
+		}
 	}
 	
 	public static void testNinjaMove(){

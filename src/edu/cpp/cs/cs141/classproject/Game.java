@@ -26,28 +26,41 @@ public class Game {
 	 * @param col
 	 */
 	public void movePlayer(int row, int col) {
-		gameMap.moveObject(player.getRow(), player.getCol(), player.getRow()+row, player.getCol()+col);
-		player.setCol(player.getCol()+col);
-		player.setRow(player.getRow()+row);
+		gameMap.moveObject(player.getRow(), player.getCol(), player.getRow() + row, player.getCol() + col);
+		player.setCol(player.getCol() + col);
+		player.setRow(player.getRow() + row);
 		moveCount++;
 	}
-
+	
 	public void moveNinjas() {
 		for (Ninja n : ninjas) {
 			int row = n.getRow();
 			int col = n.getCol();
-			while (!gameMap.canMove(row, col)) {
-				if (Math.random() > .5)
+			boolean move = true;
+			while (move) {
+				if (Math.random() > .5) {
 					if (Math.random() > .5)
-						row = n.getRow() + 1;
-					else
-						row = n.getRow() - 1;
-				else if (Math.random() > .5)
-					col = n.getCol() + 1;
-				else
-					col = n.getCol() + 1;
+						if (gameMap.canMove(n.getRow() + 1, col)) {
+							row = n.getRow() + 1;
+							move = false;
+						} else if (gameMap.canMove(n.getRow() - 1, col)) {
+							row = n.getRow() - 1;
+							move = false;
+						}
+				} else {
+					if (Math.random() > .5)
+						if (gameMap.canMove(row, n.getCol() - 1)) {
+							col = n.getCol() - 1;
+							move = false;
+						} else if (gameMap.canMove(row, n.getCol() + 1)) {
+							col = n.getCol() + 1;
+							move = false;
+						} else
+							move = false;
+				}
 			}
 			gameMap.moveObject(n.getRow(), n.getCol(), row, col);
+			System.out.println(n.getRow() + "," + n.getCol() + " to" + row + "," + col);
 			n.setCol(col);
 			n.setRow(row);
 			moveCount++;
