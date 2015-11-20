@@ -26,6 +26,9 @@ public class Game {
 	 * @param col
 	 */
 	public void movePlayer(int row, int col) {
+		if (!gameMap.canMove(row,col)){
+			//placeholder
+		}
 		gameMap.moveObject(player.getRow(), player.getCol(), player.getRow() + row, player.getCol() + col);
 		player.setCol(player.getCol() + col);
 		player.setRow(player.getRow() + row);
