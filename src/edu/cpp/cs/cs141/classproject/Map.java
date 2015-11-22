@@ -82,6 +82,19 @@ public class Map {
 		return isEmpty;
 	}
 
+	public boolean playerNextToNinja(Player p) {
+		boolean[] isNinja = { false, false, false, false };
+		if (!(p.getRow() + 1 > 8) && grid[p.getRow() + 1][p.getCol()] instanceof Ninja)// down
+			isNinja[0] = true;
+		if (!(p.getCol() + 1 > 8) && grid[p.getRow()][p.getCol() + 1] instanceof Ninja)// right
+			isNinja[1] = true;
+		if (!(p.getRow() - 1 < 0) && grid[p.getRow() - 1][p.getCol()] instanceof Ninja)// up
+			isNinja[2] = true;
+		if (!(p.getCol() - 1 < 0) && grid[p.getRow()][p.getCol() - 1] instanceof Ninja)// left
+			isNinja[3] = true;
+		return (isNinja[0] || isNinja[1] || isNinja[2] || isNinja[3]);
+	}
+	
 	public void randomlyAddObjects(ArrayList<Object> objectArray) {
 		while (objectArray.size() > 0) {
 			int row = (int) (Math.random() * GRID_SIZE);

@@ -35,10 +35,7 @@ public class Game {
 			switch (collisionType) {
 			case 1:
 				if (player.isInvincible()) {
-					player.setNumLives(player.getNumLives() - 1);
-					gameMap.moveObject(player.getRow(), player.getCol(), 8, 0);
-					player.setCol(0);
-					player.setRow(8);
+					killPlayer();
 				}
 				break;
 			case 2:
@@ -69,6 +66,9 @@ public class Game {
 			player.setCol(newCol);
 			player.setRow(newRow);
 			moveNinjas();
+			vision();
+			if (gameMap.playerNextToNinja(player))
+				killPlayer();
 			moveCount++;
 
 		} else {
@@ -76,6 +76,16 @@ public class Game {
 		}
 	}
 
+	public void killPlayer() {
+		System.out.println("You were mortally stabbed!");
+		System.out.println("\n" + getMap().toString());
+		player.setNumLives(player.getNumLives() - 1);
+		gameMap.moveObject(player.getRow(), player.getCol(), 8, 0);
+		player.setCol(0);
+		player.setRow(8);
+		vision();
+	}
+	
 	public void moveNinjas() {
 		for (Ninja n : ninjas) {
 

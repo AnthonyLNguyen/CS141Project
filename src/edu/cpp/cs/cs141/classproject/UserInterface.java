@@ -74,10 +74,16 @@ public class UserInterface {
 	 */
 	public void playGame() {
 		gameEngine.generateMap();
-		playerMove();
-		gameEngine.moveNinjas();
+		System.out.println("Hidden \n" + gameEngine.getMap().toString());
+		gameEngine.showAll();
+		System.out.println("Revealed \n" + gameEngine.getMap().toString());
+		while(true){
+			playerMove();
+			System.out.println("Player Moved \n" + gameEngine.getMap().toString());
+		}
 	}
 
+	
 	public void playerMove() {
 		System.out.println("Enter a Direction: 1- UP | 2- DOWN | 3- RIGHT | 4- LEFT");
 		int direction = userinput.nextInt();
