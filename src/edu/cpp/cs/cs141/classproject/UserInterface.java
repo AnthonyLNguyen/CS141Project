@@ -94,6 +94,12 @@ public class UserInterface {
 		case 4:
 			gameEngine.movePlayer(0, -1);
 			break;
+		case 42:
+			gameEngine.showAll();
+			break;
+		case 24:
+			gameEngine.hideAll();
+			break;
 		default:
 			System.out.println("Invalid option. Try again...");
 			break;

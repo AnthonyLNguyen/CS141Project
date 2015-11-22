@@ -26,10 +26,12 @@ public class Game {
 	 * @param col
 	 */
 	public void movePlayer(int row, int col) {
-		if (gameMap.playerCollision(player.getRow() + row, player.getCol() + col) != 3 && (player.getRow() + row <= 8
-				&& player.getCol() + col <= 8 && player.getRow() + row >= 0 && player.getCol() + col >= 0)) {
+		int newRow = player.getRow() + row;
+		int newCol = player.getCol() + col;
+		if (gameMap.playerCollision(newRow, newCol) != 3
+				&& (newRow <= 8 && newCol <= 8 && newRow >= 0 && newCol >= 0)) {
 
-			int collisionType = gameMap.playerCollision(player.getRow() + row, player.getCol() + col);
+			int collisionType = gameMap.playerCollision(newRow, newCol);
 			switch (collisionType) {
 			case 1:
 				if (player.isInvincible()) {
@@ -41,7 +43,19 @@ public class Game {
 				break;
 			case 2:
 				System.out.println("POWER UP!");
-				gameMap.removeObject(player.getRow() + row, player.getCol() + col);
+				if (gameMap.getObject(newRow, newCol) instanceof Bullet) {
+					playerPowerup(1);
+					System.out.println("Bullet Added");
+				}
+				if (gameMap.getObject(newRow, newCol) instanceof Invincibility) {
+					playerPowerup(2);
+					System.out.println("Player Invincible");
+				}
+				if (gameMap.getObject(newRow, newCol) instanceof Radar) {
+					playerPowerup(3);
+					System.out.println("Radar Activated");
+				}
+				gameMap.removeObject(newRow, newCol);
 				break;
 			case 3:
 				System.out.println("CAN'T ENTER ROOM");
@@ -51,9 +65,9 @@ public class Game {
 				break;
 			}
 
-			gameMap.moveObject(player.getRow(), player.getCol(), player.getRow() + row, player.getCol() + col);
-			player.setCol(player.getCol() + col);
-			player.setRow(player.getRow() + row);
+			gameMap.moveObject(player.getRow(), player.getCol(), newRow, newCol);
+			player.setCol(newCol);
+			player.setRow(newRow);
 			moveNinjas();
 			moveCount++;
 
@@ -107,6 +121,21 @@ public class Game {
 	public void playerLook() {
 	}
 
+	public void vision(){
+		int row = player.getRow();
+		int col = player.getCol();
+		hideAll();
+		boolean[] isEmpty = gameMap.playerVision(player);
+		if (!(isEmpty[0] || player.getRow() + 1 > 8))
+			gameMap.revealObject(row+1, col);
+		if (!(isEmpty[1] || player.getCol() + 1 > 8))
+			gameMap.revealObject(row, col+1);
+		if (!(isEmpty[2] || player.getRow() - 1 < 0))
+			gameMap.revealObject(row-1, col);
+		if (!(isEmpty[3] || player.getCol() - 1 < 0))
+			gameMap.revealObject(row, col-1);
+	}
+	
 	public void playerPowerup(Object power) {
 		int p = 0;
 		if (power instanceof Bullet)
@@ -124,7 +153,7 @@ public class Game {
 			player.setInvincible(true);
 			break;
 		case 3:
-			showAll();
+			gameMap.radar();
 			break;
 		default:
 			break;
@@ -167,6 +196,10 @@ public class Game {
 
 	public void showAll() {
 		gameMap.revealAll();
+	}
+	
+	public void hideAll() {
+		gameMap.unrevealAll();
 	}
 
 	/**

@@ -50,8 +50,9 @@ public class Tests {
 		g.showAll();
 		System.out.println("Revealed \n" + g.getMap().toString());
 		while(true){
-		u.playerMove();
-		System.out.println("Player Moved \n" + g.getMap().toString());
+			u.playerMove();
+			g.vision();
+			System.out.println("Player Moved \n" + g.getMap().toString());
 		}
 	}
 	
