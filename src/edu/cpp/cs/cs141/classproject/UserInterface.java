@@ -114,6 +114,7 @@ public class UserInterface {
 	 */
 	public void playGame() {
 		gameEngine.generateMap();
+		gameEngine.vision();
 		while(!gameEngine.isFinished()){
 			System.out.println( "\n"+ gameEngine.getMap().toString());
 			gameEngine.stats();
