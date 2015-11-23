@@ -32,7 +32,7 @@ public class Game {
 		if (newRow <= 8 && newCol <= 8 && newRow >= 0 && newCol >= 0) {
 
 			if (player.isInvincible()) {
-				System.out.println("Player invincible for " + (5-imoves) +" more turns.");
+				System.out.println("Player invincible for " + (5 - imoves) + " more turns.");
 				imoves++;
 				if (5 < imoves) {
 					player.setInvincible(false);
@@ -65,11 +65,10 @@ public class Game {
 				break;
 			case 3:
 				if (gameMap.isPlayerAboveRoom(player) && gameMap.getObject(newRow, newCol) instanceof Room) {
-					if (((Room) gameMap.getObject(newRow, newCol)).getHasDocument()){
+					if (((Room) gameMap.getObject(newRow, newCol)).getHasDocument()) {
 						System.out.println("You found the document. Whoopdie freakin do.");
 						isFinished = true;
-					}
-					else
+					} else
 						System.out.println("The room is empty, but you are filled with determination.");
 				} else
 					System.out.println("CAN'T ENTER ROOM");
@@ -93,10 +92,13 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Reduces {@link #player} life by 1 and changes the position to (8,0)
+	 */
 	public void killPlayer() {
 		System.out.println("You were mortally stabbed!");
 		System.out.println("\n" + getMap().toString());
-		
+
 		player.setNumLives(player.getNumLives() - 1);
 		gameMap.moveObject(player.getRow(), player.getCol(), 8, 0);
 		player.setCol(0);
@@ -108,6 +110,9 @@ public class Game {
 		return isFinished;
 	}
 
+	/**
+	 * Randomly moves the the ninjas in array {@link #ninjas}
+	 */
 	public void moveNinjas() {
 		for (Ninja n : ninjas) {
 			boolean[] moveableSpaces = gameMap.whereCanMove(n);
@@ -145,11 +150,10 @@ public class Game {
 	public Game() {
 		gameMap = new Map();
 	}
-	
+
 	public void stats() {
-		System.out.println("Moves:" + moveCount + "\n"
-				+ "Ammo:" + player.getNumBullets() + "\n"
-						+ "Lives:" + player.getNumLives());
+		System.out.println("Moves:" + moveCount + "\n" + "Ammo:" + player.getNumBullets() + "\n" + "Lives:"
+				+ player.getNumLives());
 	}
 
 	/**
@@ -158,10 +162,65 @@ public class Game {
 	public void playerLook(int dir) {
 		int row = player.getRow();
 		int col = player.getCol();
-		switch (dir) {
-		case 1:
-			break;
-		}
+		boolean lookTraveled = false;
+		if (player.getNumBullets() > 0) {
+			player.setNumBullets(player.getNumBullets() - 1);
+			switch (dir) {
+			case 1:
+				while (!lookTraveled) {
+					for (int i = row; i > 0; i--) {
+						if (gameMap.getObject(i, col) instanceof Ninja) {
+							gameMap.revealObject(i, col);
+							lookTraveled = true;
+							
+						}
+					}
+					
+					lookTraveled = true;
+				}
+				break;
+			case 2:
+				while (!lookTraveled) {
+					for (int i = row; i < 8; i++) {
+						if (gameMap.getObject(i, col) instanceof Ninja) {
+							gameMap.revealObject(i, col);
+							lookTraveled = true;
+							
+						}
+					}
+					
+					lookTraveled = true;
+				}
+				break;
+			case 3:
+				while (!lookTraveled) {
+					for (int i = col; i < 8; i++) {
+						if (gameMap.getObject(row, i) instanceof Ninja) {
+							gameMap.revealObject(row, i);
+							lookTraveled = true;
+							
+						}
+					}
+					
+					lookTraveled = true;
+				}
+				break;
+			case 4:
+				while (!lookTraveled) {
+					for (int i = col; i > 0; i--) {
+						if (gameMap.getObject(row, i) instanceof Ninja) {
+							gameMap.revealObject(row, i);
+							lookTraveled = true;
+							
+						}
+					}
+					
+					lookTraveled = true;
+				}
+				break;
+			}
+		} else
+			System.out.println("No Bullets");
 	}
 
 	public void vision() {
@@ -170,8 +229,7 @@ public class Game {
 		boolean[] block = { false, false, false, false };
 		hideAll();
 		boolean[] isEmpty = gameMap.playerVision(player);
-		
-		
+
 		if (!(isEmpty[0] || row + 1 > 8)) {
 			gameMap.revealObject(row + 1, col);
 			if (!(gameMap.getObject(row + 1, col) instanceof EmptySpace))
@@ -192,8 +250,7 @@ public class Game {
 			if (!(gameMap.getObject(row, col - 1) instanceof EmptySpace))
 				block[3] = true;
 		}
-		
-		
+
 		if (!(isEmpty[4] || row + 2 > 8) && !block[0])
 			if (!(gameMap.getObject(row + 1, col) instanceof Room))
 				gameMap.revealObject(row + 2, col);
@@ -280,7 +337,7 @@ public class Game {
 		int col = player.getCol();
 		boolean bulletTraveled = false;
 		if (player.getNumBullets() > 0) {
-			player.setNumBullets(player.getNumBullets()-1);
+			player.setNumBullets(player.getNumBullets() - 1);
 			switch (dir) {
 			case 1:
 				while (!bulletTraveled) {

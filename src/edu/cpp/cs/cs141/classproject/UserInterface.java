@@ -124,6 +124,9 @@ public class UserInterface {
 
 
 	
+	/**
+	 * Prompts the user for a command
+	 */
 	public void playerMove() {
 		System.out.println("Enter a Command: 1- MOVE UP | 2- MOVE DOWN | 3- MOVE RIGHT | 4- MOVE LEFT | 5- MENU | 6- HELP");
 		int direction = userinput.nextInt();
