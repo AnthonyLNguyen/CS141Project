@@ -280,6 +280,7 @@ public class Game {
 		int col = player.getCol();
 		boolean bulletTraveled = false;
 		if (player.getNumBullets() > 0) {
+			player.setNumBullets(player.getNumBullets()-1);
 			switch (dir) {
 			case 1:
 				while (!bulletTraveled) {
