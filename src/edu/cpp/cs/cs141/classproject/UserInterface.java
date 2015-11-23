@@ -26,6 +26,9 @@ public class UserInterface {
 				playGame();
 				break;
 			case 2:
+				help();
+				break;
+			case 3:
 				quit = true;
 				System.out.println("GAME QUIT");
 				break;
@@ -34,6 +37,19 @@ public class UserInterface {
 				break;
 			}
 		}
+	}
+
+	private void help() {
+		System.out.println("=======SYMBOLS======\n"
+				+ "[ ]: Light\n"
+				+ "[*]: Darkness\n"
+				+ "[N]: Enemy\n"
+				+ "[=]: Unopened Room\n"
+				+ "[X]: Dud Room\n"
+				+ "[$]: Briefcase Room\n"
+				+ "[B]: Extra Bullet Power-Up\n"
+				+ "[I]: Invincibility Power-Up\n"
+				+ "[R]: Reveal Briefcase Power-Up\n");
 	}
 
 	/**
@@ -77,7 +93,7 @@ public class UserInterface {
 	 */
 	private int mainMenu() {
 		int option;
-		System.out.println("Select an option:\n" + "\t1. Start New Game.\n" + "\t2. Quit.");
+		System.out.println("Select an option:\n" + "\t1. Start New Game.\n" + "\t2. Help.\n" + "\t3. Quit.");
 
 		option = userinput.nextInt();
 		userinput.nextLine();
@@ -92,19 +108,17 @@ public class UserInterface {
 	 */
 	public void playGame() {
 		gameEngine.generateMap();
-		System.out.println("Hidden \n" + gameEngine.getMap().toString());
-		gameEngine.showAll();
-		System.out.println("Revealed \n" + gameEngine.getMap().toString());
-		menuSelection();
 		while(true){
-			System.out.println("Player Moved \n" + gameEngine.getMap().toString());
+			System.out.println( "\n"+ gameEngine.getMap().toString());
+			gameEngine.stats();
 			playerMove();
 		}
 	}
 
+
 	
 	public void playerMove() {
-		System.out.println("Enter a Direction: 1- UP | 2- DOWN | 3- RIGHT | 4- LEFT | 5- MENU");
+		System.out.println("Enter a Command: 1- MOVE UP | 2- MOVE DOWN | 3- MOVE RIGHT | 4- MOVE LEFT | 5- MENU | 6- HELP");
 		int direction = userinput.nextInt();
 		switch (direction) {
 		case 1:
@@ -121,6 +135,9 @@ public class UserInterface {
 			break;
 		case 5:
 			menuSelection();
+			break;
+		case 6:
+			help();
 			break;
 		case 42:
 			gameEngine.showAll();

@@ -3,6 +3,15 @@ package edu.cpp.cs.cs141.classproject;
 public class Room {
 	private boolean hasDocument;
 	private boolean isHidden = true;
+	private boolean isActivated = false;
+
+	public boolean isActivated() {
+		return isActivated;
+	}
+
+	public void setActivated(boolean isActivated) {
+		this.isActivated = isActivated;
+	}
 
 	public Room(boolean hasDocument) {
 		this.hasDocument = hasDocument;
@@ -21,6 +30,8 @@ public class Room {
 	}
 
 	public String toString() {
+		if (isActivated && hasDocument)
+			return "$";		
 		if (isHidden)
 			return "=";
 		else if (hasDocument)

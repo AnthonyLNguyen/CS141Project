@@ -13,6 +13,7 @@ public class Game {
 	private Player player = new Player();
 	private int amountNinjas = 6;
 	private Ninja[] ninjas = new Ninja[amountNinjas];
+	private int imoves = 0;
 	/**
 	 * The amount of moves steps in the game. Used to keep of duration of
 	 * powerups.
@@ -29,6 +30,16 @@ public class Game {
 		int newRow = player.getRow() + row;
 		int newCol = player.getCol() + col;
 		if (newRow <= 8 && newCol <= 8 && newRow >= 0 && newCol >= 0) {
+
+			if (player.isInvincible()) {
+				System.out.println("Player invincible for " + (5-imoves) +" more turns.");
+				imoves++;
+				if (5 < imoves) {
+					player.setInvincible(false);
+					System.out.println("No Longer invincible");
+				}
+			}
+
 			int collisionType = gameMap.playerCollision(newRow, newCol);
 			switch (collisionType) {
 			case 1:
@@ -64,13 +75,14 @@ public class Game {
 			default:
 				break;
 			}
+
 			if (collisionType != 3) {
 				gameMap.moveObject(player.getRow(), player.getCol(), newRow, newCol);
 				player.setCol(newCol);
 				player.setRow(newRow);
 				moveNinjas();
 				vision();
-				if (gameMap.playerNextToNinja(player))
+				if (gameMap.playerNextToNinja(player) && !player.isInvincible())
 					killPlayer();
 			}
 			moveCount++;
@@ -82,6 +94,7 @@ public class Game {
 	public void killPlayer() {
 		System.out.println("You were mortally stabbed!");
 		System.out.println("\n" + getMap().toString());
+		
 		player.setNumLives(player.getNumLives() - 1);
 		gameMap.moveObject(player.getRow(), player.getCol(), 8, 0);
 		player.setCol(0);
@@ -91,7 +104,6 @@ public class Game {
 
 	public void moveNinjas() {
 		for (Ninja n : ninjas) {
-
 			boolean[] moveableSpaces = gameMap.whereCanMove(n);
 			int choice = (int) (Math.random() * 4);
 			if (moveableSpaces[0] || moveableSpaces[1] || moveableSpaces[2] || moveableSpaces[3]) {
@@ -127,6 +139,12 @@ public class Game {
 	public Game() {
 		gameMap = new Map();
 	}
+	
+	public void stats() {
+		System.out.println("Moves:" + moveCount + "\n"
+				+ "Ammo:" + player.getNumBullets() + "\n"
+						+ "Lives:" + player.getNumLives());
+	}
 
 	/**
 	 * Uses the look ability
@@ -146,50 +164,46 @@ public class Game {
 		boolean[] block = { false, false, false, false };
 		hideAll();
 		boolean[] isEmpty = gameMap.playerVision(player);
+		
+		
 		if (!(isEmpty[0] || row + 1 > 8)) {
 			gameMap.revealObject(row + 1, col);
 			if (!(gameMap.getObject(row + 1, col) instanceof EmptySpace))
-			block[0] = true;
+				block[0] = true;
 		}
 		if (!(isEmpty[1] || col + 1 > 8)) {
 			gameMap.revealObject(row, col + 1);
 			if (!(gameMap.getObject(row, col + 1) instanceof EmptySpace))
-			block[1] = true;
+				block[1] = true;
 		}
 		if (!(isEmpty[2] || row - 1 < 0)) {
 			gameMap.revealObject(row - 1, col);
 			if (!(gameMap.getObject(row - 1, col) instanceof EmptySpace))
-			block[2] = true;
+				block[2] = true;
 		}
 		if (!(isEmpty[3] || col - 1 < 0)) {
 			gameMap.revealObject(row, col - 1);
 			if (!(gameMap.getObject(row, col - 1) instanceof EmptySpace))
-			block[3] = true;
+				block[3] = true;
 		}
+		
+		
 		if (!(isEmpty[4] || row + 2 > 8) && !block[0])
 			if (!(gameMap.getObject(row + 1, col) instanceof Room))
-			gameMap.revealObject(row + 2, col);
+				gameMap.revealObject(row + 2, col);
 		if (!(isEmpty[5] || col + 2 > 8) && !block[1])
 			if (!(gameMap.getObject(row, col + 1) instanceof Room))
-			gameMap.revealObject(row, col + 2);
+				gameMap.revealObject(row, col + 2);
 		if (!(isEmpty[6] || row - 2 < 0) && !block[2])
 			if (!(gameMap.getObject(row - 1, col) instanceof Room))
-			gameMap.revealObject(row - 2, col);
+				gameMap.revealObject(row - 2, col);
 		if (!(isEmpty[7] || col - 2 < 0) && !block[3])
 			if (!(gameMap.getObject(row, col - 1) instanceof Room))
-			gameMap.revealObject(row, col - 2);
+				gameMap.revealObject(row, col - 2);
 	}
 
-	public void playerPowerup(Object power) {
-		int p = 0;
-		if (power instanceof Bullet)
-			p = 1;
-		if (power instanceof Invincibility)
-			p = 2;
-		if (power instanceof Radar)
-			p = 3;
-
-		switch (p) {
+	public void playerPowerup(int power) {
+		switch (power) {
 		case 1:
 			player.setNumBullets(player.getNumBullets() + 1);
 			break;

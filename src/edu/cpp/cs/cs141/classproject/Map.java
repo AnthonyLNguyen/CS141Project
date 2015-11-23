@@ -59,13 +59,13 @@ public class Map {
 
 	public boolean[] whereCanMove(Ninja n) {
 		boolean[] b = { true, true, true, true };
-		if (n.getRow() + 1 > 8 || grid[n.getRow() + 1][n.getCol()] instanceof EmptySpace)
+		if (n.getRow() + 1 > 8 || !(grid[n.getRow() + 1][n.getCol()] instanceof EmptySpace))
 			b[0] = false;
-		if (n.getCol() + 1 > 8 || grid[n.getRow()][n.getCol() + 1] instanceof EmptySpace)
+		if (n.getCol() + 1 > 8 || !(grid[n.getRow()][n.getCol() + 1] instanceof EmptySpace))
 			b[1] = false;
-		if (n.getRow() - 1 < 0 || grid[n.getRow() - 1][n.getCol()] instanceof EmptySpace)
+		if (n.getRow() - 1 < 0 || !(grid[n.getRow() - 1][n.getCol()] instanceof EmptySpace))
 			b[2] = false;
-		if (n.getCol() - 1 < 0 || grid[n.getRow()][n.getCol() - 1] instanceof EmptySpace)
+		if (n.getCol() - 1 < 0 || !(grid[n.getRow()][n.getCol() - 1] instanceof EmptySpace))
 			b[3] = false;
 		return b;
 	}
@@ -139,8 +139,9 @@ public class Map {
 	public void radar() {
 		for (int i = 1; i <= 7; i += 3)
 			for (int j = 1; j <= 7; j += 3)
-				if (((Room) grid[i][j]).getHasDocument())
-					((Room) grid[i][j]).setHidden(false);
+				if (((Room) grid[i][j]).getHasDocument()){
+					((Room) grid[i][j]).setActivated(true);
+				}
 	}
 
 	/**
