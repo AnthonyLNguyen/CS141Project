@@ -259,6 +259,7 @@ public class Game {
 							System.out.println("Ninja Killed");
 						}
 					}
+					System.out.println("You missed!");
 					bulletTraveled = true;
 				}
 				break;
@@ -271,6 +272,7 @@ public class Game {
 							System.out.println("Ninja Killed");
 						}
 					}
+					System.out.println("You missed!");
 					bulletTraveled = true;
 				}
 				break;
@@ -283,6 +285,7 @@ public class Game {
 							System.out.println("Ninja Killed");
 						}
 					}
+					System.out.println("You missed!");
 					bulletTraveled = true;
 				}
 				break;
@@ -295,6 +298,7 @@ public class Game {
 							System.out.println("Ninja Killed");
 						}
 					}
+					System.out.println("You missed!");
 					bulletTraveled = true;
 				}
 				break;
