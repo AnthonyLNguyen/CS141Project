@@ -140,32 +140,23 @@ public class Game {
 	public void vision() {
 		int row = player.getRow();
 		int col = player.getCol();
-		boolean[] block = { false, false, false, false };
 		hideAll();
 		boolean[] isEmpty = gameMap.playerVision(player);
-		if (!(isEmpty[0] || row + 1 > 8)) {
+		if (!(isEmpty[0] || row + 1 > 8)) 
 			gameMap.revealObject(row + 1, col);
-			block[0] = true;
-		}
-		if (!(isEmpty[1] || col + 1 > 8)) {
+		if (!(isEmpty[1] || col + 1 > 8)) 
 			gameMap.revealObject(row, col + 1);
-			block[1] = true;
-		}
-		if (!(isEmpty[2] || row - 1 < 0)) {
+		if (!(isEmpty[2] || row - 1 < 0)) 
 			gameMap.revealObject(row - 1, col);
-			block[2] = true;
-		}
-		if (!(isEmpty[3] || col - 1 < 0)) {
+		if (!(isEmpty[3] || col - 1 < 0)) 
 			gameMap.revealObject(row, col - 1);
-			block[3] = true;
-		}
-		if (!(isEmpty[4] || row + 2 > 8) && !block[0]) 
+		if (!(isEmpty[4] || row + 2 > 8)) 
 			gameMap.revealObject(row + 2, col);
-		if (!(isEmpty[5] || col + 2 > 8) && !block[1]) 
+		if (!(isEmpty[5] || col + 2 > 8)) 
 			gameMap.revealObject(row, col + 2);
-		if (!(isEmpty[6] || row - 2 < 0) && !block[2]) 
+		if (!(isEmpty[6] || row - 2 < 0)) 
 			gameMap.revealObject(row - 2, col);
-		if (!(isEmpty[7] || col - 2 < 0) && !block[3]) 
+		if (!(isEmpty[7] || col - 2 < 0)) 
 			gameMap.revealObject(row, col - 2);
 	}
 
