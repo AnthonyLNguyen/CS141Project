@@ -284,7 +284,7 @@ public class Game {
 			switch (dir) {
 			case 1:
 				while (!bulletTraveled) {
-					for (int i = row; i < 8; i++) {
+					for (int i = row; i > 0; i--) {
 						if (gameMap.getObject(i, col) instanceof Ninja) {
 							gameMap.removeObject(i, col);
 							bulletTraveled = true;
@@ -297,7 +297,7 @@ public class Game {
 				break;
 			case 2:
 				while (!bulletTraveled) {
-					for (int i = row; i > 0; i--) {
+					for (int i = row; i < 8; i++) {
 						if (gameMap.getObject(i, col) instanceof Ninja) {
 							gameMap.removeObject(i, col);
 							bulletTraveled = true;
