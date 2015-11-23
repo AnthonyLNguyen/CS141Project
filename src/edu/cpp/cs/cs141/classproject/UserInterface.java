@@ -24,6 +24,7 @@ public class UserInterface {
 			switch (mainMenu()) {
 			case 1:
 				playGame();
+				endGame();
 				break;
 			case 2:
 				help();
@@ -39,7 +40,12 @@ public class UserInterface {
 		}
 	}
 
-	private void help() {
+	public void endGame(){
+		System.out.println("THANKS FOR PLAYING");
+		userinput.close();
+		System.exit(0);
+	}
+	public void help() {
 		System.out.println("=======SYMBOLS======\n"
 				+ "[ ]: Light\n"
 				+ "[*]: Darkness\n"
@@ -108,11 +114,12 @@ public class UserInterface {
 	 */
 	public void playGame() {
 		gameEngine.generateMap();
-		while(true){
+		while(!gameEngine.isFinished()){
 			System.out.println( "\n"+ gameEngine.getMap().toString());
 			gameEngine.stats();
 			playerMove();
 		}
+
 	}
 
 

@@ -65,8 +65,10 @@ public class Game {
 				break;
 			case 3:
 				if (gameMap.isPlayerAboveRoom(player) && gameMap.getObject(newRow, newCol) instanceof Room) {
-					if (((Room) gameMap.getObject(newRow, newCol)).getHasDocument())
+					if (((Room) gameMap.getObject(newRow, newCol)).getHasDocument()){
 						System.out.println("You found the document. Whoopdie freakin do.");
+						isFinished = true;
+					}
 					else
 						System.out.println("The room is empty, but you are filled with determination.");
 				} else
@@ -100,6 +102,10 @@ public class Game {
 		player.setCol(0);
 		player.setRow(8);
 		vision();
+	}
+
+	public boolean isFinished() {
+		return isFinished;
 	}
 
 	public void moveNinjas() {
