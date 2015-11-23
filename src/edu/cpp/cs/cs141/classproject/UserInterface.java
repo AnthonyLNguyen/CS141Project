@@ -21,7 +21,7 @@ public class UserInterface {
 		boolean quit = false;
 		while (!quit) {
 
-			switch (menuSelection()) {
+			switch (mainMenu()) {
 			case 1:
 				playGame();
 				break;
@@ -39,14 +39,26 @@ public class UserInterface {
 	/**
 	 * @return The option chosen whether to start the game or quit.
 	 */
-	public int menuSelection() {
+	public void menuSelection() {
 		int option;
-		System.out.println("Select an option:\n" + "\t1. Start New Game.\n" + "\t2. Quit.");
+		System.out.println("Select an option:\n" + "\t1. Continue Moving.\n" + "\t2. Shoot.\n" + "\t3. Look.");
 
 		option = userinput.nextInt();
 		userinput.nextLine();
+		switch(option){
+		case 1:
+			playerMove();
+			break;
+		case 2:
+			System.out.println("Enter a Direction to SHOOT: 1- UP | 2- DOWN | 3- RIGHT | 4- LEFT");
+			int dir = userinput.nextInt();
+			gameEngine.shoot(dir);
+			break;
+		case 3:
+			gameEngine.playerLook();
+			break;
+		}
 
-		return option;
 	}
 
 	/**
@@ -64,7 +76,13 @@ public class UserInterface {
 	 * @return an integer relating to the input that they chose.
 	 */
 	private int mainMenu() {
-		return -1;
+		int option;
+		System.out.println("Select an option:\n" + "\t1. Start New Game.\n" + "\t2. Quit.");
+
+		option = userinput.nextInt();
+		userinput.nextLine();
+
+		return option;
 	}
 
 	/**
@@ -78,7 +96,7 @@ public class UserInterface {
 		gameEngine.showAll();
 		System.out.println("Revealed \n" + gameEngine.getMap().toString());
 		while(true){
-			playerMove();
+			menuSelection();
 			System.out.println("Player Moved \n" + gameEngine.getMap().toString());
 		}
 	}

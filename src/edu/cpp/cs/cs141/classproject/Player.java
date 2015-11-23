@@ -10,6 +10,8 @@ public class Player {
 	public Player(){
 		row = 8;
 		col = 0;
+		numBullets = 1;
+		numLives = 3;
 	}
 
 	public boolean isInvincible() {

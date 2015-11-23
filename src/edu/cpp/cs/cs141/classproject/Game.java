@@ -85,7 +85,7 @@ public class Game {
 		player.setRow(8);
 		vision();
 	}
-	
+
 	public void moveNinjas() {
 		for (Ninja n : ninjas) {
 
@@ -131,21 +131,21 @@ public class Game {
 	public void playerLook() {
 	}
 
-	public void vision(){
+	public void vision() {
 		int row = player.getRow();
 		int col = player.getCol();
 		hideAll();
 		boolean[] isEmpty = gameMap.playerVision(player);
 		if (!(isEmpty[0] || player.getRow() + 1 > 8))
-			gameMap.revealObject(row+1, col);
+			gameMap.revealObject(row + 1, col);
 		if (!(isEmpty[1] || player.getCol() + 1 > 8))
-			gameMap.revealObject(row, col+1);
+			gameMap.revealObject(row, col + 1);
 		if (!(isEmpty[2] || player.getRow() - 1 < 0))
-			gameMap.revealObject(row-1, col);
+			gameMap.revealObject(row - 1, col);
 		if (!(isEmpty[3] || player.getCol() - 1 < 0))
-			gameMap.revealObject(row, col-1);
+			gameMap.revealObject(row, col - 1);
 	}
-	
+
 	public void playerPowerup(Object power) {
 		int p = 0;
 		if (power instanceof Bullet)
@@ -207,7 +207,7 @@ public class Game {
 	public void showAll() {
 		gameMap.revealAll();
 	}
-	
+
 	public void hideAll() {
 		gameMap.unrevealAll();
 	}
@@ -217,7 +217,64 @@ public class Game {
 	 * is greater than 0. Then subtracts it by one. Removes an assassin from the
 	 * map if there is one in front of the player.
 	 */
-	public void shoot() {
+	public void shoot(int dir) {
+		int row = player.getRow();
+		int col = player.getCol();
+		boolean bulletTraveled = false;
+		if (player.getNumBullets() > 0){
+			switch (dir) {
+			case 1:
+				while (!bulletTraveled) {
+					for (int i = row; i < 8; i++) {
+						if (gameMap.getObject(i, col) instanceof Ninja) {
+							gameMap.removeObject(i, col);
+							bulletTraveled = true;
+							System.out.println("Ninja Killed");
+						}
+					}
+					bulletTraveled = true;
+				}
+				break;
+			case 2:
+				while (!bulletTraveled) {
+					for (int i = row; i > 0; i--) {
+						if (gameMap.getObject(i, col) instanceof Ninja) {
+							gameMap.removeObject(i, col);
+							bulletTraveled = true;
+							System.out.println("Ninja Killed");
+						}
+					}
+					bulletTraveled = true;
+				}
+				break;
+			case 3:
+				while (!bulletTraveled) {
+					for (int i = col; i < 8; i++) {
+						if (gameMap.getObject(row, i) instanceof Ninja) {
+							gameMap.removeObject(row, i);
+							bulletTraveled = true;
+							System.out.println("Ninja Killed");
+						}
+					}
+					bulletTraveled = true;
+				}
+				break;
+			case 4:
+				while (!bulletTraveled) {
+					for (int i = col; i > 0; i--) {
+						if (gameMap.getObject(row, i) instanceof Ninja) {
+							gameMap.removeObject(row, i);
+							bulletTraveled = true;
+							System.out.println("Ninja Killed");
+						}
+					}
+					bulletTraveled = true;
+				}
+				break;
+			}
+		}
+		else
+			System.out.println("No Bullets");
 	}
 
 	/**
