@@ -208,7 +208,7 @@ public class Game {
 						gameMap.revealObject(row, i);
 						ninjaAhead = true;
 						lookTraveled = true;
-					}
+					} 
 				}
 				lookTraveled = true;
 			}
