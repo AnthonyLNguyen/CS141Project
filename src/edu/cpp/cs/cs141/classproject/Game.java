@@ -159,13 +159,13 @@ public class Game {
 			gameMap.revealObject(row, col - 1);
 			block[3] = true;
 		}
-		if (!(isEmpty[4] || row + 2 > 8)) 
+		if (!(isEmpty[4] || row + 2 > 8) && !block[0]) 
 			gameMap.revealObject(row + 2, col);
-		if (!(isEmpty[5] || col + 2 > 8)) 
+		if (!(isEmpty[5] || col + 2 > 8) && !block[1]) 
 			gameMap.revealObject(row, col + 2);
-		if (!(isEmpty[6] || row - 2 < 0)) 
+		if (!(isEmpty[6] || row - 2 < 0) && !block[2]) 
 			gameMap.revealObject(row - 2, col);
-		if (!(isEmpty[7] || col - 2 < 0)) 
+		if (!(isEmpty[7] || col - 2 < 0) && !block[3]) 
 			gameMap.revealObject(row, col - 2);
 	}
 
