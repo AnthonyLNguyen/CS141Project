@@ -28,9 +28,7 @@ public class Game {
 	public void movePlayer(int row, int col) {
 		int newRow = player.getRow() + row;
 		int newCol = player.getCol() + col;
-		if (gameMap.playerCollision(newRow, newCol) != 3
-				&& (newRow <= 8 && newCol <= 8 && newRow >= 0 && newCol >= 0)) {
-
+		if (newRow <= 8 && newCol <= 8 && newRow >= 0 && newCol >= 0) {
 			int collisionType = gameMap.playerCollision(newRow, newCol);
 			switch (collisionType) {
 			case 1:
@@ -55,22 +53,27 @@ public class Game {
 				gameMap.removeObject(newRow, newCol);
 				break;
 			case 3:
-				System.out.println("CAN'T ENTER ROOM");
+				if (gameMap.isPlayerAboveRoom(player) && gameMap.getObject(newRow, newCol) instanceof Room) {
+					if (((Room) gameMap.getObject(newRow, newCol)).getHasDocument())
+						System.out.println("You found the document. Whoopdie freakin do.");
+					else
+						System.out.println("The room is empty, but you are filled with determination.");
+				} else
+					System.out.println("CAN'T ENTER ROOM");
 				break;
 			default:
-				System.out.println("");
 				break;
 			}
-
-			gameMap.moveObject(player.getRow(), player.getCol(), newRow, newCol);
-			player.setCol(newCol);
-			player.setRow(newRow);
-			moveNinjas();
-			vision();
-			if (gameMap.playerNextToNinja(player))
-				killPlayer();
+			if (collisionType != 3) {
+				gameMap.moveObject(player.getRow(), player.getCol(), newRow, newCol);
+				player.setCol(newCol);
+				player.setRow(newRow);
+				moveNinjas();
+				vision();
+				if (gameMap.playerNextToNinja(player))
+					killPlayer();
+			}
 			moveCount++;
-
 		} else {
 			System.out.println("Cannot move");
 		}
@@ -140,23 +143,32 @@ public class Game {
 	public void vision() {
 		int row = player.getRow();
 		int col = player.getCol();
+		boolean[] block = { false, false, false, false };
 		hideAll();
 		boolean[] isEmpty = gameMap.playerVision(player);
-		if (!(isEmpty[0] || row + 1 > 8)) 
+		if (!(isEmpty[0] || row + 1 > 8)) {
 			gameMap.revealObject(row + 1, col);
-		if (!(isEmpty[1] || col + 1 > 8)) 
+			block[0] = true;
+		}
+		if (!(isEmpty[1] || col + 1 > 8)) {
 			gameMap.revealObject(row, col + 1);
-		if (!(isEmpty[2] || row - 1 < 0)) 
+			block[1] = true;
+		}
+		if (!(isEmpty[2] || row - 1 < 0)) {
 			gameMap.revealObject(row - 1, col);
-		if (!(isEmpty[3] || col - 1 < 0)) 
+			block[2] = true;
+		}
+		if (!(isEmpty[3] || col - 1 < 0)) {
 			gameMap.revealObject(row, col - 1);
-		if (!(isEmpty[4] || row + 2 > 8)) 
+			block[3] = true;
+		}
+		if (!(isEmpty[4] || row + 2 > 8) && !block[0])
 			gameMap.revealObject(row + 2, col);
-		if (!(isEmpty[5] || col + 2 > 8)) 
+		if (!(isEmpty[5] || col + 2 > 8) && !block[1])
 			gameMap.revealObject(row, col + 2);
-		if (!(isEmpty[6] || row - 2 < 0)) 
+		if (!(isEmpty[6] || row - 2 < 0) && !block[2])
 			gameMap.revealObject(row - 2, col);
-		if (!(isEmpty[7] || col - 2 < 0)) 
+		if (!(isEmpty[7] || col - 2 < 0) && !block[3])
 			gameMap.revealObject(row, col - 2);
 	}
 
@@ -189,7 +201,7 @@ public class Game {
 	 * and powerups
 	 */
 	public void generateMap() {
-		
+
 		for (int i = 0; i < 9; i++)
 			for (int j = 0; j < 9; j++)
 				gameMap.addObject(i, j, new EmptySpace());

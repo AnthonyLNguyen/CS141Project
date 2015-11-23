@@ -211,4 +211,10 @@ public class Map {
 		if (grid[row][col] instanceof EmptySpace)
 			((EmptySpace) grid[row][col]).setHidden(true);
 	}
+	
+	public boolean isPlayerAboveRoom(Player p){
+		if (p.getRow() == 8)
+			return false;
+		return grid[p.getRow() + 1][p.getCol()] instanceof Room;
+	}
 }
