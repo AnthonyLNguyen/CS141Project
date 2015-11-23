@@ -148,18 +148,22 @@ public class Game {
 		boolean[] isEmpty = gameMap.playerVision(player);
 		if (!(isEmpty[0] || row + 1 > 8)) {
 			gameMap.revealObject(row + 1, col);
+			if (!(gameMap.getObject(row + 1, col) instanceof EmptySpace))
 			block[0] = true;
 		}
 		if (!(isEmpty[1] || col + 1 > 8)) {
 			gameMap.revealObject(row, col + 1);
+			if (!(gameMap.getObject(row, col + 1) instanceof EmptySpace))
 			block[1] = true;
 		}
 		if (!(isEmpty[2] || row - 1 < 0)) {
 			gameMap.revealObject(row - 1, col);
+			if (!(gameMap.getObject(row - 1, col) instanceof EmptySpace))
 			block[2] = true;
 		}
 		if (!(isEmpty[3] || col - 1 < 0)) {
 			gameMap.revealObject(row, col - 1);
+			if (!(gameMap.getObject(row, col - 1) instanceof EmptySpace))
 			block[3] = true;
 		}
 		if (!(isEmpty[4] || row + 2 > 8) && !block[0])
