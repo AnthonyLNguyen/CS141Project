@@ -72,21 +72,21 @@ public class Map {
 
 	public boolean[] playerVision(Player p) {
 		boolean[] isEmpty = { true, true, true, true, true, true, true, true, };
-		if (p.getRow() + 1 > 8 || (grid[p.getRow() + 1][p.getCol()] instanceof Object))
+		if (p.getRow() + 1 > 8 || !(grid[p.getRow() + 1][p.getCol()] instanceof Room))
 			isEmpty[0] = false;
-		if (p.getCol() + 1 > 8 || (grid[p.getRow()][p.getCol() + 1] instanceof Object))
+		if (p.getCol() + 1 > 8 || !(grid[p.getRow()][p.getCol() + 1] instanceof Room))
 			isEmpty[1] = false;
-		if (p.getRow() - 1 < 0 || (grid[p.getRow() - 1][p.getCol()] instanceof Object))
+		if (p.getRow() - 1 < 0 || !(grid[p.getRow() - 1][p.getCol()] instanceof Room))
 			isEmpty[2] = false;
-		if (p.getCol() - 1 < 0 || (grid[p.getRow()][p.getCol() - 1] instanceof Object))
+		if (p.getCol() - 1 < 0 || !(grid[p.getRow()][p.getCol() - 1] instanceof Room))
 			isEmpty[3] = false;
-		if (p.getRow() + 2 > 8 || (grid[p.getRow() + 2][p.getCol()] instanceof Object))
+		if (p.getRow() + 2 > 8 || !(grid[p.getRow() + 2][p.getCol()] instanceof Room))
 			isEmpty[4] = false;
-		if (p.getCol() + 2 > 8 || (grid[p.getRow()][p.getCol() + 2] instanceof Object))
+		if (p.getCol() + 2 > 8 || !(grid[p.getRow()][p.getCol() + 2] instanceof Room))
 			isEmpty[5] = false;
-		if (p.getRow() - 2 < 0 || (grid[p.getRow() - 2][p.getCol()] instanceof Object))
+		if (p.getRow() - 2 < 0 || !(grid[p.getRow() - 2][p.getCol()] instanceof Room))
 			isEmpty[6] = false;
-		if (p.getCol() - 2 < 0 || (grid[p.getRow()][p.getCol() - 2] instanceof Object))
+		if (p.getCol() - 2 < 0 || !(grid[p.getRow()][p.getCol() - 2] instanceof Room))
 			isEmpty[7] = false;
 		return isEmpty;
 	}
