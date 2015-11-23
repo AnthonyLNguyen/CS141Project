@@ -201,6 +201,10 @@ public class Game {
 
 		gameMap.addObject(player.getRow(), player.getCol(), player);
 
+		for (int i = 0; i <= 8; i++)
+			for (int j = 0; j <= 8; j++)
+				gameMap.addObject(i, j, new EmptySpace());
+		
 		// Rooms
 		// adds an empty room to predetermined locations
 		for (int i = 1; i <= 7; i += 3)
