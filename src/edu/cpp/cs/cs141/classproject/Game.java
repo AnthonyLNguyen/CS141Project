@@ -281,29 +281,26 @@ public class Game {
 		boolean bulletTraveled = false;
 		if (player.getNumBullets() > 0) {
 			player.setNumBullets(player.getNumBullets()-1);
+			Ninja n = null;
 			switch (dir) {
-			case 1:
+			case 2:
 				while (!bulletTraveled) {
 					for (int i = row; i < 8; i++) {
 						if (gameMap.getObject(i, col) instanceof Ninja) {
-							gameMap.removeObject(i, col);
+							n = (Ninja) gameMap.removeObject(i, col);
 							bulletTraveled = true;
-							System.out.println("Ninja Killed");
-						} else 
-							System.out.println("You missed!");
+						} 
 					}
 					bulletTraveled = true;
 				}
 				break;
-			case 2:
+			case 1:
 				while (!bulletTraveled) {
 					for (int i = row; i > 0; i--) {
 						if (gameMap.getObject(i, col) instanceof Ninja) {
-							gameMap.removeObject(i, col);
+							n = (Ninja) gameMap.removeObject(i, col);
 							bulletTraveled = true;
-							System.out.println("Ninja Killed");
-						} else
-							System.out.println("You missed!");
+						} 
 					}	
 					bulletTraveled = true;
 				}
@@ -312,12 +309,10 @@ public class Game {
 				while (!bulletTraveled) {
 					for (int i = col; i < 8; i++) {
 						if (gameMap.getObject(row, i) instanceof Ninja) {
-							gameMap.removeObject(row, i);
+							n = (Ninja) gameMap.removeObject(row, i);
 							bulletTraveled = true;
-							System.out.println("Ninja Killed");
 						}
 					}
-					System.out.println("You missed!");
 					bulletTraveled = true;
 				}
 				break;
@@ -325,16 +320,18 @@ public class Game {
 				while (!bulletTraveled) {
 					for (int i = col; i > 0; i--) {
 						if (gameMap.getObject(row, i) instanceof Ninja) {
-							gameMap.removeObject(row, i);
+							n = (Ninja) gameMap.removeObject(row, i);
 							bulletTraveled = true;
-							System.out.println("Ninja Killed");
 						}
 					}
-					System.out.println("You missed!");
 					bulletTraveled = true;
 				}
 				break;
 			}
+			if (n == null)
+				System.out.println("You missed. Work on your aim.");
+			else 
+				System.out.println("You hit someone! Ninja killed.");
 		} else
 			System.out.println("No Bullets");
 	}
