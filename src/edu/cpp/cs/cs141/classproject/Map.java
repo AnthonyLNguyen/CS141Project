@@ -29,6 +29,10 @@ public class Map {
 
 	public boolean addObject(int row, int col, Object o) {
 		// prevents ninjas from spawning too close to the player
+		if (o instanceof EmptySpace && grid[row][col] == null){
+			grid[row][col] = o;
+			return true;
+		}
 		if (grid[row][col] instanceof EmptySpace && !((row > 3 && col < 4) && o instanceof Ninja)) {
 			grid[row][col] = o;
 			return true;
