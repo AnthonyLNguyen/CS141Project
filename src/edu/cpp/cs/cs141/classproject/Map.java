@@ -72,21 +72,21 @@ public class Map {
 
 	public boolean[] playerVision(Player p) {
 		boolean[] isEmpty = { true, true, true, true, true, true, true, true, };
-		if (p.getRow() + 1 > 8 || !(grid[p.getRow() + 1][p.getCol()] instanceof EmptySpace)) // down
+		if (p.getRow() + 1 > 8 || (grid[p.getRow() + 1][p.getCol()] instanceof EmptySpace)|| !(grid[p.getRow() + 1][p.getCol()] instanceof EmptySpace)) // down
 			isEmpty[0] = false;
-		if (p.getCol() + 1 > 8 || !(grid[p.getRow()][p.getCol() + 1] instanceof EmptySpace)) // right
+		if (p.getCol() + 1 > 8 || (grid[p.getRow()][p.getCol() + 1] instanceof EmptySpace)|| !(grid[p.getRow()][p.getCol() + 1] instanceof EmptySpace)) // right
 			isEmpty[1] = false;
-		if (p.getRow() - 1 < 0 || !(grid[p.getRow() - 1][p.getCol()] instanceof EmptySpace)) // up
+		if (p.getRow() - 1 < 0 || (grid[p.getRow() - 1][p.getCol()] instanceof EmptySpace)|| !(grid[p.getRow() - 1][p.getCol()] instanceof EmptySpace)) // up
 			isEmpty[2] = false;
-		if (p.getCol() - 1 < 0 || !(grid[p.getRow()][p.getCol() - 1] instanceof EmptySpace)) // left
+		if (p.getCol() - 1 < 0 || (grid[p.getRow()][p.getCol() - 1] instanceof EmptySpace)|| !(grid[p.getRow()][p.getCol() - 1] instanceof EmptySpace)) // left
 			isEmpty[3] = false;
-		if (p.getRow() + 2 > 8 || !(grid[p.getRow() + 2][p.getCol()] instanceof EmptySpace)) // down
+		if (p.getRow() + 2 > 8 || (grid[p.getRow() + 2][p.getCol()] instanceof EmptySpace)|| !(grid[p.getRow() + 2][p.getCol()] instanceof EmptySpace)) // down
 			isEmpty[4] = false;
-		if (p.getCol() + 2 > 8 || !(grid[p.getRow()][p.getCol() + 2] instanceof EmptySpace)) // right
+		if (p.getCol() + 2 > 8 || (grid[p.getRow()][p.getCol() + 2] instanceof EmptySpace)|| !(grid[p.getRow()][p.getCol() + 2] instanceof EmptySpace)) // right
 			isEmpty[5] = false;
-		if (p.getRow() - 2 < 0 || !(grid[p.getRow() - 2][p.getCol()] instanceof EmptySpace)) // up
+		if (p.getRow() - 2 < 0 || (grid[p.getRow() - 2][p.getCol()] instanceof EmptySpace)|| !(grid[p.getRow() - 2][p.getCol()] instanceof EmptySpace)) // up
 			isEmpty[6] = false;
-		if (p.getCol() - 2 < 0 || !(grid[p.getRow()][p.getCol() - 2] instanceof EmptySpace)) // left
+		if (p.getCol() - 2 < 0 || (grid[p.getRow()][p.getCol() - 2] instanceof EmptySpace)|| !(grid[p.getRow()][p.getCol() - 2] instanceof EmptySpace)) // left
 			isEmpty[7] = false;
 		return isEmpty;
 	}
