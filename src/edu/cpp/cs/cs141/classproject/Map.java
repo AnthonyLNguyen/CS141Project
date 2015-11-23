@@ -17,9 +17,6 @@ public class Map {
 		String result = "";
 		for (int i = 0; i < GRID_SIZE; i++) {
 			for (int j = 0; j < GRID_SIZE; j++) {
-				if (grid[i][j] instanceof EmptySpace)
-					result += " [*]";
-				else
 					result += " [" + grid[i][j].toString() + "]";
 			}
 			result += "\n";
