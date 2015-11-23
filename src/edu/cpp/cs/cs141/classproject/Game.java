@@ -128,22 +128,45 @@ public class Game {
 	/**
 	 * Uses the look ability
 	 */
-	public void playerLook() {
+	public void playerLook(int dir) {
+		int row = player.getRow();
+		int col = player.getCol();
+		switch (dir) {
+		case 1:
+			break;
+		}
 	}
 
 	public void vision() {
 		int row = player.getRow();
 		int col = player.getCol();
+		boolean[] block = { false, false, false, false };
 		hideAll();
 		boolean[] isEmpty = gameMap.playerVision(player);
-		if (!(isEmpty[0] || player.getRow() + 1 > 8))
+		if (!(isEmpty[0] || row + 1 > 8)) {
 			gameMap.revealObject(row + 1, col);
-		if (!(isEmpty[1] || player.getCol() + 1 > 8))
+			block[0] = true;
+		}
+		if (!(isEmpty[1] || col + 1 > 8)) {
 			gameMap.revealObject(row, col + 1);
-		if (!(isEmpty[2] || player.getRow() - 1 < 0))
+			block[1] = true;
+		}
+		if (!(isEmpty[2] || row - 1 < 0)) {
 			gameMap.revealObject(row - 1, col);
-		if (!(isEmpty[3] || player.getCol() - 1 < 0))
+			block[2] = true;
+		}
+		if (!(isEmpty[3] || col - 1 < 0)) {
 			gameMap.revealObject(row, col - 1);
+			block[3] = true;
+		}
+		if (!(isEmpty[4] || row + 2 > 8)) 
+			gameMap.revealObject(row + 2, col);
+		if (!(isEmpty[5] || col + 2 > 8)) 
+			gameMap.revealObject(row, col + 2);
+		if (!(isEmpty[6] || row - 2 < 0)) 
+			gameMap.revealObject(row - 2, col);
+		if (!(isEmpty[7] || col - 2 < 0)) 
+			gameMap.revealObject(row, col - 2);
 	}
 
 	public void playerPowerup(Object power) {
@@ -221,7 +244,7 @@ public class Game {
 		int row = player.getRow();
 		int col = player.getCol();
 		boolean bulletTraveled = false;
-		if (player.getNumBullets() > 0){
+		if (player.getNumBullets() > 0) {
 			switch (dir) {
 			case 1:
 				while (!bulletTraveled) {
@@ -272,8 +295,7 @@ public class Game {
 				}
 				break;
 			}
-		}
-		else
+		} else
 			System.out.println("No Bullets");
 	}
 

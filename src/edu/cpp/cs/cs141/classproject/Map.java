@@ -70,7 +70,7 @@ public class Map {
 	}
 
 	public boolean[] playerVision(Player p) {
-		boolean[] isEmpty = { true, true, true, true };
+		boolean[] isEmpty = { true, true, true, true, true, true, true, true, };
 		if (p.getRow() + 1 > 8 || grid[p.getRow() + 1][p.getCol()] != null)// down
 			isEmpty[0] = false;
 		if (p.getCol() + 1 > 8 || grid[p.getRow()][p.getCol() + 1] != null)// right
@@ -79,6 +79,14 @@ public class Map {
 			isEmpty[2] = false;
 		if (p.getCol() - 1 < 0 || grid[p.getRow()][p.getCol() - 1] != null)// left
 			isEmpty[3] = false;
+		if (p.getRow() + 2 > 8 || grid[p.getRow() + 2][p.getCol()] != null)// down
+			isEmpty[4] = false;
+		if (p.getCol() + 2 > 8 || grid[p.getRow()][p.getCol() + 2] != null)// right
+			isEmpty[5] = false;
+		if (p.getRow() - 2 < 0 || grid[p.getRow() - 2][p.getCol()] != null)// up
+			isEmpty[6] = false;
+		if (p.getCol() - 2 < 0 || grid[p.getRow()][p.getCol() - 2] != null)// left
+			isEmpty[7] = false;
 		return isEmpty;
 	}
 

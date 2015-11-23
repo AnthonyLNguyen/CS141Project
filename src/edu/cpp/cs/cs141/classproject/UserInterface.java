@@ -51,11 +51,11 @@ public class UserInterface {
 			break;
 		case 2:
 			System.out.println("Enter a Direction to SHOOT: 1- UP | 2- DOWN | 3- RIGHT | 4- LEFT");
-			int dir = userinput.nextInt();
-			gameEngine.shoot(dir);
+			gameEngine.shoot(userinput.nextInt());
 			break;
 		case 3:
-			gameEngine.playerLook();
+			System.out.println("Enter a Direction to LOOK: 1- UP | 2- DOWN | 3- RIGHT | 4- LEFT");
+			gameEngine.playerLook(userinput.nextInt());
 			break;
 		}
 
@@ -95,15 +95,16 @@ public class UserInterface {
 		System.out.println("Hidden \n" + gameEngine.getMap().toString());
 		gameEngine.showAll();
 		System.out.println("Revealed \n" + gameEngine.getMap().toString());
+		menuSelection();
 		while(true){
-			menuSelection();
 			System.out.println("Player Moved \n" + gameEngine.getMap().toString());
+			playerMove();
 		}
 	}
 
 	
 	public void playerMove() {
-		System.out.println("Enter a Direction: 1- UP | 2- DOWN | 3- RIGHT | 4- LEFT");
+		System.out.println("Enter a Direction: 1- UP | 2- DOWN | 3- RIGHT | 4- LEFT | 5- MENU");
 		int direction = userinput.nextInt();
 		switch (direction) {
 		case 1:
@@ -117,6 +118,9 @@ public class UserInterface {
 			break;
 		case 4:
 			gameEngine.movePlayer(0, -1);
+			break;
+		case 5:
+			menuSelection();
 			break;
 		case 42:
 			gameEngine.showAll();
