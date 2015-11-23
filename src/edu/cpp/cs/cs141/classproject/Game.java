@@ -170,8 +170,8 @@ public class Game {
 				for (int i = row; i > 0; i--) {
 					if (gameMap.getObject(i, col) instanceof Ninja) {
 						gameMap.revealObject(i, col);
-						lookTraveled = true;
 						ninjaAhead = true;
+						lookTraveled = true;
 					}
 				}
 				lookTraveled = true;
@@ -182,8 +182,8 @@ public class Game {
 				for (int i = row; i < 8; i++) {
 					if (gameMap.getObject(i, col) instanceof Ninja) {
 						gameMap.revealObject(i, col);
-						lookTraveled = true;
 						ninjaAhead = true;
+						lookTraveled = true;
 					}
 				}
 				lookTraveled = true;
@@ -194,8 +194,8 @@ public class Game {
 				for (int i = col; i < 8; i++) {
 					if (gameMap.getObject(row, i) instanceof Ninja) {
 						gameMap.revealObject(row, i);
-						lookTraveled = true;
 						ninjaAhead = true;
+						lookTraveled = true;
 					}
 				}
 				lookTraveled = true;
@@ -206,8 +206,8 @@ public class Game {
 				for (int i = col; i > 0; i--) {
 					if (gameMap.getObject(row, i) instanceof Ninja) {
 						gameMap.revealObject(row, i);
-						lookTraveled = true;
 						ninjaAhead = true;
+						lookTraveled = true;
 					}
 				}
 				lookTraveled = true;
