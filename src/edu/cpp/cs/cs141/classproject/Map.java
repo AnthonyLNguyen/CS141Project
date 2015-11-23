@@ -17,7 +17,7 @@ public class Map {
 		String result = "";
 		for (int i = 0; i < GRID_SIZE; i++) {
 			for (int j = 0; j < GRID_SIZE; j++) {
-				if (grid[i][j] == null)
+				if (grid[i][j] instanceof EmptySpace)
 					result += " [*]";
 				else
 					result += " [" + grid[i][j].toString() + "]";
@@ -29,7 +29,7 @@ public class Map {
 
 	public boolean addObject(int row, int col, Object o) {
 		// prevents ninjas from spawning too close to the player
-		if (grid[row][col] == null && !((row > 3 && col < 4) && o instanceof Ninja)) {
+		if (grid[row][col] instanceof EmptySpace && !((row > 3 && col < 4) && o instanceof Ninja)) {
 			grid[row][col] = o;
 			return true;
 		}
@@ -39,7 +39,7 @@ public class Map {
 	public boolean canMove(int row, int col) {
 		// since the and operator returns false if the first one is false we can
 		// do this
-		if ((row <= 8 && col <= 8 && row >= 0 && col >= 0) && grid[row][col] == null)
+		if ((row <= 8 && col <= 8 && row >= 0 && col >= 0) && grid[row][col] instanceof EmptySpace)
 			return true;
 		return false;
 	}
@@ -58,51 +58,51 @@ public class Map {
 
 	public boolean[] whereCanMove(Ninja n) {
 		boolean[] b = { true, true, true, true };
-		if (n.getRow() + 1 > 8 || grid[n.getRow() + 1][n.getCol()] != null)
+		if (n.getRow() + 1 > 8 || grid[n.getRow() + 1][n.getCol()] instanceof EmptySpace)
 			b[0] = false;
-		if (n.getCol() + 1 > 8 || grid[n.getRow()][n.getCol() + 1] != null)
+		if (n.getCol() + 1 > 8 || grid[n.getRow()][n.getCol() + 1] instanceof EmptySpace)
 			b[1] = false;
-		if (n.getRow() - 1 < 0 || grid[n.getRow() - 1][n.getCol()] != null)
+		if (n.getRow() - 1 < 0 || grid[n.getRow() - 1][n.getCol()] instanceof EmptySpace)
 			b[2] = false;
-		if (n.getCol() - 1 < 0 || grid[n.getRow()][n.getCol() - 1] != null)
+		if (n.getCol() - 1 < 0 || grid[n.getRow()][n.getCol() - 1] instanceof EmptySpace)
 			b[3] = false;
 		return b;
 	}
 
 	public boolean[] playerVision(Player p) {
 		boolean[] isEmpty = { true, true, true, true, true, true, true, true, };
-		if (p.getRow() + 1 > 8 || grid[p.getRow() + 1][p.getCol()] != null)// down
+		if (p.getRow() + 1 > 8 || grid[p.getRow() + 1][p.getCol()] instanceof EmptySpace) // down
 			isEmpty[0] = false;
-		if (p.getCol() + 1 > 8 || grid[p.getRow()][p.getCol() + 1] != null)// right
+		if (p.getCol() + 1 > 8 || grid[p.getRow()][p.getCol() + 1] instanceof EmptySpace) // right
 			isEmpty[1] = false;
-		if (p.getRow() - 1 < 0 || grid[p.getRow() - 1][p.getCol()] != null)// up
+		if (p.getRow() - 1 < 0 || grid[p.getRow() - 1][p.getCol()] instanceof EmptySpace) // up
 			isEmpty[2] = false;
-		if (p.getCol() - 1 < 0 || grid[p.getRow()][p.getCol() - 1] != null)// left
+		if (p.getCol() - 1 < 0 || grid[p.getRow()][p.getCol() - 1] instanceof EmptySpace) // left
 			isEmpty[3] = false;
-		if (p.getRow() + 2 > 8 || grid[p.getRow() + 2][p.getCol()] != null)// down
+		if (p.getRow() + 2 > 8 || grid[p.getRow() + 2][p.getCol()] instanceof EmptySpace) // down
 			isEmpty[4] = false;
-		if (p.getCol() + 2 > 8 || grid[p.getRow()][p.getCol() + 2] != null)// right
+		if (p.getCol() + 2 > 8 || grid[p.getRow()][p.getCol() + 2] instanceof EmptySpace) // right
 			isEmpty[5] = false;
-		if (p.getRow() - 2 < 0 || grid[p.getRow() - 2][p.getCol()] != null)// up
+		if (p.getRow() - 2 < 0 || grid[p.getRow() - 2][p.getCol()] instanceof EmptySpace) // up
 			isEmpty[6] = false;
-		if (p.getCol() - 2 < 0 || grid[p.getRow()][p.getCol() - 2] != null)// left
+		if (p.getCol() - 2 < 0 || grid[p.getRow()][p.getCol() - 2] instanceof EmptySpace) // left
 			isEmpty[7] = false;
 		return isEmpty;
 	}
 
 	public boolean playerNextToNinja(Player p) {
 		boolean[] isNinja = { false, false, false, false };
-		if (!(p.getRow() + 1 > 8) && grid[p.getRow() + 1][p.getCol()] instanceof Ninja)// down
+		if (!(p.getRow() + 1 > 8) && grid[p.getRow() + 1][p.getCol()] instanceof Ninja) // down
 			isNinja[0] = true;
-		if (!(p.getCol() + 1 > 8) && grid[p.getRow()][p.getCol() + 1] instanceof Ninja)// right
+		if (!(p.getCol() + 1 > 8) && grid[p.getRow()][p.getCol() + 1] instanceof Ninja) // right
 			isNinja[1] = true;
-		if (!(p.getRow() - 1 < 0) && grid[p.getRow() - 1][p.getCol()] instanceof Ninja)// up
+		if (!(p.getRow() - 1 < 0) && grid[p.getRow() - 1][p.getCol()] instanceof Ninja) // up
 			isNinja[2] = true;
-		if (!(p.getCol() - 1 < 0) && grid[p.getRow()][p.getCol() - 1] instanceof Ninja)// left
+		if (!(p.getCol() - 1 < 0) && grid[p.getRow()][p.getCol() - 1] instanceof Ninja) // left
 			isNinja[3] = true;
 		return (isNinja[0] || isNinja[1] || isNinja[2] || isNinja[3]);
 	}
-	
+
 	public void randomlyAddObjects(ArrayList<Object> objectArray) {
 		while (objectArray.size() > 0) {
 			int row = (int) (Math.random() * GRID_SIZE);
@@ -125,14 +125,14 @@ public class Map {
 	 *            Row of the object you want revealed
 	 */
 	public void revealObject(int row, int col) {
-		if (grid[row][col] != null) {
-			if (grid[row][col] instanceof AbstractPowerUp)
-				((AbstractPowerUp) grid[row][col]).setHidden(false);
-			if (grid[row][col] instanceof Ninja)
-				((Ninja) grid[row][col]).setHidden(false);
-			if (grid[row][col] instanceof Room)
-				((Room) grid[row][col]).setHidden(false);
-		}
+		if (grid[row][col] instanceof AbstractPowerUp)
+			((AbstractPowerUp) grid[row][col]).setHidden(false);
+		if (grid[row][col] instanceof Ninja)
+			((Ninja) grid[row][col]).setHidden(false);
+		if (grid[row][col] instanceof Room)
+			((Room) grid[row][col]).setHidden(false);
+		if (grid[row][col] instanceof EmptySpace)
+			((EmptySpace) grid[row][col]).setHidden(false);
 	}
 
 	public void radar() {
@@ -164,7 +164,7 @@ public class Map {
 	 */
 	public Object removeObject(int row, int col) {
 		Object o = grid[row][col];
-		grid[row][col] = null;
+		grid[row][col] = new EmptySpace();
 		return o;
 	}
 
@@ -183,7 +183,7 @@ public class Map {
 	 * @return if the object was able to move
 	 */
 	public boolean moveObject(int row, int col, int newRow, int newCol) {
-		if (grid[row][col] != null && grid[newRow][newCol] == null) {
+		if (!(grid[row][col] instanceof EmptySpace) && !(grid[newRow][newCol] instanceof EmptySpace)) {
 			grid[newRow][newCol] = removeObject(row, col);
 			return true;
 		}
@@ -201,14 +201,13 @@ public class Map {
 	}
 
 	private void unrevealObject(int row, int col) {
-		if (grid[row][col] != null) {
-			if (grid[row][col] instanceof AbstractPowerUp)
-				((AbstractPowerUp) grid[row][col]).setHidden(true);
-			if (grid[row][col] instanceof Ninja)
-				((Ninja) grid[row][col]).setHidden(true);
-			if (grid[row][col] instanceof Room)
-				((Room) grid[row][col]).setHidden(true);
-		}
-
+		if (grid[row][col] instanceof AbstractPowerUp)
+			((AbstractPowerUp) grid[row][col]).setHidden(true);
+		if (grid[row][col] instanceof Ninja)
+			((Ninja) grid[row][col]).setHidden(true);
+		if (grid[row][col] instanceof Room)
+			((Room) grid[row][col]).setHidden(true);
+		if (grid[row][col] instanceof EmptySpace)
+			((EmptySpace) grid[row][col]).setHidden(true);
 	}
 }
