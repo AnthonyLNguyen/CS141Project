@@ -187,7 +187,7 @@ public class Map {
 	 * @return if the object was able to move
 	 */
 	public boolean moveObject(int row, int col, int newRow, int newCol) {
-		if (!(grid[row][col] instanceof EmptySpace) && (grid[newRow][newCol] instanceof EmptySpace)) {
+		if (!(grid[row][col] instanceof EmptySpace) && grid[newRow][newCol] instanceof EmptySpace) {
 			grid[newRow][newCol] = removeObject(row, col);
 			return true;
 		}
