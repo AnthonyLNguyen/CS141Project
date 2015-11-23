@@ -163,64 +163,61 @@ public class Game {
 		int row = player.getRow();
 		int col = player.getCol();
 		boolean lookTraveled = false;
-		if (player.getNumBullets() > 0) {
-			player.setNumBullets(player.getNumBullets() - 1);
-			switch (dir) {
-			case 1:
-				while (!lookTraveled) {
-					for (int i = row; i > 0; i--) {
-						if (gameMap.getObject(i, col) instanceof Ninja) {
-							gameMap.revealObject(i, col);
-							lookTraveled = true;
-							System.out.println("Ninja Detected");
-						}
+		Boolean ninjaAhead = false;
+		switch (dir) {
+		case 1:
+			while (!lookTraveled) {
+				for (int i = row; i > 0; i--) {
+					if (gameMap.getObject(i, col) instanceof Ninja) {
+						gameMap.revealObject(i, col);
+						lookTraveled = true;
+						ninjaAhead = true;
 					}
-					
-					lookTraveled = true;
 				}
-				break;
-			case 2:
-				while (!lookTraveled) {
-					for (int i = row; i < 8; i++) {
-						if (gameMap.getObject(i, col) instanceof Ninja) {
-							gameMap.revealObject(i, col);
-							lookTraveled = true;
-							System.out.println("Ninja Detected");
-						}
-					}
-					
-					lookTraveled = true;
-				}
-				break;
-			case 3:
-				while (!lookTraveled) {
-					for (int i = col; i < 8; i++) {
-						if (gameMap.getObject(row, i) instanceof Ninja) {
-							gameMap.revealObject(row, i);
-							lookTraveled = true;
-							System.out.println("Ninja Detected");
-						}
-					}
-					
-					lookTraveled = true;
-				}
-				break;
-			case 4:
-				while (!lookTraveled) {
-					for (int i = col; i > 0; i--) {
-						if (gameMap.getObject(row, i) instanceof Ninja) {
-							gameMap.revealObject(row, i);
-							lookTraveled = true;
-							System.out.println("Ninja Detected");
-						}
-					}
-					
-					lookTraveled = true;
-				}
-				break;
+				lookTraveled = true;
 			}
-		} else
-			System.out.println("No Bullets");
+			break;
+		case 2:
+			while (!lookTraveled) {
+				for (int i = row; i < 8; i++) {
+					if (gameMap.getObject(i, col) instanceof Ninja) {
+						gameMap.revealObject(i, col);
+						lookTraveled = true;
+						ninjaAhead = true;
+					}
+				}
+				lookTraveled = true;
+			}
+			break;
+		case 3:
+			while (!lookTraveled) {
+				for (int i = col; i < 8; i++) {
+					if (gameMap.getObject(row, i) instanceof Ninja) {
+						gameMap.revealObject(row, i);
+						lookTraveled = true;
+						ninjaAhead = true;
+					}
+				}
+				lookTraveled = true;
+			}
+			break;
+		case 4:
+			while (!lookTraveled) {
+				for (int i = col; i > 0; i--) {
+					if (gameMap.getObject(row, i) instanceof Ninja) {
+						gameMap.revealObject(row, i);
+						lookTraveled = true;
+						ninjaAhead = true;
+					}
+				}
+				lookTraveled = true;
+			}
+			break;
+		}
+		if (ninjaAhead)
+			System.out.println("Ninja ahead!");
+		else
+			System.out.println("All clear!");
 	}
 
 	public void vision() {
@@ -337,7 +334,7 @@ public class Game {
 		int col = player.getCol();
 		boolean bulletTraveled = false;
 		if (player.getNumBullets() > 0) {
-			player.setNumBullets(player.getNumBullets()-1);
+			player.setNumBullets(player.getNumBullets() - 1);
 			Ninja n = null;
 			switch (dir) {
 			case 2:
@@ -346,7 +343,7 @@ public class Game {
 						if (gameMap.getObject(i, col) instanceof Ninja) {
 							n = (Ninja) gameMap.removeObject(i, col);
 							bulletTraveled = true;
-						} 
+						}
 					}
 					bulletTraveled = true;
 				}
@@ -357,8 +354,8 @@ public class Game {
 						if (gameMap.getObject(i, col) instanceof Ninja) {
 							n = (Ninja) gameMap.removeObject(i, col);
 							bulletTraveled = true;
-						} 
-					}	
+						}
+					}
 					bulletTraveled = true;
 				}
 				break;
@@ -387,7 +384,7 @@ public class Game {
 			}
 			if (n == null)
 				System.out.println("You missed. Work on your aim.");
-			else 
+			else
 				System.out.println("You hit someone! Ninja killed.");
 		} else
 			System.out.println("No Bullets");
