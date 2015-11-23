@@ -172,7 +172,7 @@ public class Game {
 						if (gameMap.getObject(i, col) instanceof Ninja) {
 							gameMap.revealObject(i, col);
 							lookTraveled = true;
-							
+							System.out.println("Ninja Detected");
 						}
 					}
 					
@@ -185,7 +185,7 @@ public class Game {
 						if (gameMap.getObject(i, col) instanceof Ninja) {
 							gameMap.revealObject(i, col);
 							lookTraveled = true;
-							
+							System.out.println("Ninja Detected");
 						}
 					}
 					
@@ -198,7 +198,7 @@ public class Game {
 						if (gameMap.getObject(row, i) instanceof Ninja) {
 							gameMap.revealObject(row, i);
 							lookTraveled = true;
-							
+							System.out.println("Ninja Detected");
 						}
 					}
 					
@@ -211,7 +211,7 @@ public class Game {
 						if (gameMap.getObject(row, i) instanceof Ninja) {
 							gameMap.revealObject(row, i);
 							lookTraveled = true;
-							
+							System.out.println("Ninja Detected");
 						}
 					}
 					
