@@ -10,7 +10,7 @@ public class EmptySpace {
 
 	public boolean isHidden() {
 		return isHidden;
-	}
+	} 
 
 	/*
 	 * this show Ninja to the Map
