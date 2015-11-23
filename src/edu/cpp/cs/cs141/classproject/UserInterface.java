@@ -119,7 +119,6 @@ public class UserInterface {
 			gameEngine.stats();
 			playerMove();
 		}
-
 	}
 
 

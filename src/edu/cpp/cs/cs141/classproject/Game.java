@@ -289,9 +289,9 @@ public class Game {
 							gameMap.removeObject(i, col);
 							bulletTraveled = true;
 							System.out.println("Ninja Killed");
-						}
+						} else 
+							System.out.println("You missed!");
 					}
-					System.out.println("You missed!");
 					bulletTraveled = true;
 				}
 				break;
@@ -302,9 +302,9 @@ public class Game {
 							gameMap.removeObject(i, col);
 							bulletTraveled = true;
 							System.out.println("Ninja Killed");
-						}
-					}
-					System.out.println("You missed!");
+						} else
+							System.out.println("You missed!");
+					}	
 					bulletTraveled = true;
 				}
 				break;
