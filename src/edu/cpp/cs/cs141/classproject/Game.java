@@ -167,12 +167,16 @@ public class Game {
 			block[3] = true;
 		}
 		if (!(isEmpty[4] || row + 2 > 8) && !block[0])
+			if (!(gameMap.getObject(row + 1, col) instanceof Room))
 			gameMap.revealObject(row + 2, col);
 		if (!(isEmpty[5] || col + 2 > 8) && !block[1])
+			if (!(gameMap.getObject(row, col + 1) instanceof Room))
 			gameMap.revealObject(row, col + 2);
 		if (!(isEmpty[6] || row - 2 < 0) && !block[2])
+			if (!(gameMap.getObject(row - 1, col) instanceof Room))
 			gameMap.revealObject(row - 2, col);
 		if (!(isEmpty[7] || col - 2 < 0) && !block[3])
+			if (!(gameMap.getObject(row, col - 1) instanceof Room))
 			gameMap.revealObject(row, col - 2);
 	}
 
