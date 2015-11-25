@@ -37,7 +37,10 @@ public class UserInterface {
 				playGame();
 				break;
 			case 2:
+				quit = true;
 				help();
+				userinput.nextLine();
+				startGame();
 				break;
 			case 3:
 				quit = true;
