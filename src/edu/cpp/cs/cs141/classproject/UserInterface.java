@@ -39,6 +39,7 @@ public class UserInterface {
 			case 3:
 				quit = true;
 				System.out.println("GAME QUIT");
+				endGame();
 				break;
 			case 4: 
 				gameLoaded = true;
@@ -79,7 +80,7 @@ public class UserInterface {
 	 */
 	public void menuSelection() {
 		int option;
-		System.out.println("Select an option:\n\t1. Continue Moving.\n\t2. Shoot.\n\t3. Look.\n\t4. Save Game.");
+		System.out.println("Select an option:\n\t1. Continue Moving.\n\t2. Shoot.\n\t3. Look.\n\t4. Save Game.\n\t5. Quit Game.");
 
 		option = userinput.nextInt();
 		userinput.nextLine();
@@ -89,7 +90,7 @@ public class UserInterface {
 			break;
 		case 2:
 			System.out.println("Enter a Direction to SHOOT: 1- UP | 2- DOWN | 3- RIGHT | 4- LEFT");
-			gameEngine.shoot(userinput.nextInt());
+			gameEngine.playerShoot(userinput.nextInt());
 			break;
 		case 3:
 			System.out.println("Enter a Direction to LOOK: 1- UP | 2- DOWN | 3- RIGHT | 4- LEFT");
@@ -101,6 +102,9 @@ public class UserInterface {
 			gs = new GameSave(gameEngine);
 			gs.saveGame(saveName);
 			System.out.println("Game has been saved! \nThe save state is called " + saveName);
+		case 5:
+			endGame();
+			break;
 		}
 	}
 
@@ -154,16 +158,16 @@ public class UserInterface {
 		int direction = userinput.nextInt();
 		switch (direction) {
 		case 1:
-			gameEngine.movePlayer(-1, 0);
+			gameEngine.takeTurn(-1, 0);
 			break;
 		case 2:
-			gameEngine.movePlayer(1, 0);
+			gameEngine.takeTurn(1, 0);
 			break;
 		case 3:
-			gameEngine.movePlayer(0, 1);
+			gameEngine.takeTurn(0, 1);
 			break;
 		case 4:
-			gameEngine.movePlayer(0, -1);
+			gameEngine.takeTurn(0, -1);
 			break;
 		case 5:
 			menuSelection();
@@ -173,9 +177,12 @@ public class UserInterface {
 			break;
 		case 42:
 			gameEngine.showAll();
+			gameEngine.setDebugMode(true);
 			break;
 		case 24:
 			gameEngine.hideAll();
+			gameEngine.setDebugMode(false);
+			gameEngine.vision();
 			break;
 		default:
 			System.out.println("Invalid option. Try again...");

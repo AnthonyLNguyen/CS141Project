@@ -15,6 +15,9 @@ public class Game implements Serializable {
 	private int amountNinjas = 6;
 	private Ninja[] ninjas = new Ninja[amountNinjas];
 	private int imoves = 0;
+	private int moveLooked = -1;
+	private boolean debugMode = false;
+
 	/**
 	 * The amount of moves steps in the game. Used to keep of duration of
 	 * powerups.
@@ -22,31 +25,35 @@ public class Game implements Serializable {
 	private int moveCount = 0;
 
 	/**
-	 * Moves the character
+	 * Manages all of the conditions that can happen in a turn.
 	 * 
 	 * @param row
 	 * @param col
 	 */
-	public void movePlayer(int row, int col) {
+	public void takeTurn(int row, int col) {
 		int newRow = player.getRow() + row;
 		int newCol = player.getCol() + col;
 		if (newRow <= 8 && newCol <= 8 && newRow >= 0 && newCol >= 0) {
-
-			if (player.isInvincible()) {
-				System.out.println("Player invincible for " + (5 - imoves) + " more turns.");
-				imoves++;
-				if (5 < imoves) {
-					player.setInvincible(false);
-					System.out.println("No Longer invincible");
+			boolean playerCanMove = true;
+			if (!debugMode)
+				if (player.isInvincible()) {
+					System.out.println("Player invincible for " + (5 - imoves) + " more turns.");
+					imoves++;
+					if (5 < imoves) {
+						player.setInvincible(false);
+						System.out.println("No Longer invincible");
+					}
 				}
-			}
 
 			int collisionType = gameMap.playerCollision(newRow, newCol);
 			switch (collisionType) {
 			case 1:
-				if (player.isInvincible()) {
+				if (!player.isInvincible()) {
 					killPlayer();
-				}
+					System.out.println("You ran into the Ninja idiot!");
+					playerCanMove = false;
+				} else
+					playerCanMove = false;
 				break;
 			case 2:
 				System.out.println("POWER UP!");
@@ -79,18 +86,33 @@ public class Game implements Serializable {
 			}
 
 			if (collisionType != 3) {
-				gameMap.moveObject(player.getRow(), player.getCol(), newRow, newCol);
-				player.setCol(newCol);
-				player.setRow(newRow);
-				moveNinjas();
-				vision();
+				if (playerCanMove)
+					movePlayer(row, col);
 				if (gameMap.playerNextToNinja(player) && !player.isInvincible())
 					killPlayer();
+				else
+					moveNinjas();
+				vision();
 			}
 			moveCount++;
 		} else {
 			System.out.println("Cannot move");
 		}
+	}
+
+	/**
+	 * Moves the character
+	 * 
+	 * @param row
+	 * @param col
+	 */
+	public void movePlayer(int row, int col) {
+		int newRow = player.getRow() + row;
+		int newCol = player.getCol() + col;
+		gameMap.moveObject(player.getRow(), player.getCol(), newRow, newCol);
+		player.setCol(newCol);
+		player.setRow(newRow);
+		vision();
 	}
 
 	/**
@@ -146,6 +168,8 @@ public class Game implements Serializable {
 				break;
 			}
 		}
+		if (debugMode)
+			showAll();
 	}
 
 	public Game() {
@@ -161,71 +185,80 @@ public class Game implements Serializable {
 	 * Uses the look ability
 	 */
 	public void playerLook(int dir) {
-		int row = player.getRow();
-		int col = player.getCol();
-		boolean lookTraveled = false;
-		Boolean ninjaAhead = false;
-		switch (dir) {
-		case 1:
-			while (!lookTraveled) {
-				for (int i = row; i > 0; i--) {
-					if (gameMap.getObject(i, col) instanceof Ninja) {
-						gameMap.revealObject(i, col);
-						ninjaAhead = true;
-						lookTraveled = true;
+		if (moveLooked != moveCount)
+			moveLooked = moveCount;
+		if (moveLooked == moveCount) {
+			int row = player.getRow();
+			int col = player.getCol();
+			boolean lookTraveled = false;
+			Boolean ninjaAhead = false;
+			switch (dir) {
+			case 1:
+				while (!lookTraveled) {
+					for (int i = row; i > 0; i--) {
+						if (gameMap.getObject(i, col) instanceof Ninja) {
+							gameMap.revealObject(i, col);
+							ninjaAhead = true;
+							lookTraveled = true;
+						}
 					}
+					lookTraveled = true;
 				}
-				lookTraveled = true;
-			}
-			break;
-		case 2:
-			while (!lookTraveled) {
-				for (int i = row; i < 8; i++) {
-					if (gameMap.getObject(i, col) instanceof Ninja) {
-						gameMap.revealObject(i, col);
-						ninjaAhead = true;
-						lookTraveled = true;
+				break;
+			case 2:
+				while (!lookTraveled) {
+					for (int i = row; i < 8; i++) {
+						if (gameMap.getObject(i, col) instanceof Ninja) {
+							gameMap.revealObject(i, col);
+							ninjaAhead = true;
+							lookTraveled = true;
+						}
 					}
+					lookTraveled = true;
 				}
-				lookTraveled = true;
-			}
-			break;
-		case 3:
-			while (!lookTraveled) {
-				for (int i = col; i < 8; i++) {
-					if (gameMap.getObject(row, i) instanceof Ninja) {
-						gameMap.revealObject(row, i);
-						ninjaAhead = true;
-						lookTraveled = true;
+				break;
+			case 3:
+				while (!lookTraveled) {
+					for (int i = col; i < 8; i++) {
+						if (gameMap.getObject(row, i) instanceof Ninja) {
+							gameMap.revealObject(row, i);
+							ninjaAhead = true;
+							lookTraveled = true;
+						}
 					}
+					lookTraveled = true;
 				}
-				lookTraveled = true;
-			}
-			break;
-		case 4:
-			while (!lookTraveled) {
-				for (int i = col; i > 0; i--) {
-					if (gameMap.getObject(row, i) instanceof Ninja) {
-						gameMap.revealObject(row, i);
-						ninjaAhead = true;
-						lookTraveled = true;
-					} 
+				break;
+			case 4:
+				while (!lookTraveled) {
+					for (int i = col; i > 0; i--) {
+						if (gameMap.getObject(row, i) instanceof Ninja) {
+							gameMap.revealObject(row, i);
+							ninjaAhead = true;
+							lookTraveled = true;
+						}
+					}
+					lookTraveled = true;
 				}
-				lookTraveled = true;
+				break;
 			}
-			break;
+			if (ninjaAhead)
+				System.out.println("Ninja ahead!");
+			else
+				System.out.println("All clear!");
 		}
-		if (ninjaAhead)
-			System.out.println("Ninja ahead!");
-		else
-			System.out.println("All clear!");
 	}
 
+	/**
+	 * Creates a field of vision around the player
+	 */
 	public void vision() {
 		int row = player.getRow();
 		int col = player.getCol();
 		boolean[] block = { false, false, false, false };
-		hideAll();
+		if (!debugMode) {
+			hideAll();
+		}
 		boolean[] isEmpty = gameMap.playerVision(player);
 
 		if (!(isEmpty[0] || row + 1 > 8)) {
@@ -319,10 +352,12 @@ public class Game implements Serializable {
 
 	public void showAll() {
 		gameMap.revealAll();
+		debugMode = true;
 	}
 
 	public void hideAll() {
 		gameMap.unrevealAll();
+		debugMode = false;
 	}
 
 	/**
@@ -330,12 +365,13 @@ public class Game implements Serializable {
 	 * is greater than 0. Then subtracts it by one. Removes an assassin from the
 	 * map if there is one in front of the player.
 	 */
-	public void shoot(int dir) {
+	public void playerShoot(int dir) {
 		int row = player.getRow();
 		int col = player.getCol();
 		boolean bulletTraveled = false;
 		if (player.getNumBullets() > 0) {
-			player.setNumBullets(player.getNumBullets() - 1);
+			if (!debugMode)
+				player.setNumBullets(player.getNumBullets() - 1);
 			Ninja n = null;
 			switch (dir) {
 			case 2:
@@ -385,8 +421,10 @@ public class Game implements Serializable {
 			}
 			if (n == null)
 				System.out.println("You missed. Work on your aim.");
-			else
+			else {
 				System.out.println("You hit someone! Ninja killed.");
+				vision();
+			}
 		} else
 			System.out.println("No Bullets");
 	}
@@ -417,5 +455,9 @@ public class Game implements Serializable {
 
 	public Map getMap() {
 		return gameMap;
+	}
+
+	public void setDebugMode(boolean debugMode) {
+		this.debugMode = debugMode;
 	}
 }

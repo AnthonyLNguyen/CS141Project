@@ -14,6 +14,7 @@ public class Player implements Serializable{
 		col = 0;
 		numBullets = 1;
 		numLives = 3;
+		isInvincible = false;
 	}
 
 	public boolean isInvincible() {
