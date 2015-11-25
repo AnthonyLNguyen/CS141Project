@@ -391,7 +391,7 @@ public class Game implements Serializable {
 			switch (dir) {
 			case 1:
 				while (!bulletTraveled) {
-					for (int i = row; i > 0; i--) {
+					for (int i = row; i >= 0; i--) {
 						if (gameMap.getObject(i, col) instanceof Ninja) {
 							n = (Ninja) gameMap.removeObject(i, col);
 							bulletTraveled = true;
@@ -402,7 +402,7 @@ public class Game implements Serializable {
 				break;
 			case 2:
 				while (!bulletTraveled) {
-					for (int i = row; i < 8; i++) {
+					for (int i = row; i <= 8; i++) {
 						if (gameMap.getObject(i, col) instanceof Ninja) {
 							n = (Ninja) gameMap.removeObject(i, col);
 							bulletTraveled = true;
@@ -413,7 +413,7 @@ public class Game implements Serializable {
 				break;
 			case 3:
 				while (!bulletTraveled) {
-					for (int i = col; i < 8; i++) {
+					for (int i = col; i <= 8; i++) {
 						if (gameMap.getObject(row, i) instanceof Ninja) {
 							n = (Ninja) gameMap.removeObject(row, i);
 							bulletTraveled = true;
@@ -424,7 +424,7 @@ public class Game implements Serializable {
 				break;
 			case 4:
 				while (!bulletTraveled) {
-					for (int i = col; i > 0; i--) {
+					for (int i = col; i >= 0; i--) {
 						if (gameMap.getObject(row, i) instanceof Ninja) {
 							n = (Ninja) gameMap.removeObject(row, i);
 							bulletTraveled = true;
