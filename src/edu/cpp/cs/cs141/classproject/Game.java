@@ -366,6 +366,10 @@ public class Game implements Serializable {
 		debugMode = true;
 		player.setInvincible(true);
 	}
+	
+	public int getNumNinjas(){
+		return ninjas.size();
+	}
 
 	public void hideAll() {
 		gameMap.unrevealAll();
