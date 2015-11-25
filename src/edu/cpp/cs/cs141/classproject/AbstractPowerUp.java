@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public abstract class AbstractPowerUp implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -955456142852573299L;
 	protected boolean isHidden = true;
 	/**
 	 * This method is an abstract method that will produce the desired effect on
