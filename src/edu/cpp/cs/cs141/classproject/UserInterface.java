@@ -1,5 +1,10 @@
 package edu.cpp.cs.cs141.classproject;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -128,7 +133,7 @@ public class UserInterface {
 	 * Prompts the user for a command
 	 */
 	public void playerMove() {
-		System.out.println("Enter a Command: 1- MOVE UP | 2- MOVE DOWN | 3- MOVE RIGHT | 4- MOVE LEFT | 5- MENU | 6- HELP");
+		System.out.println("Enter a Command: 1- MOVE UP | 2- MOVE DOWN | 3- MOVE RIGHT | 4- MOVE LEFT | 5- MENU | 6- HELP | 7- SAVE | 8- LOAD");
 		int direction = userinput.nextInt();
 		switch (direction) {
 		case 1:
@@ -149,6 +154,13 @@ public class UserInterface {
 		case 6:
 			help();
 			break;
+		case 7:
+			saveGame(null);
+			System.out.println("Game has been saved!");
+			break;
+		case 8:
+			loadGame(null);
+			break;
 		case 42:
 			gameEngine.showAll();
 			break;
@@ -160,4 +172,35 @@ public class UserInterface {
 			break;
 		}
 	}
+	
+	public static void saveGame (GameSave s){
+		try{
+			FileOutputStream fos = new FileOutputStream("game.dat");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			
+			s.setLocation(null);
+			s.setNinja(null);
+			s.setPlaces(null);
+			s.setPlayer(null);
+			oos.writeObject(s);
+			
+			oos.close();
+		} catch (IOException e){
+			e.printStackTrace();			
+		}
+	}
+	
+	public void loadGame(Object save) {
+		try{
+			FileInputStream fis = new FileInputStream("game.dat");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			
+			save = (Object) ois.readObject();
+			
+			ois.close();
+		} catch(IOException | ClassNotFoundException e){
+			e.printStackTrace();
+		}
+		
+}
 }
