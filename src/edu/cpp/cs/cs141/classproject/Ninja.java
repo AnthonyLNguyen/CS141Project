@@ -1,6 +1,8 @@
 package edu.cpp.cs.cs141.classproject;
 
-public class Ninja {
+import java.io.Serializable;
+
+public class Ninja implements Serializable{
 	private int row;
 	private int col;
 

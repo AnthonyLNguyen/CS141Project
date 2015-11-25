@@ -1,8 +1,9 @@
 package edu.cpp.cs.cs141.classproject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Map {
+public class Map implements Serializable{
 
 	public static final int GRID_SIZE = 9;
 

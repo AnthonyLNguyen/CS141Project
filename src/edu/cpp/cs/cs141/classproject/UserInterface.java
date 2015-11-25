@@ -9,7 +9,9 @@ import java.util.Scanner;
 
 public class UserInterface {
 	private Game gameEngine;
+	private GameSave gs;
 	private Scanner userinput;
+	private boolean gameLoaded = false;
 
 	public UserInterface(Game gameEngine) {
 		this.gameEngine = gameEngine;
@@ -37,6 +39,15 @@ public class UserInterface {
 			case 3:
 				quit = true;
 				System.out.println("GAME QUIT");
+				break;
+			case 4: 
+				gameLoaded = true;
+				System.out.println("What is the name of the save you would like to load? (Don't include extention)");
+				String saveName = userinput.next();
+				gs = new GameSave();
+				gameEngine = gs.loadGame(saveName);
+				playGame();
+				endGame();
 				break;
 			default:
 				System.out.println("Invalid option. Try again...");
@@ -68,7 +79,7 @@ public class UserInterface {
 	 */
 	public void menuSelection() {
 		int option;
-		System.out.println("Select an option:\n" + "\t1. Continue Moving.\n" + "\t2. Shoot.\n" + "\t3. Look.");
+		System.out.println("Select an option:\n\t1. Continue Moving.\n\t2. Shoot.\n\t3. Look.\n\t4. Save Game.");
 
 		option = userinput.nextInt();
 		userinput.nextLine();
@@ -84,8 +95,13 @@ public class UserInterface {
 			System.out.println("Enter a Direction to LOOK: 1- UP | 2- DOWN | 3- RIGHT | 4- LEFT");
 			gameEngine.playerLook(userinput.nextInt());
 			break;
+		case 4:
+			System.out.println("Enter a name for the save file");
+			String saveName = userinput.next();
+			gs = new GameSave(gameEngine);
+			gs.saveGame(saveName);
+			System.out.println("Game has been saved! \nThe save state is called " + saveName);
 		}
-
 	}
 
 	/**
@@ -104,7 +120,7 @@ public class UserInterface {
 	 */
 	private int mainMenu() {
 		int option;
-		System.out.println("Select an option:\n" + "\t1. Start New Game.\n" + "\t2. Help.\n" + "\t3. Quit.");
+		System.out.println("Select an option:\n\t1. Start New Game.\n\t2. Help.\n\t3. Quit.\n\t4. Load Game.");
 
 		option = userinput.nextInt();
 		userinput.nextLine();
@@ -118,7 +134,8 @@ public class UserInterface {
 	 * returns that it is finished.
 	 */
 	public void playGame() {
-		gameEngine.generateMap();
+		if (!gameLoaded)
+			gameEngine.generateMap();
 		gameEngine.vision();
 		while(!gameEngine.isFinished()){
 			System.out.println( "\n"+ gameEngine.getMap().toString());
@@ -133,7 +150,7 @@ public class UserInterface {
 	 * Prompts the user for a command
 	 */
 	public void playerMove() {
-		System.out.println("Enter a Command: 1- MOVE UP | 2- MOVE DOWN | 3- MOVE RIGHT | 4- MOVE LEFT | 5- MENU | 6- HELP | 7- SAVE | 8- LOAD");
+		System.out.println("Enter a Command: 1- MOVE UP | 2- MOVE DOWN | 3- MOVE RIGHT | 4- MOVE LEFT | 5- MENU | 6- HELP");
 		int direction = userinput.nextInt();
 		switch (direction) {
 		case 1:
@@ -154,13 +171,6 @@ public class UserInterface {
 		case 6:
 			help();
 			break;
-		case 7:
-			saveGame(null);
-			System.out.println("Game has been saved!");
-			break;
-		case 8:
-			loadGame(null);
-			break;
 		case 42:
 			gameEngine.showAll();
 			break;
@@ -172,35 +182,4 @@ public class UserInterface {
 			break;
 		}
 	}
-	
-	public static void saveGame (GameSave s){
-		try{
-			FileOutputStream fos = new FileOutputStream("game.dat");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			
-			s.setLocation(null);
-			s.setNinja(null);
-			s.setPlaces(null);
-			s.setPlayer(null);
-			oos.writeObject(s);
-			
-			oos.close();
-		} catch (IOException e){
-			e.printStackTrace();			
-		}
-	}
-	
-	public void loadGame(Object save) {
-		try{
-			FileInputStream fis = new FileInputStream("game.dat");
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			
-			save = (Object) ois.readObject();
-			
-			ois.close();
-		} catch(IOException | ClassNotFoundException e){
-			e.printStackTrace();
-		}
-		
-}
 }

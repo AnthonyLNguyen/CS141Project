@@ -1,55 +1,55 @@
 package edu.cpp.cs.cs141.classproject;
 
-import java.io.Serializable;
+import java.io.*;
 
 public class GameSave implements Serializable{
 
-	private Map location;
-	private Map places;
-	private Map ninja;
-	private Game game;
-	private Player player;
+	Game gameState;
+	
+	public GameSave (){
+		gameState = null;
+	}
+	public GameSave(Game g) {
+		setGameState(g);
+	}
+	
+	public void setGameState (Game g) {
+		gameState = g;
+	}
+	
+	public void saveGame(String gameStateName){
+		FileOutputStream fos;
+		try {
+			fos = new FileOutputStream(gameStateName + ".dat");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject((Object) gameState);
+			fos.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public Game loadGame(String gameStateName) {
+		FileInputStream fis;
+		try {
+			fis = new FileInputStream(gameStateName + ".dat");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			gameState = (Game) ois.readObject();
+			fis.close();
+		} catch (IOException e) {
+			System.out.println("That file doesn't exist!");
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return gameState;
+	}
 	
 	
 	
-	public Map getLocation() {
-		return location;
-	}
+	
 
-	public void setLocation(Map location) {
-		this.location = location;
-	}
-
-	public Map getPlaces() {
-		return places;
-	}
-
-	public void setPlaces(Map places) {
-		this.places = places;
-	}
-
-	public Map getNinja() {
-		return ninja;
-	}
-
-	public void setNinja(Map ninja) {
-		this.ninja = ninja;
-	}
-
-	public Game getGame() {
-		return game;
-	}
-
-	public void setGame(Game game) {
-		this.game = game;
-	}
-
-	public Player getPlayer() {
-		return player;
-	}
-
-	public void setPlayer(Player player) {
-		this.player = player;
-	} 
 	
 }

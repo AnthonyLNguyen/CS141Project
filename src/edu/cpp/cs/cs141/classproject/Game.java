@@ -3,9 +3,10 @@
  */
 package edu.cpp.cs.cs141.classproject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Game {
+public class Game implements Serializable {
 	private Map gameMap;
 	private boolean isFinished;
 	private boolean win;

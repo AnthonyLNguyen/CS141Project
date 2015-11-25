@@ -1,6 +1,8 @@
 package edu.cpp.cs.cs141.classproject;
 
-public class EmptySpace {
+import java.io.Serializable;
+
+public class EmptySpace implements Serializable{
 	
 	private boolean isHidden = true;
 	

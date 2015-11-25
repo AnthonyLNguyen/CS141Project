@@ -1,6 +1,8 @@
 package edu.cpp.cs.cs141.classproject;
 
-public class Room {
+import java.io.Serializable;
+
+public class Room implements Serializable{
 	private boolean hasDocument;
 	private boolean isHidden = true;
 	private boolean isActivated = false;

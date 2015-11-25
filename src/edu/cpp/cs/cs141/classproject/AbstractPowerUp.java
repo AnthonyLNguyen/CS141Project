@@ -1,6 +1,8 @@
 package edu.cpp.cs.cs141.classproject;
 
-public abstract class AbstractPowerUp {
+import java.io.Serializable;
+
+public abstract class AbstractPowerUp implements Serializable{
 
 	protected boolean isHidden = true;
 	/**

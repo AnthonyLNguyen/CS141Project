@@ -1,6 +1,8 @@
 package edu.cpp.cs.cs141.classproject;
 
-public class Bullet extends AbstractPowerUp {
+import java.io.Serializable;
+
+public class Bullet extends AbstractPowerUp implements Serializable{
 	public void effect(Player p) {
 
 	}

@@ -1,6 +1,8 @@
 package edu.cpp.cs.cs141.classproject;
 
-public class Radar extends AbstractPowerUp {
+import java.io.Serializable;
+
+public class Radar extends AbstractPowerUp implements Serializable{
 	public void effect(Player p) {
 
 	}
