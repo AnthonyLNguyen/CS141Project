@@ -73,6 +73,12 @@ public class UserInterface {
 	
 	
 	public void help() {
+		System.out.println("=======RULES========\n"
+				+ "The game is played on a 9x9 board.\n"
+				+ "The building is pitch black.\n"
+				+ "Every level will increase the number of ninjas roaming around.\n"
+				+ "The goal is find which room contains the briefcase. Rooms can only be entered from the top.\n"
+				+ "You are given one bullet per game plus a bullet is spawned randomly on the floor.\n\n");
 		System.out.println("=======SYMBOLS======\n"
 				+ "[ ]: Light\n"
 				+ "[*]: Darkness\n"
