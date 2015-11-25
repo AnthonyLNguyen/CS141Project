@@ -398,6 +398,7 @@ public class Game implements Serializable {
 						if (gameMap.getObject(i, col) instanceof Ninja) {
 							n = (Ninja) gameMap.removeObject(i, col);
 							bulletTraveled = true;
+							break;
 						}
 					}
 					bulletTraveled = true;
@@ -409,6 +410,7 @@ public class Game implements Serializable {
 						if (gameMap.getObject(i, col) instanceof Ninja) {
 							n = (Ninja) gameMap.removeObject(i, col);
 							bulletTraveled = true;
+							break;
 						}
 					}
 					bulletTraveled = true;
@@ -420,6 +422,7 @@ public class Game implements Serializable {
 						if (gameMap.getObject(row, i) instanceof Ninja) {
 							n = (Ninja) gameMap.removeObject(row, i);
 							bulletTraveled = true;
+							break;
 						}
 					}
 					bulletTraveled = true;
@@ -431,6 +434,7 @@ public class Game implements Serializable {
 						if (gameMap.getObject(row, i) instanceof Ninja) {
 							n = (Ninja) gameMap.removeObject(row, i);
 							bulletTraveled = true;
+							break;
 						}
 					}
 					bulletTraveled = true;
