@@ -50,7 +50,6 @@ public class Game implements Serializable {
 			case 1:
 				if (!player.isInvincible()) {
 					killPlayer();
-					System.out.println("You ran into the Ninja idiot!");
 					playerCanMove = false;
 				} else
 					playerCanMove = false;

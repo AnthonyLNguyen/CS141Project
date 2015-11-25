@@ -103,10 +103,12 @@ public class UserInterface {
 		case 2:
 			System.out.println("Enter a Direction to SHOOT: 1- UP | 2- DOWN | 3- RIGHT | 4- LEFT");
 			gameEngine.playerShoot(userinput.nextInt());
+			userinput.nextLine();
 			break;
 		case 3:
 			System.out.println("Enter a Direction to LOOK: 1- UP | 2- DOWN | 3- RIGHT | 4- LEFT");
 			gameEngine.playerLook(userinput.nextInt());
+			userinput.nextLine();
 			break;
 		case 4:
 			System.out.println("Enter a name for the save file");
