@@ -166,7 +166,7 @@ public class UserInterface {
 	 */
 	public void playGame() {
 		System.out.println("LEVEL "  + (gameEngine.getAmountNinjas()-5) + " START\n"
-				+ "There are " + gameEngine.getNumNinjas() + " ninjas lurking around!");
+				+ "There are " + gameEngine.getAmountNinjas() + " ninjas lurking around!");
 		if (!gameLoaded)
 			gameEngine.generateMap();
 		gameEngine.vision();

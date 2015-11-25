@@ -25,7 +25,6 @@ public class GameSave implements Serializable{
 			oos.writeObject((Object) gameState);
 			fos.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
