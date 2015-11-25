@@ -157,7 +157,7 @@ public class UserInterface {
 		userinput.nextLine();
 
 		return option;
-	}
+	} 
 
 	/**
 	 * Prints the game map and prompts the user for input on what moves he/she
