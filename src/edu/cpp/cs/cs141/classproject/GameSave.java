@@ -4,6 +4,10 @@ import java.io.*;
 
 public class GameSave implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7878985696393205471L;
 	Game gameState;
 	
 	public GameSave (){

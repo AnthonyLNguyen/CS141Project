@@ -3,6 +3,11 @@ package edu.cpp.cs.cs141.classproject;
 import java.io.Serializable;
 
 public class Ninja implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3679170084911816367L;
 	private int row;
 	private int col;
 

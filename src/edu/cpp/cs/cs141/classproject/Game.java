@@ -8,6 +8,10 @@ import java.util.ArrayList;
 
 public class Game implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9159641963363214314L;
 	private Map gameMap;
 	private boolean isFinished;
 	private boolean loss = false;
@@ -369,7 +373,12 @@ public class Game implements Serializable {
 	}
 	
 	public int getNumNinjas(){
-		return ninjas.size();
+		int numNin = 0;
+		for (int i = 0; i < 9; i++)
+			for (int j = 0; j < 9; j++)
+				if (gameMap.getObject(i, j) instanceof Ninja)
+					++numNin;
+		return numNin;
 	}
 
 	public void hideAll() {

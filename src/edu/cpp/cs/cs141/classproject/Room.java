@@ -3,6 +3,10 @@ package edu.cpp.cs.cs141.classproject;
 import java.io.Serializable;
 
 public class Room implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2139832455059644701L;
 	private boolean hasDocument;
 	private boolean isHidden = true;
 	private boolean isActivated = false;
