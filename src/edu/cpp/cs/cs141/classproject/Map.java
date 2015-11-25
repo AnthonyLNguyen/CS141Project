@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Map implements Serializable{
-
 	public static final int GRID_SIZE = 9;
 
 	private Object[][] grid = new Object[GRID_SIZE][GRID_SIZE];

@@ -3,7 +3,7 @@ package edu.cpp.cs.cs141.classproject;
 import java.io.*;
 
 public class GameSave implements Serializable{
-
+	
 	Game gameState;
 	
 	public GameSave (){

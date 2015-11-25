@@ -3,6 +3,7 @@ package edu.cpp.cs.cs141.classproject;
 import java.io.Serializable;
 
 public class Player implements Serializable{
+
 	private int numBullets;
 	private int numLives;
 	private int row;
