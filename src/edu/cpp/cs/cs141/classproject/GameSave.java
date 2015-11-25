@@ -39,10 +39,8 @@ public class GameSave implements Serializable{
 			fis.close();
 		} catch (IOException e) {
 			System.out.println("That file doesn't exist!");
-			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Something horribly went wrong.");
 		}
 		return gameState;
 	}
