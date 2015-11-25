@@ -43,7 +43,7 @@ public class Tests {
 	}
 	
 	public static void testGenerateMap(){
-		Game g = new Game();
+		Game g = new Game(6);
 		UserInterface u = new UserInterface(g);
 		g.generateMap();
 		System.out.println("Hidden \n" + g.getMap().toString());
@@ -56,7 +56,7 @@ public class Tests {
 	}
 	
 	public static void testNinjaMove(){
-		Game g = new Game();
+		Game g = new Game(6);
 		g.generateMap();
 		for (int i = 0; i < 5; i++)
 			g.moveNinjas();

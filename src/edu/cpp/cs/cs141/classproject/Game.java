@@ -9,11 +9,11 @@ import java.util.ArrayList;
 public class Game implements Serializable {
 	private Map gameMap;
 	private boolean isFinished;
-	private boolean win;
+	private boolean loss = false;
 	private ArrayList<Object> entities = new ArrayList<Object>();
 	private Player player = new Player();
-	private int amountNinjas = 6;
-	private Ninja[] ninjas = new Ninja[amountNinjas];
+	private int amountNinjas;
+	private ArrayList<Ninja> ninjas = new ArrayList<Ninja>();
 	private int imoves = 0;
 	private int moveLooked = -1;
 	private boolean debugMode = false;
@@ -123,6 +123,8 @@ public class Game implements Serializable {
 		System.out.println("\n" + getMap().toString());
 
 		player.setNumLives(player.getNumLives() - 1);
+		if (player.getNumLives() == 0)
+			loss = true;
 		gameMap.moveObject(player.getRow(), player.getCol(), 8, 0);
 		player.setCol(0);
 		player.setRow(8);
@@ -172,22 +174,32 @@ public class Game implements Serializable {
 			showAll();
 	}
 
-	public Game() {
+	public Game(int ninjas) {
 		gameMap = new Map();
+		amountNinjas = ninjas;
 	}
 
 	public void stats() {
 		System.out.println("Moves:" + moveCount + "\n" + "Ammo:" + player.getNumBullets() + "\n" + "Lives:"
-				+ player.getNumLives());
+				+ player.getNumLives() + "\n" + "Level:" + (amountNinjas - 5));
+	}
+
+	public int getAmountNinjas() {
+		return amountNinjas;
 	}
 
 	/**
 	 * Uses the look ability
 	 */
 	public void playerLook(int dir) {
+		boolean used = false;
+		if (moveLooked == moveCount){
+			System.out.println("You can only use this ability once per turn.");
+			used = true;
+		}
 		if (moveLooked != moveCount)
 			moveLooked = moveCount;
-		if (moveLooked == moveCount) {
+		if (!used) {
 			int row = player.getRow();
 			int col = player.getCol();
 			boolean lookTraveled = false;
@@ -246,7 +258,7 @@ public class Game implements Serializable {
 				System.out.println("Ninja ahead!");
 			else
 				System.out.println("All clear!");
-		}
+		} 
 	}
 
 	/**
@@ -338,8 +350,8 @@ public class Game implements Serializable {
 		// Ninjas
 		// 6 ninjas
 		for (int i = 0; i < amountNinjas; i++) {
-			ninjas[i] = new Ninja();
-			entities.add(ninjas[i]);
+			ninjas.add(new Ninja());
+			entities.add(ninjas.get(i));
 		}
 
 		// Powerups
@@ -353,10 +365,13 @@ public class Game implements Serializable {
 	public void showAll() {
 		gameMap.revealAll();
 		debugMode = true;
+		player.setInvincible(true);
 	}
 
 	public void hideAll() {
 		gameMap.unrevealAll();
+		if (debugMode)
+			player.setInvincible(false);
 		debugMode = false;
 	}
 
@@ -374,7 +389,7 @@ public class Game implements Serializable {
 				player.setNumBullets(player.getNumBullets() - 1);
 			Ninja n = null;
 			switch (dir) {
-			case 2:
+			case 1:
 				while (!bulletTraveled) {
 					for (int i = row; i > 0; i--) {
 						if (gameMap.getObject(i, col) instanceof Ninja) {
@@ -385,7 +400,7 @@ public class Game implements Serializable {
 					bulletTraveled = true;
 				}
 				break;
-			case 1:
+			case 2:
 				while (!bulletTraveled) {
 					for (int i = row; i < 8; i++) {
 						if (gameMap.getObject(i, col) instanceof Ninja) {
@@ -424,33 +439,15 @@ public class Game implements Serializable {
 			else {
 				System.out.println("You hit someone! Ninja killed.");
 				vision();
+				if (debugMode)
+					showAll();
 			}
 		} else
 			System.out.println("No Bullets");
 	}
 
-	/**
-	 * @return An integer that will be put into a switch that will determine the
-	 *         correct UI output for the given case.
-	 */
-	public int turn() {
-		return 0;
-	}
-
-	/**
-	 * Exports the save game state as a file in the workspace directory.
-	 */
-	public void saveGame() {
-	}
-
-	/**
-	 * Imports a save game state from a previously saved file in the workspace
-	 * directory.
-	 * 
-	 * @param file
-	 *            the name of the save file
-	 */
-	public void loadGame(String file) {
+	public boolean getLoss() {
+		return loss;
 	}
 
 	public Map getMap() {

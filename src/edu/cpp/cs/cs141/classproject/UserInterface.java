@@ -23,15 +23,18 @@ public class UserInterface {
 	 * prompts the user with {@link #mainMenu()}
 	 */
 	public void startGame() {
-		printWelcomeMessage();
-
+		int choice = 1;
+		if(gameEngine.getAmountNinjas() == 6){
+			printWelcomeMessage();
+			choice = mainMenu();
+		}
 		boolean quit = false;
 		while (!quit) {
 
-			switch (mainMenu()) {
+			switch (choice) {
 			case 1:
+				quit = true;
 				playGame();
-				endGame();
 				break;
 			case 2:
 				help();
@@ -47,8 +50,8 @@ public class UserInterface {
 				String saveName = userinput.next();
 				gs = new GameSave();
 				gameEngine = gs.loadGame(saveName);
+				quit = true;
 				playGame();
-				endGame();
 				break;
 			default:
 				System.out.println("Invalid option. Try again...");
@@ -58,10 +61,14 @@ public class UserInterface {
 	}
 
 	public void endGame(){
+		if (gameEngine.getLoss())
+			System.out.println("GAME OVER");
 		System.out.println("THANKS FOR PLAYING");
 		userinput.close();
 		System.exit(0);
 	}
+	
+	
 	public void help() {
 		System.out.println("=======SYMBOLS======\n"
 				+ "[ ]: Light\n"
@@ -78,9 +85,14 @@ public class UserInterface {
 	/**
 	 * @return The option chosen whether to start the game or quit.
 	 */
-	public void menuSelection() {
+	public void actionMenu() {
 		int option;
-		System.out.println("Select an option:\n\t1. Continue Moving.\n\t2. Shoot.\n\t3. Look.\n\t4. Save Game.\n\t5. Quit Game.");
+		System.out.println("Select an option:\n\t"
+				+ "1. Continue Moving.\n\t"
+				+ "2. Shoot.\n\t"
+				+ "3. Look.\n\t"
+				+ "4. Save and Quit Game.\n\t"
+				+ "5. Quit Game.");
 
 		option = userinput.nextInt();
 		userinput.nextLine();
@@ -124,7 +136,11 @@ public class UserInterface {
 	 */
 	private int mainMenu() {
 		int option;
-		System.out.println("Select an option:\n\t1. Start New Game.\n\t2. Help.\n\t3. Quit.\n\t4. Load Game.");
+		System.out.println("Select an option:\n\t"
+				+ "1. Start New Game.\n\t"
+				+ "2. Help.\n\t"
+				+ "3. Quit.\n\t"
+				+ "4. Load Game.");
 
 		option = userinput.nextInt();
 		userinput.nextLine();
@@ -138,6 +154,8 @@ public class UserInterface {
 	 * returns that it is finished.
 	 */
 	public void playGame() {
+		System.out.println("LEVEL "  + (gameEngine.getAmountNinjas()-5) + " START\n"
+				+ "There are " + gameEngine.getAmountNinjas() + " ninjas lurking around!");
 		if (!gameLoaded)
 			gameEngine.generateMap();
 		gameEngine.vision();
@@ -145,6 +163,8 @@ public class UserInterface {
 			System.out.println( "\n"+ gameEngine.getMap().toString());
 			gameEngine.stats();
 			playerMove();
+			if (gameEngine.getLoss())
+				endGame();
 		}
 	}
 
@@ -154,7 +174,7 @@ public class UserInterface {
 	 * Prompts the user for a command
 	 */
 	public void playerMove() {
-		System.out.println("Enter a Command: 1- MOVE UP | 2- MOVE DOWN | 3- MOVE RIGHT | 4- MOVE LEFT | 5- MENU | 6- HELP");
+		System.out.println("Enter a Command: 1- MOVE UP | 2- MOVE DOWN | 3- MOVE RIGHT | 4- MOVE LEFT | 5- ACTION MENU | 6- HELP");
 		int direction = userinput.nextInt();
 		switch (direction) {
 		case 1:
@@ -170,7 +190,7 @@ public class UserInterface {
 			gameEngine.takeTurn(0, -1);
 			break;
 		case 5:
-			menuSelection();
+			actionMenu();
 			break;
 		case 6:
 			help();
