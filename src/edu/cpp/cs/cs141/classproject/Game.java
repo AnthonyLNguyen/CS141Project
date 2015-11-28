@@ -75,10 +75,12 @@ public class Game implements Serializable {
 				if (gameMap.isPlayerAboveRoom(player) && gameMap.getObject(newRow, newCol) instanceof Room) {
 					if (((Room) gameMap.getObject(newRow, newCol)).getHasDocument()) {
 						System.out.println("You found the document. Whoopdie freakin do.");
+						((Room)gameMap.getObject(newRow, newCol)).setActivated(true);
 						isWon = true;
 						isFinished = true;
 					} else
 						System.out.println("The room is empty, but you are filled with determination.");
+						((Room)gameMap.getObject(newRow, newCol)).setActivated(true);
 				} else
 					System.out.println("CAN'T ENTER ROOM");
 				break;
@@ -398,7 +400,7 @@ public class Game implements Serializable {
 				player.setNumBullets(player.getNumBullets() - 1);
 			Ninja n = null;
 			switch (dir) {
-			case 1:
+			case 1://up
 				while (!bulletTraveled) {
 					for (int i = row; i >= 0; i--) {
 						if (gameMap.getObject(i, col) instanceof Room){
@@ -408,6 +410,7 @@ public class Game implements Serializable {
 						}
 						if (gameMap.getObject(i, col) instanceof Ninja) {
 							n = (Ninja) gameMap.removeObject(i, col);
+							gameMap.addObject(i, col, new EmptySpace());
 							bulletTraveled = true;
 							break;
 						}
@@ -415,7 +418,7 @@ public class Game implements Serializable {
 					bulletTraveled = true;
 				}
 				break;
-			case 2:
+			case 2://down
 				while (!bulletTraveled) {
 					for (int i = row; i <= 8; i++) {
 						if (gameMap.getObject(i, col) instanceof Room){
@@ -425,6 +428,7 @@ public class Game implements Serializable {
 						}
 						if (gameMap.getObject(i, col) instanceof Ninja) {
 							n = (Ninja) gameMap.removeObject(i, col);
+							gameMap.addObject(i, col, new EmptySpace());
 							bulletTraveled = true;
 							break;
 						}
@@ -432,7 +436,7 @@ public class Game implements Serializable {
 					bulletTraveled = true;
 				}
 				break;
-			case 3:
+			case 3://right
 				while (!bulletTraveled) {
 					for (int i = col; i <= 8; i++) {
 						if (gameMap.getObject(row, i) instanceof Room){
@@ -442,6 +446,7 @@ public class Game implements Serializable {
 						}
 						if (gameMap.getObject(row, i) instanceof Ninja) {
 							n = (Ninja) gameMap.removeObject(row, i);
+							gameMap.addObject(row, i, new EmptySpace());
 							bulletTraveled = true;
 							break;
 						}
@@ -449,7 +454,7 @@ public class Game implements Serializable {
 					bulletTraveled = true;
 				}
 				break;
-			case 4:
+			case 4://left
 				while (!bulletTraveled) {
 					for (int i = col; i >= 0; i--) {
 						if (gameMap.getObject(row, i) instanceof Room){
@@ -459,6 +464,7 @@ public class Game implements Serializable {
 						}
 						if (gameMap.getObject(row, i) instanceof Ninja) {
 							n = (Ninja) gameMap.removeObject(row, i);
+							gameMap.addObject(row, i, new EmptySpace());
 							bulletTraveled = true;
 							break;
 						}
@@ -470,6 +476,7 @@ public class Game implements Serializable {
 			if (n == null)
 				System.out.println("You missed. Work on your aim.");
 			else {
+				ninjas.remove(n);
 				System.out.println("You hit someone! Ninja killed.");
 				vision();
 				if (debugMode)

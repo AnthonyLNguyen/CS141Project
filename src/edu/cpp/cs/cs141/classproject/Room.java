@@ -34,6 +34,8 @@ public class Room implements Serializable{
 	public String toString() {
 		if (isActivated && hasDocument)
 			return "$";		
+		if (isActivated && !hasDocument)
+			return "X";
 		if (isHidden)
 			return "=";
 		else if (hasDocument)

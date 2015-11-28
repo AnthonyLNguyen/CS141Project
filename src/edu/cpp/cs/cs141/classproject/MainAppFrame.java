@@ -58,13 +58,6 @@ public class MainAppFrame extends JFrame {
 	private final JTextPane statsOutput = new JTextPane();
 	private final JLabel label = new JLabel("");
 	private java.awt.Image playerImg = new ImageIcon(this.getClass().getResource("/player.jpeg")).getImage();
-	private java.awt.Image ninjaImg = new ImageIcon(this.getClass().getResource("/ninja.png")).getImage();
-	private java.awt.Image darkImg = new ImageIcon(this.getClass().getResource("/smoke.png")).getImage();
-	private java.awt.Image roomImg = new ImageIcon(this.getClass().getResource("/door.png")).getImage();
-	private java.awt.Image docImg = new ImageIcon(this.getClass().getResource("/paper.png")).getImage();
-	private java.awt.Image bulletImg = new ImageIcon(this.getClass().getResource("/bullet.jpg")).getImage();
-	private java.awt.Image radarImg = new ImageIcon(this.getClass().getResource("/radar.gif")).getImage();
-	private java.awt.Image invImg = new ImageIcon(this.getClass().getResource("/inv.png")).getImage();
 	private final JScrollPane scrollPane = new JScrollPane();
 
 	/**
@@ -104,7 +97,7 @@ public class MainAppFrame extends JFrame {
 		redirectSystemStreams();
 		initGame();
 		gameEngine.vision();
-		table.setDefaultRenderer(String.class, new IconRenderer());
+		table.setDefaultRenderer(Object.class, new IconRenderer());
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 909, 706);
@@ -230,51 +223,6 @@ public class MainAppFrame extends JFrame {
 			rdbtnDebugMode.setSelected(false);
 		repaintAll();
 		gameEngine.vision();
-	}
-
-	public void updateIcon() {
-
-		ImageIcon playerIcon = new ImageIcon(playerImg);
-		ImageIcon ninjaIcon = new ImageIcon(ninjaImg);
-		ImageIcon roomIcon = new ImageIcon(roomImg);
-		ImageIcon docIcon = new ImageIcon(docImg);
-		ImageIcon darkIcon = new ImageIcon(darkImg);
-		ImageIcon bulletIcon = new ImageIcon(bulletImg);
-		ImageIcon radarIcon = new ImageIcon(radarImg);
-		ImageIcon invIcon = new ImageIcon(invImg);
-
-		for (int i = 0; i < 9; i++)
-			for (int j = 0; j < 9; j++) {
-				if ((String) table.getValueAt(i, j) == "P") {
-					table.setValueAt(playerIcon, i, j);
-					System.out.println("hi");
-				}
-				else if ((String) table.getValueAt(i, j) == "N") {
-					table.setValueAt(ninjaIcon, i, j);
-				}
-				else if ((String) table.getValueAt(i, j) == "R") {
-					table.setValueAt(roomIcon, i, j);
-				}
-				else if ((String) table.getValueAt(i, j) == " ") {
-					table.setValueAt(bulletIcon, i, j);
-				}
-				else if ((String) table.getValueAt(i, j) == "*") {
-					table.setValueAt(darkIcon, i, j);
-				}
-				else if ((String) table.getValueAt(i, j) == "$") {
-					table.setValueAt(docIcon, i, j);
-				}
-				else if ((String) table.getValueAt(i, j) == "B") {
-					table.setValueAt(bulletIcon, i, j);
-				}
-				else if ((String) table.getValueAt(i, j) == "R") {
-					table.setValueAt(radarIcon, i, j);
-				}
-				else if ((String) table.getValueAt(i, j) == "I") {
-					table.setValueAt(invIcon, i, j);
-				}
-
-			}
 	}
 
 	public void performAction(int row, int col, int dir) {
