@@ -119,7 +119,7 @@ public class Game implements Serializable {
 	 */
 	public void killPlayer() {
 		System.out.println("You were mortally stabbed!");
-		System.out.println("\n" + getMap().toString());
+		//System.out.println("\n" + getMap().toString());
 
 		player.setNumLives(player.getNumLives() - 1);
 		if (player.getNumLives() == 0)
@@ -178,9 +178,9 @@ public class Game implements Serializable {
 		amountNinjas = ninjas;
 	}
 
-	public void stats() {
-		System.out.println("Moves:" + moveCount + "\n" + "Ammo:" + player.getNumBullets() + "\n" + "Lives:"
-				+ player.getNumLives() + "\n" + "Level:" + (amountNinjas - 5));
+	public String stats() {
+		return "Moves:" + moveCount + "\n" + "Ammo:" + player.getNumBullets() + "\n" + "Lives:"
+				+ player.getNumLives() + "\n" + "Level:" + (amountNinjas - 5);
 	}
 
 	public int getAmountNinjas() {
@@ -359,6 +359,10 @@ public class Game implements Serializable {
 		entities.add(new Radar());
 
 		gameMap.randomlyAddObjects(entities);
+	}
+
+	public Map getGameMap() {
+		return gameMap;
 	}
 
 	public void showAll() {

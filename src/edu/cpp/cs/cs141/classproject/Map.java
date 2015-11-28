@@ -24,6 +24,17 @@ public class Map implements Serializable{
 		}
 		return result;
 	}
+	
+	public String[][] toGUI(){
+		String[][] array = new String[GRID_SIZE][GRID_SIZE];
+		for (int i = 0; i < GRID_SIZE; i++) {
+			for (int j = 0; j < GRID_SIZE; j++) {
+				array[i][j] = grid[i][j].toString();
+			}
+		}
+		return array;
+		
+	}
 
 	public boolean addObject(int row, int col, Object o) {
 		// prevents ninjas from spawning too close to the player
