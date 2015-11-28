@@ -10,6 +10,7 @@ public class Game implements Serializable {
 	private Map gameMap;
 	private boolean isFinished;
 	private boolean loss = false;
+	private boolean isWon = false;
 	private ArrayList<Object> entities = new ArrayList<Object>();
 	private Player player = new Player();
 	private int amountNinjas;
@@ -74,6 +75,7 @@ public class Game implements Serializable {
 				if (gameMap.isPlayerAboveRoom(player) && gameMap.getObject(newRow, newCol) instanceof Room) {
 					if (((Room) gameMap.getObject(newRow, newCol)).getHasDocument()) {
 						System.out.println("You found the document. Whoopdie freakin do.");
+						isWon = true;
 						isFinished = true;
 					} else
 						System.out.println("The room is empty, but you are filled with determination.");
@@ -487,5 +489,10 @@ public class Game implements Serializable {
 
 	public void setDebugMode(boolean debugMode) {
 		this.debugMode = debugMode;
+	}
+
+	public boolean isWon() {
+		// TODO Auto-generated method stub
+		return isWon;
 	}
 }
