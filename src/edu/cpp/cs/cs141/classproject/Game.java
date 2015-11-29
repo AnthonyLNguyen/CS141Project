@@ -199,33 +199,37 @@ public class Game implements Serializable {
 	private int inNinjaSight(Ninja n) {
 		int row = n.getRow();
 		int col = n.getCol();
+		loop:
 		for (int i = row; i >= 0; i--) {
 			if (gameMap.getObject(i, col) instanceof Room)
-				break;
+				break loop;
 			if (gameMap.getObject(i, col) instanceof Player)
 				return 1;
 		}
 		row = n.getRow();
 		col = n.getCol();
+		loop2:
 		for (int i = row; i <= 8; i++) {
 			if (gameMap.getObject(i, col) instanceof Room)
-				break;
+				break loop2;
 			if (gameMap.getObject(i, col) instanceof Player)
 				return 2;
 		}
 		row = n.getRow();
 		col = n.getCol();
+		loop3:
 		for (int i = col; i <= 8; i++) {
 			if (gameMap.getObject(row, i) instanceof Room)
-				break;
+				break loop3;
 			if (gameMap.getObject(row, i) instanceof Player)
 				return 3;
 		}
 		row = n.getRow();
 		col = n.getCol();
+		loop4:
 		for (int i = col; i >= 0; i--) {
 			if (gameMap.getObject(row, i) instanceof Room)
-				break;
+				break loop4;
 			if (gameMap.getObject(row, i) instanceof Player)
 				return 4;
 		}
