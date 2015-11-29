@@ -128,6 +128,7 @@ public class MainAppFrame extends JFrame {
 		if (!gameLoaded)
 			initGame();
 		gameEngine.vision();
+		table.setEnabled(false);
 		table.setDefaultRenderer(Object.class, new IconRenderer());
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -178,7 +179,6 @@ public class MainAppFrame extends JFrame {
 
 		contentPane.add(label);
 		label.setIcon(new ImageIcon(playerImg));
-		table.setEnabled(false);
 		table.setRowSelectionAllowed(false);
 
 		table.setRowHeight(64);
@@ -207,12 +207,13 @@ public class MainAppFrame extends JFrame {
 		rdbtnmntmMoreVision.setAction(altVis);
 
 		mnEdit.add(rdbtnmntmMoreVision);
+		txtpnInstructions.setEditable(false);
 		txtpnInstructions.setText("Arrow Keys = Move\nS = Shoot\nL = Look\nPress Tab a couple times if keys stop working");
 		txtpnInstructions.setBounds(698, 515, 191, 80);
 		
 		contentPane.add(txtpnInstructions);
 		statsOutput.setEditable(false);
-		statsOutput.setBounds(621, 515, 115, 80);
+		statsOutput.setBounds(621, 515, 77, 80);
 		contentPane.add(statsOutput);
 		statsOutput.setText(gameEngine.stats());
 

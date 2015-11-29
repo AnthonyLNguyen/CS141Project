@@ -193,10 +193,14 @@ public class Game implements Serializable {
 		amountNinjas = ninjas;
 	}
 
+	/**
+	 * Game stats
+	 * 
+	 * @return A string of game statistics
+	 */
 	public String stats() {
 		return "Moves:" + moveCount + "\n" + "Ammo:" + player.getNumBullets() + "\n" + "Lives:" + player.getNumLives()
-				+ "\n" + "Level:" + (amountNinjas - 5)
-				+ "\n" + "Ninjas:" + getNumNinjas();
+				+ "\n" + "Level:" + (amountNinjas - 5) + "\n" + "Ninjas:" + getNumNinjas();
 	}
 
 	public int getAmountNinjas() {
@@ -338,6 +342,10 @@ public class Game implements Serializable {
 		}
 	}
 
+	/**
+	 * Activates a powerup depending on what powerup is given.
+	 * @param power
+	 */
 	public void playerPowerup(int power) {
 		switch (power) {
 		case 1:
@@ -396,13 +404,16 @@ public class Game implements Serializable {
 		return gameMap;
 	}
 
+	/**
+	 * Activates debug mode
+	 */
 	public void showAll() {
 		gameMap.revealAll();
 		debugMode = true;
 		player.setInvincible(true);
 	}
-	
-	public int getNumNinjas(){
+
+	public int getNumNinjas() {
 		int numNin = 0;
 		for (int i = 0; i < 9; i++)
 			for (int j = 0; j < 9; j++)
@@ -411,6 +422,9 @@ public class Game implements Serializable {
 		return numNin;
 	}
 
+	/**
+	 * Deactivates debug mode
+	 */
 	public void hideAll() {
 		gameMap.unrevealAll();
 		if (debugMode)
@@ -530,6 +544,9 @@ public class Game implements Serializable {
 		this.debugMode = debugMode;
 	}
 
+	/**
+	 * Activates an alternative vision that includes diagonals
+	 */
 	public void toggleDiagonalVision() {
 		if (diagonalVision)
 			diagonalVision = false;

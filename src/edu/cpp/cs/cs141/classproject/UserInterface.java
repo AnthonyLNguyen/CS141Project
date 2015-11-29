@@ -58,6 +58,9 @@ public class UserInterface {
 		}
 	}
 
+	/**
+	 * Ends the game and exits
+	 */
 	public void endGame(){
 		if (gameEngine.getLoss())
 			System.out.println("GAME OVER");
@@ -67,6 +70,9 @@ public class UserInterface {
 	}
 	
 	
+	/**
+	 * Prints our the rules
+	 */
 	public void help() {
 		System.out.println("=======RULES========\n"
 				+ "The game is played on a 9x9 board.\n"
