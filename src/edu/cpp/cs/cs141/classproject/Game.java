@@ -225,7 +225,7 @@ public class Game implements Serializable {
 				return 3;
 		}
 		row = n.getRow();
-		col = n.getCol();
+		col = n.getCol(); 
 		loop4:
 		for (int i = col; i >= 0; i--) {
 			if (gameMap.getObject(row, i) instanceof Room)
