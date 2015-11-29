@@ -352,10 +352,16 @@ public class MainAppFrame extends JFrame {
 			rdbtnmntmMoreVision.setSelected(true);
 			gameEngine.setDiagonalVision(true);
 		}
+		if (hardMode){
+			mntmHardMode.setSelected(true);
+			gameEngine.setNinjaAI(true);
+		}
 		if (!debug)
 			rdbtnmntmDebugMode.setSelected(false);
 		if (!vis)
 			rdbtnmntmMoreVision.setSelected(false);
+		if (!hardMode)
+			gameEngine.setNinjaAI(false);
 	}
 
 	public class SwingAction extends AbstractAction {
@@ -512,10 +518,10 @@ public class MainAppFrame extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			if (!hardMode) {
-				gameEngine.setDiagonalVision(true);
-				vis = true;
+				gameEngine.setNinjaAI(true);
+				hardMode = true;
 			} else {
-				gameEngine.setDiagonalVision(false);
+				gameEngine.setNinjaAI(false);
 				hardMode = false;
 			}
 			gameEngine.vision();
