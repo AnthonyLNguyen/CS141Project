@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class EmptySpace implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2568154965766322173L;
 	private boolean isHidden = true;
 	
 	public void setHidden(boolean isHidden) {

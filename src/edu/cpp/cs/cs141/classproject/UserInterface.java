@@ -1,10 +1,5 @@
 package edu.cpp.cs.cs141.classproject;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -165,10 +160,10 @@ public class UserInterface {
 	 * returns that it is finished.
 	 */
 	public void playGame() {
-		System.out.println("LEVEL "  + (gameEngine.getAmountNinjas()-5) + " START\n"
-				+ "There are " + gameEngine.getAmountNinjas() + " ninjas lurking around!");
 		if (!gameLoaded)
 			gameEngine.generateMap();
+		System.out.println("LEVEL "  + (gameEngine.getAmountNinjas()-5) + " START\n"
+				+ "There are " + gameEngine.getNumNinjas() + " ninjas lurking around!");
 		gameEngine.vision();
 		while(!gameEngine.isFinished()){
 			System.out.println( "\n"+ gameEngine.getMap().toString());

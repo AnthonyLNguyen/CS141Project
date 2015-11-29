@@ -5,6 +5,11 @@ import java.util.ArrayList;
 
 public class Map implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3201130527449124105L;
+
 	public static final int GRID_SIZE = 9;
 
 	private Object[][] grid = new Object[GRID_SIZE][GRID_SIZE];
