@@ -102,7 +102,8 @@ public class UserInterface {
 				+ "2. Shoot.\n\t"
 				+ "3. Look.\n\t"
 				+ "4. Save and Quit Game.\n\t"
-				+ "5. Quit Game.");
+				+ "5. Toggle Hard Mode.\n\t"
+				+ "6. Quit Game.");
 
 		option = userinput.nextInt();
 		userinput.nextLine();
@@ -126,7 +127,12 @@ public class UserInterface {
 			gs = new GameSave(gameEngine);
 			gs.saveGame(saveName);
 			System.out.println("Game has been saved! \nThe save state is called " + saveName);
-		case 5:
+			break;
+		case 5: 
+			gameEngine.setNinjaAI(!gameEngine.getNinjaAI());
+			System.out.println(gameEngine.getNinjaAI() ? "Hard mode on." : "Hard mode off.");
+			break;
+		case 6:
 			endGame();
 			break;
 		}

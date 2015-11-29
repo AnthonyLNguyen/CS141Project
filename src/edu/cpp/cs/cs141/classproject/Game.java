@@ -238,25 +238,25 @@ public class Game implements Serializable {
 		case 0:
 			break;
 		case 1:
-			if (gameMap.whereCanMove(n)[1]) {
+			if (gameMap.whereCanMove(n)[0]) {
 				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow() - 1, n.getCol());
 				hasMoved = true;
 			}
 			break;
 		case 2:
-			if (gameMap.whereCanMove(n)[2]) {
+			if (gameMap.whereCanMove(n)[1]) {
 				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow(), n.getCol() + 1);
 				hasMoved = true;
 			}
 			break;
 		case 3:
-			if (gameMap.whereCanMove(n)[3]) {
+			if (gameMap.whereCanMove(n)[2]) {
 				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow() + 1, n.getCol());
 				hasMoved = true;
 			}
 			break;
 		case 4:
-			if (gameMap.whereCanMove(n)[4]) {
+			if (gameMap.whereCanMove(n)[3]) {
 				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow(), n.getCol() - 1);
 				hasMoved = true;
 			}
