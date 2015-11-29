@@ -202,32 +202,42 @@ public class Game implements Serializable {
 		for (int i = row; i >= 0; i--) {
 			if (gameMap.getObject(i, col) instanceof Room)
 				break;
-			if (gameMap.getObject(i, col) instanceof Player)
+			if (gameMap.getObject(i, col) instanceof Player) {
+				System.out.println("Player detected up");
 				return 1;
+			}
 		}
 		row = n.getRow();
 		col = n.getCol();
 		for (int i = row; i <= 8; i++) {
 			if (gameMap.getObject(i, col) instanceof Room)
 				break;
-			if (gameMap.getObject(i, col) instanceof Player)
-				return 2;
+			if (gameMap.getObject(i, col) instanceof Player) {
+				System.out.println("Player detected down");
+				return 3;
+			}
 		}
 		row = n.getRow();
 		col = n.getCol();
 		for (int i = col; i <= 8; i++) {
 			if (gameMap.getObject(row, i) instanceof Room)
 				break;
-			if (gameMap.getObject(row, i) instanceof Player)
-				return 3;
+			if (gameMap.getObject(row, i) instanceof Player) {
+				System.out.println("Player detected right");
+				return 2;
+			}
+				
 		}
 		row = n.getRow();
 		col = n.getCol(); 
 		for (int i = col; i >= 0; i--) {
 			if (gameMap.getObject(row, i) instanceof Room)
 				break;
-			if (gameMap.getObject(row, i) instanceof Player)
+			if (gameMap.getObject(row, i) instanceof Player){
+				System.out.println("Player detected left");
 				return 4;
+			}
+				
 		}
 		return 0;
 	}
@@ -238,26 +248,30 @@ public class Game implements Serializable {
 		case 0:
 			break;
 		case 1:
-			if (gameMap.whereCanMove(n)[0]) {
+			if (gameMap.whereCanMove(n)[2]) {
 				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow() - 1, n.getCol());
+				n.setRow(n.getRow() - 1);
 				hasMoved = true;
 			}
 			break;
 		case 2:
 			if (gameMap.whereCanMove(n)[1]) {
 				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow(), n.getCol() + 1);
+				n.setCol(n.getCol() + 1);
 				hasMoved = true;
 			}
 			break;
 		case 3:
-			if (gameMap.whereCanMove(n)[2]) {
+			if (gameMap.whereCanMove(n)[0]) {
 				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow() + 1, n.getCol());
+				n.setRow(n.getRow() + 1);
 				hasMoved = true;
 			}
 			break;
 		case 4:
 			if (gameMap.whereCanMove(n)[3]) {
 				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow(), n.getCol() - 1);
+				n.setCol(n.getCol() - 1);
 				hasMoved = true;
 			}
 			break;
