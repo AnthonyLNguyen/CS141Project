@@ -83,6 +83,9 @@ public class MainAppFrame extends JFrame {
 	private final JRadioButtonMenuItem rdbtnmntmMoreVision = new JRadioButtonMenuItem("More Vision");
 	private final Action altVis = new SwingAction_8();
 	private final JTextPane txtpnInstructions = new JTextPane();
+	private final JRadioButtonMenuItem mntmHardMode = new JRadioButtonMenuItem("Hard Mode");
+	private final Action action = new SwingAction_9();
+	private boolean hardMode = false;
 
 	/**
 	 * Launch the application.
@@ -208,6 +211,9 @@ public class MainAppFrame extends JFrame {
 		rdbtnmntmMoreVision.setAction(altVis);
 
 		mnEdit.add(rdbtnmntmMoreVision);
+		mntmHardMode.setAction(action);
+		
+		mnEdit.add(mntmHardMode);
 		txtpnInstructions.setEditable(false);
 		txtpnInstructions
 				.setText("Arrow Keys = Move\nS = Shoot\nL = Look\nPress Tab a couple times if keys stop working");
@@ -346,10 +352,16 @@ public class MainAppFrame extends JFrame {
 			rdbtnmntmMoreVision.setSelected(true);
 			gameEngine.setDiagonalVision(true);
 		}
+		if (hardMode){
+			mntmHardMode.setSelected(true);
+			gameEngine.setNinjaAI(true);
+		}
 		if (!debug)
 			rdbtnmntmDebugMode.setSelected(false);
 		if (!vis)
 			rdbtnmntmMoreVision.setSelected(false);
+		if (!hardMode)
+			gameEngine.setNinjaAI(false);
 	}
 
 	public class SwingAction extends AbstractAction {
@@ -494,6 +506,23 @@ public class MainAppFrame extends JFrame {
 			} else {
 				gameEngine.setDiagonalVision(false);
 				vis = false;
+			}
+			gameEngine.vision();
+			refresh();
+		}
+	}
+	private class SwingAction_9 extends AbstractAction {
+		public SwingAction_9() {
+			putValue(NAME, "Hard Mode");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+			if (!hardMode) {
+				gameEngine.setNinjaAI(true);
+				hardMode = true;
+			} else {
+				gameEngine.setNinjaAI(false);
+				hardMode = false;
 			}
 			gameEngine.vision();
 			refresh();
