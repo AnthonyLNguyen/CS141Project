@@ -202,42 +202,32 @@ public class Game implements Serializable {
 		for (int i = row; i >= 0; i--) {
 			if (gameMap.getObject(i, col) instanceof Room)
 				break;
-			if (gameMap.getObject(i, col) instanceof Player) {
-				System.out.println("Player detected up");
+			if (gameMap.getObject(i, col) instanceof Player) 
 				return 1;
-			}
 		}
 		row = n.getRow();
 		col = n.getCol();
 		for (int i = row; i <= 8; i++) {
 			if (gameMap.getObject(i, col) instanceof Room)
 				break;
-			if (gameMap.getObject(i, col) instanceof Player) {
-				System.out.println("Player detected down");
+			if (gameMap.getObject(i, col) instanceof Player) 
 				return 3;
-			}
 		}
 		row = n.getRow();
 		col = n.getCol();
 		for (int i = col; i <= 8; i++) {
 			if (gameMap.getObject(row, i) instanceof Room)
 				break;
-			if (gameMap.getObject(row, i) instanceof Player) {
-				System.out.println("Player detected right");
+			if (gameMap.getObject(row, i) instanceof Player) 
 				return 2;
-			}
-				
 		}
 		row = n.getRow();
 		col = n.getCol(); 
 		for (int i = col; i >= 0; i--) {
 			if (gameMap.getObject(row, i) instanceof Room)
 				break;
-			if (gameMap.getObject(row, i) instanceof Player){
-				System.out.println("Player detected left");
-				return 4;
-			}
-				
+			if (gameMap.getObject(row, i) instanceof Player)
+				return 4;	
 		}
 		return 0;
 	}
