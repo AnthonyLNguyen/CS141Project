@@ -547,11 +547,8 @@ public class Game implements Serializable {
 	/**
 	 * Activates an alternative vision that includes diagonals
 	 */
-	public void toggleDiagonalVision() {
-		if (diagonalVision)
-			diagonalVision = false;
-		else
-			diagonalVision = true;
+	public void setDiagonalVision(boolean diagonalVision) {
+		this.diagonalVision = diagonalVision;
 	}
 
 	public boolean isWon() {

@@ -50,6 +50,7 @@ public class MainAppFrame extends JFrame {
 	private Object columns[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 	private JTable table = new JTable(gameEngine.getGameMap().getGrid(), columns);
 	private boolean debug = false;
+	private boolean vis = false;
 	private final Action controlDOWN = new SwingAction_1();
 	private final Action controlLEFT = new SwingAction_2();
 	private final Action controlRIGHT = new SwingAction_3();
@@ -208,9 +209,10 @@ public class MainAppFrame extends JFrame {
 
 		mnEdit.add(rdbtnmntmMoreVision);
 		txtpnInstructions.setEditable(false);
-		txtpnInstructions.setText("Arrow Keys = Move\nS = Shoot\nL = Look\nPress Tab a couple times if keys stop working");
+		txtpnInstructions
+				.setText("Arrow Keys = Move\nS = Shoot\nL = Look\nPress Tab a couple times if keys stop working");
 		txtpnInstructions.setBounds(698, 515, 191, 80);
-		
+
 		contentPane.add(txtpnInstructions);
 		statsOutput.setEditable(false);
 		statsOutput.setBounds(621, 515, 77, 80);
@@ -263,13 +265,14 @@ public class MainAppFrame extends JFrame {
 		initGui();
 		if (debug) {
 			rdbtnmntmDebugMode.setSelected(true);
-			rdbtnmntmMoreVision.setSelected(true);
 			gameEngine.showAll();
 		}
-		if (!debug) {
+		if (vis)
+			rdbtnmntmMoreVision.setSelected(true);
+		if (!debug)
 			rdbtnmntmDebugMode.setSelected(false);
+		if (!vis)
 			rdbtnmntmMoreVision.setSelected(false);
-		}
 		refresh();
 		gameEngine.vision();
 	}
@@ -450,12 +453,16 @@ public class MainAppFrame extends JFrame {
 				initGui();
 				if (debug) {
 					rdbtnmntmDebugMode.setSelected(true);
-					rdbtnmntmMoreVision.setSelected(true);
 					gameEngine.showAll();
+				}
+				if (vis){
+					rdbtnmntmMoreVision.setSelected(true);
+					gameEngine.setDiagonalVision(true);
 				}
 				if (!debug)
 					rdbtnmntmDebugMode.setSelected(false);
-				rdbtnmntmMoreVision.setSelected(false);
+				if (!vis)
+					rdbtnmntmMoreVision.setSelected(false);
 				refresh();
 				gameEngine.vision();
 				gameLoaded = false;
@@ -486,7 +493,13 @@ public class MainAppFrame extends JFrame {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			gameEngine.toggleDiagonalVision();
+			if (!vis) {
+				gameEngine.setDiagonalVision(true);
+				vis = true;
+			} else {
+				gameEngine.setDiagonalVision(false);
+				vis = false;
+			}
 			gameEngine.vision();
 			refresh();
 		}
