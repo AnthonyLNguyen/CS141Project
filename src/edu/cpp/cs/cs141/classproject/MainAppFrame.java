@@ -81,6 +81,7 @@ public class MainAppFrame extends JFrame {
 	private final Action newGame = new SwingAction_7();
 	private final JRadioButtonMenuItem rdbtnmntmMoreVision = new JRadioButtonMenuItem("More Vision");
 	private final Action altVis = new SwingAction_8();
+	private final JTextPane txtpnInstructions = new JTextPane();
 
 	/**
 	 * Launch the application.
@@ -206,8 +207,12 @@ public class MainAppFrame extends JFrame {
 		rdbtnmntmMoreVision.setAction(altVis);
 
 		mnEdit.add(rdbtnmntmMoreVision);
+		txtpnInstructions.setText("Arrow Keys = Move\nS = Shoot\nL = Look\nPress Tab a couple times if keys stop working");
+		txtpnInstructions.setBounds(698, 515, 191, 80);
+		
+		contentPane.add(txtpnInstructions);
 		statsOutput.setEditable(false);
-		statsOutput.setBounds(603, 515, 99, 80);
+		statsOutput.setBounds(621, 515, 115, 80);
 		contentPane.add(statsOutput);
 		statsOutput.setText(gameEngine.stats());
 
