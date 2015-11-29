@@ -29,6 +29,17 @@ public class Map implements Serializable{
 		}
 		return result;
 	}
+	
+	public String[][] toGUI(){
+		String[][] array = new String[GRID_SIZE][GRID_SIZE];
+		for (int i = 0; i < GRID_SIZE; i++) {
+			for (int j = 0; j < GRID_SIZE; j++) {
+				array[i][j] = grid[i][j].toString();
+			}
+		}
+		return array;
+		
+	}
 
 	public boolean addObject(int row, int col, Object o) {
 		// prevents ninjas from spawning too close to the player
@@ -86,6 +97,7 @@ public class Map implements Serializable{
 			isEmpty[2] = false;
 		if (p.getCol() - 1 < 0 || !(grid[p.getRow()][p.getCol() - 1] instanceof Room))
 			isEmpty[3] = false;
+		
 		if (p.getRow() + 2 > 8 || !(grid[p.getRow() + 2][p.getCol()] instanceof Room))
 			isEmpty[4] = false;
 		if (p.getCol() + 2 > 8 || !(grid[p.getRow()][p.getCol() + 2] instanceof Room))
@@ -94,6 +106,8 @@ public class Map implements Serializable{
 			isEmpty[6] = false;
 		if (p.getCol() - 2 < 0 || !(grid[p.getRow()][p.getCol() - 2] instanceof Room))
 			isEmpty[7] = false;
+
+
 		return isEmpty;
 	}
 

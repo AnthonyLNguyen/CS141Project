@@ -15,6 +15,7 @@ public class Game implements Serializable {
 	private Map gameMap;
 	private boolean isFinished;
 	private boolean loss = false;
+	private boolean isWon = false;
 	private ArrayList<Object> entities = new ArrayList<Object>();
 	private Player player = new Player();
 	private int amountNinjas;
@@ -22,6 +23,7 @@ public class Game implements Serializable {
 	private int imoves = 0;
 	private int moveLooked = -1;
 	private boolean debugMode = false;
+	private boolean diagonalVision = false;
 
 	/**
 	 * The amount of moves steps in the game. Used to keep of duration of
@@ -40,15 +42,6 @@ public class Game implements Serializable {
 		int newCol = player.getCol() + col;
 		if (newRow <= 8 && newCol <= 8 && newRow >= 0 && newCol >= 0) {
 			boolean playerCanMove = true;
-			if (!debugMode)
-				if (player.isInvincible()) {
-					System.out.println("Player invincible for " + (5 - imoves) + " more turns.");
-					imoves++;
-					if (5 < imoves) {
-						player.setInvincible(false);
-						System.out.println("No Longer invincible");
-					}
-				}
 
 			int collisionType = gameMap.playerCollision(newRow, newCol);
 			switch (collisionType) {
@@ -56,8 +49,10 @@ public class Game implements Serializable {
 				if (!player.isInvincible()) {
 					killPlayer();
 					playerCanMove = false;
-				} else
+				} else {
 					playerCanMove = false;
+					collisionType = 3;
+				}
 				break;
 			case 2:
 				System.out.println("POWER UP!");
@@ -79,17 +74,31 @@ public class Game implements Serializable {
 				if (gameMap.isPlayerAboveRoom(player) && gameMap.getObject(newRow, newCol) instanceof Room) {
 					if (((Room) gameMap.getObject(newRow, newCol)).getHasDocument()) {
 						System.out.println("You found the document. Whoopdie freakin do.");
+						((Room) gameMap.getObject(newRow, newCol)).setActivated(true);
+						isWon = true;
 						isFinished = true;
 					} else
 						System.out.println("The room is empty, but you are filled with determination.");
-				} else
-					System.out.println("CAN'T ENTER ROOM");
+					((Room) gameMap.getObject(newRow, newCol)).setActivated(true);
+				} else {
+					System.out.println("CAN'T ENTER ROOM FROM THIS DIRECTION");
+				}
+				playerCanMove = false;
 				break;
 			default:
 				break;
 			}
 
 			if (collisionType != 3) {
+				if (!debugMode && playerCanMove)
+					if (player.isInvincible()) {
+						System.out.println("Player invincible for " + (5 - imoves) + " more turns.");
+						imoves++;
+						if (5 < imoves) {
+							player.setInvincible(false);
+							System.out.println("No Longer invincible");
+						}
+					}
 				if (playerCanMove)
 					movePlayer(row, col);
 				if (gameMap.playerNextToNinja(player) && !player.isInvincible())
@@ -98,7 +107,8 @@ public class Game implements Serializable {
 					moveNinjas();
 				vision();
 			}
-			moveCount++;
+			if (playerCanMove)
+				moveCount++;
 		} else {
 			System.out.println("Cannot move");
 		}
@@ -124,7 +134,7 @@ public class Game implements Serializable {
 	 */
 	public void killPlayer() {
 		System.out.println("You were mortally stabbed!");
-		System.out.println("\n" + getMap().toString());
+		// System.out.println("\n" + getMap().toString());
 
 		player.setNumLives(player.getNumLives() - 1);
 		if (player.getNumLives() == 0)
@@ -183,9 +193,9 @@ public class Game implements Serializable {
 		amountNinjas = ninjas;
 	}
 
-	public void stats() {
-		System.out.println("Moves:" + moveCount + "\n" + "Ammo:" + player.getNumBullets() + "\n" + "Lives:"
-				+ player.getNumLives() + "\n" + "Level:" + (amountNinjas - 5));
+	public String stats() {
+		return "Moves:" + moveCount + "\n" + "Ammo:" + player.getNumBullets() + "\n" + "Lives:" + player.getNumLives()
+				+ "\n" + "Level:" + (amountNinjas - 5);
 	}
 
 	public int getAmountNinjas() {
@@ -197,7 +207,7 @@ public class Game implements Serializable {
 	 */
 	public void playerLook(int dir) {
 		boolean used = false;
-		if (moveLooked == moveCount){
+		if (moveLooked == moveCount) {
 			System.out.println("You can only use this ability once per turn.");
 			used = true;
 		}
@@ -262,7 +272,7 @@ public class Game implements Serializable {
 				System.out.println("Ninja ahead!");
 			else
 				System.out.println("All clear!");
-		} 
+		}
 	}
 
 	/**
@@ -310,6 +320,21 @@ public class Game implements Serializable {
 		if (!(isEmpty[7] || col - 2 < 0) && !block[3])
 			if (!(gameMap.getObject(row, col - 1) instanceof Room))
 				gameMap.revealObject(row, col - 2);
+
+		if (diagonalVision) {
+			if ((row - 1 > 0 && col + 1 < 8))
+				if (!(gameMap.getObject(row - 1, col + 1) instanceof Room))
+					gameMap.revealObject(row - 1, col + 1);
+			if ((row + 1 < 8 && col + 1 < 8))
+				if (!(gameMap.getObject(row + 1, col + 1) instanceof Room))
+					gameMap.revealObject(row + 1, col + 1);
+			if ((row + 1 < 8 && col - 1 > 0))
+				if (!(gameMap.getObject(row + 1, col - 1) instanceof Room))
+					gameMap.revealObject(row + 1, col - 1);
+			if ((row - 1 > 0 && col - 1 > 0))
+				if (!(gameMap.getObject(row - 1, col - 1) instanceof Room))
+					gameMap.revealObject(row - 1, col - 1);
+		}
 	}
 
 	public void playerPowerup(int power) {
@@ -366,11 +391,20 @@ public class Game implements Serializable {
 		gameMap.randomlyAddObjects(entities);
 	}
 
+	public Map getGameMap() {
+		return gameMap;
+	}
+
 	public void showAll() {
 		gameMap.revealAll();
 		debugMode = true;
 		player.setInvincible(true);
 	}
+<<<<<<< HEAD
+
+	public int getNumNinjas() {
+		return ninjas.size();
+=======
 	
 	public int getNumNinjas(){
 		int numNin = 0;
@@ -379,6 +413,10 @@ public class Game implements Serializable {
 				if (gameMap.getObject(i, j) instanceof Ninja)
 					++numNin;
 		return numNin;
+<<<<<<< HEAD
+>>>>>>> master
+=======
+>>>>>>> master
 	}
 
 	public void hideAll() {
@@ -402,16 +440,17 @@ public class Game implements Serializable {
 				player.setNumBullets(player.getNumBullets() - 1);
 			Ninja n = null;
 			switch (dir) {
-			case 1:
+			case 1:// up
 				while (!bulletTraveled) {
 					for (int i = row; i >= 0; i--) {
-						if (gameMap.getObject(i, col) instanceof Room){
+						if (gameMap.getObject(i, col) instanceof Room) {
 							System.out.println("You shot a room! ):");
 							bulletTraveled = true;
 							break;
 						}
 						if (gameMap.getObject(i, col) instanceof Ninja) {
 							n = (Ninja) gameMap.removeObject(i, col);
+							gameMap.addObject(i, col, new EmptySpace());
 							bulletTraveled = true;
 							break;
 						}
@@ -419,16 +458,17 @@ public class Game implements Serializable {
 					bulletTraveled = true;
 				}
 				break;
-			case 2:
+			case 2:// down
 				while (!bulletTraveled) {
 					for (int i = row; i <= 8; i++) {
-						if (gameMap.getObject(i, col) instanceof Room){
+						if (gameMap.getObject(i, col) instanceof Room) {
 							System.out.println("You shot a room! ):");
 							bulletTraveled = true;
 							break;
 						}
 						if (gameMap.getObject(i, col) instanceof Ninja) {
 							n = (Ninja) gameMap.removeObject(i, col);
+							gameMap.addObject(i, col, new EmptySpace());
 							bulletTraveled = true;
 							break;
 						}
@@ -436,16 +476,17 @@ public class Game implements Serializable {
 					bulletTraveled = true;
 				}
 				break;
-			case 3:
+			case 3:// right
 				while (!bulletTraveled) {
 					for (int i = col; i <= 8; i++) {
-						if (gameMap.getObject(row, i) instanceof Room){
+						if (gameMap.getObject(row, i) instanceof Room) {
 							System.out.println("You shot a room! ):");
 							bulletTraveled = true;
 							break;
 						}
 						if (gameMap.getObject(row, i) instanceof Ninja) {
 							n = (Ninja) gameMap.removeObject(row, i);
+							gameMap.addObject(row, i, new EmptySpace());
 							bulletTraveled = true;
 							break;
 						}
@@ -453,16 +494,17 @@ public class Game implements Serializable {
 					bulletTraveled = true;
 				}
 				break;
-			case 4:
+			case 4:// left
 				while (!bulletTraveled) {
 					for (int i = col; i >= 0; i--) {
-						if (gameMap.getObject(row, i) instanceof Room){
+						if (gameMap.getObject(row, i) instanceof Room) {
 							System.out.println("You shot a room! ):");
 							bulletTraveled = true;
 							break;
 						}
 						if (gameMap.getObject(row, i) instanceof Ninja) {
 							n = (Ninja) gameMap.removeObject(row, i);
+							gameMap.addObject(row, i, new EmptySpace());
 							bulletTraveled = true;
 							break;
 						}
@@ -474,6 +516,7 @@ public class Game implements Serializable {
 			if (n == null)
 				System.out.println("You missed. Work on your aim.");
 			else {
+				ninjas.remove(n);
 				System.out.println("You hit someone! Ninja killed.");
 				vision();
 				if (debugMode)
@@ -493,5 +536,21 @@ public class Game implements Serializable {
 
 	public void setDebugMode(boolean debugMode) {
 		this.debugMode = debugMode;
+	}
+
+	public void toggleDiagonalVision() {
+		if (diagonalVision)
+			diagonalVision = false;
+		else
+			diagonalVision = true;
+	}
+
+	public boolean isWon() {
+		// TODO Auto-generated method stub
+		return isWon;
+	}
+
+	public Player getPlayer() {
+		return player;
 	}
 }

@@ -167,7 +167,7 @@ public class UserInterface {
 		gameEngine.vision();
 		while(!gameEngine.isFinished()){
 			System.out.println( "\n"+ gameEngine.getMap().toString());
-			gameEngine.stats();
+			System.out.println(gameEngine.stats());
 			playerMove();
 			if (gameEngine.getLoss())
 				endGame();
