@@ -31,6 +31,16 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.JDesktopPane;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButtonMenuItem;
 
 public class MainAppFrame extends JFrame {
 
@@ -51,14 +61,26 @@ public class MainAppFrame extends JFrame {
 	private final JButton btnRight = new JButton("RIGHT");
 	private final JButton btnUp = new JButton("UP");
 	private final JComboBox comboBox = new JComboBox();
-	private final JPanel stats = new JPanel();
 	private final JPanel gameInfo = new JPanel();
-	private final JRadioButton rdbtnDebugMode = new JRadioButton("Debug Mode");
 	private final JTextArea output = new JTextArea();
 	private final JTextPane statsOutput = new JTextPane();
 	private final JLabel label = new JLabel("");
 	private java.awt.Image playerImg = new ImageIcon(this.getClass().getResource("/player.jpeg")).getImage();
 	private final JScrollPane scrollPane = new JScrollPane();
+	private final JMenuBar menuBar = new JMenuBar();
+	private final JMenu mnNewMenu = new JMenu("File");
+	private final JMenuItem mntmSave = new JMenuItem("Save");
+	private final Action saveGame = new SwingAction_5();
+	private GameSave gs;
+	private final JMenuItem mntmLoad = new JMenuItem("Load");
+	private final Action loadGame = new SwingAction_6();
+	private boolean gameLoaded = false;
+	private final JMenu mnEdit = new JMenu("Edit");
+	private final JRadioButtonMenuItem rdbtnmntmDebugMode = new JRadioButtonMenuItem("Debug Mode");
+	private final JMenuItem mntmNewGame = new JMenuItem("New Game");
+	private final Action newGame = new SwingAction_7();
+	private final JRadioButtonMenuItem rdbtnmntmMoreVision = new JRadioButtonMenuItem("More Vision");
+	private final Action altVis = new SwingAction_8();
 
 	/**
 	 * Launch the application.
@@ -88,6 +110,13 @@ public class MainAppFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainAppFrame() {
+		setFocusable(true);
+		addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				keybinds(e);
+			}
+		});
 		setTitle("Game");
 		initGui();
 	}
@@ -95,46 +124,41 @@ public class MainAppFrame extends JFrame {
 	public void initGui() {
 
 		redirectSystemStreams();
-		initGame();
+		if (!gameLoaded)
+			initGame();
 		gameEngine.vision();
 		table.setDefaultRenderer(Object.class, new IconRenderer());
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 909, 706);
+		setBounds(100, 100, 909, 637);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		buttonGroup.add(btnUp);
-		btnUp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+
 		btnUp.setToolTipText("UP");
 		btnUp.setAction(controlUP);
-		btnUp.setBounds(737, 346, 52, 29);
+		btnUp.setBounds(735, 414, 52, 29);
 
 		contentPane.add(btnUp);
 		buttonGroup.add(btnDown);
 		btnDown.setAction(controlDOWN);
-		btnDown.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnDown.setBounds(728, 384, 72, 29);
+
+		btnDown.setBounds(726, 452, 72, 29);
 
 		contentPane.add(btnDown);
 		buttonGroup.add(btnLeft);
 		btnLeft.setAction(controlLEFT);
-		btnLeft.setBounds(798, 384, 72, 29);
+		btnLeft.setBounds(796, 452, 72, 29);
 
 		contentPane.add(btnLeft);
 		buttonGroup.add(btnRight);
 		btnRight.setAction(controlRIGHT);
-		btnRight.setBounds(658, 384, 72, 29);
+		btnRight.setBounds(656, 452, 72, 29);
 
 		contentPane.add(btnRight);
-		gameInfo.setBounds(623, 6, 268, 238);
+		gameInfo.setBounds(621, 74, 268, 238);
 
 		contentPane.add(gameInfo);
 		gameInfo.setLayout(null);
@@ -145,22 +169,11 @@ public class MainAppFrame extends JFrame {
 		output.setEditable(false);
 		output.setWrapStyleWord(true);
 		output.setLineWrap(true);
-		rdbtnDebugMode.setAction(debugMode);
-		rdbtnDebugMode.setBounds(614, 256, 141, 23);
-
-		contentPane.add(rdbtnDebugMode);
-		stats.setBounds(16, 594, 326, 65);
-
-		contentPane.add(stats);
-		stats.setLayout(null);
-		statsOutput.setBounds(0, 0, 326, 64);
-		stats.add(statsOutput);
-		statsOutput.setText(gameEngine.stats());
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Move", "Shoot", "Look" }));
-		comboBox.setBounds(737, 256, 133, 27);
+		comboBox.setBounds(735, 324, 133, 27);
 
 		contentPane.add(comboBox);
-		label.setBounds(640, 297, 64, 64);
+		label.setBounds(638, 365, 64, 64);
 
 		contentPane.add(label);
 		label.setIcon(new ImageIcon(playerImg));
@@ -168,9 +181,36 @@ public class MainAppFrame extends JFrame {
 		table.setRowSelectionAllowed(false);
 
 		table.setRowHeight(64);
-		table.setBounds(6, 6, 576, 576);
+		table.setBounds(6, 30, 576, 576);
 
 		contentPane.add(table);
+		menuBar.setBounds(0, 0, 909, 22);
+
+		contentPane.add(menuBar);
+
+		menuBar.add(mnNewMenu);
+		mntmNewGame.setAction(newGame);
+
+		mnNewMenu.add(mntmNewGame);
+		mntmSave.setAction(saveGame);
+
+		mnNewMenu.add(mntmSave);
+		mntmLoad.setAction(loadGame);
+
+		mnNewMenu.add(mntmLoad);
+
+		menuBar.add(mnEdit);
+		rdbtnmntmDebugMode.setAction(debugMode);
+
+		mnEdit.add(rdbtnmntmDebugMode);
+		rdbtnmntmMoreVision.setAction(altVis);
+
+		mnEdit.add(rdbtnmntmMoreVision);
+		statsOutput.setEditable(false);
+		statsOutput.setBounds(603, 515, 99, 64);
+		contentPane.add(statsOutput);
+		statsOutput.setText(gameEngine.stats());
+
 	}
 
 	public void updateTextArea(final String text) {
@@ -204,7 +244,7 @@ public class MainAppFrame extends JFrame {
 		System.setErr(new PrintStream(out, true));
 	}
 
-	public void repaintAll() {
+	public void refresh() {
 		table.repaint();
 		statsOutput.repaint();
 		statsOutput.setText(gameEngine.stats());
@@ -216,13 +256,40 @@ public class MainAppFrame extends JFrame {
 		table = new JTable(gameEngine.getGameMap().getGrid(), columns);
 		initGui();
 		if (debug) {
-			rdbtnDebugMode.setSelected(true);
+			rdbtnmntmDebugMode.setSelected(true);
+			rdbtnmntmMoreVision.setSelected(true);
 			gameEngine.showAll();
 		}
 		if (!debug)
-			rdbtnDebugMode.setSelected(false);
-		repaintAll();
+			rdbtnmntmDebugMode.setSelected(false);
+		rdbtnmntmMoreVision.setSelected(false);
+		refresh();
 		gameEngine.vision();
+	}
+
+	public void keybinds(KeyEvent e) {
+		switch (e.getKeyCode()) {
+		case KeyEvent.VK_UP:
+			performAction(-1, 0, 1);
+			break;
+		case KeyEvent.VK_DOWN:
+			performAction(1, 0, 2);
+			break;
+		case KeyEvent.VK_RIGHT:
+			performAction(0, 1, 3);
+			break;
+		case KeyEvent.VK_LEFT:
+			performAction(0, -1, 4);
+			break;
+		case KeyEvent.VK_S:
+			comboBox.setSelectedIndex(1);
+			break;
+		case KeyEvent.VK_L:
+			comboBox.setSelectedIndex(2);
+			break;
+		}
+		
+		repaint();
 	}
 
 	public void performAction(int row, int col, int dir) {
@@ -230,6 +297,8 @@ public class MainAppFrame extends JFrame {
 		switch (comboBox.getSelectedIndex()) {
 		case 0:
 			gameEngine.takeTurn(row, col);
+			if (gameEngine.getLoss())
+				gameOver();
 			if (gameEngine.isWon()) {
 				nextLevel();
 			}
@@ -243,7 +312,28 @@ public class MainAppFrame extends JFrame {
 			comboBox.setSelectedIndex(0);
 			break;
 		}
-		repaintAll();
+		refresh();
+	}
+
+	private void gameOver() {
+		Object[] options = { "Quit", "New Game" };
+		int n = JOptionPane.showOptionDialog(contentPane, "Game Over", "Game Over", JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE, null, options, null);
+		newGame();
+		if (n == 1) {
+			return;
+		}
+		if (n == 0) {
+			System.exit(0);
+		}
+
+	}
+
+	private void newGame() {
+		level = 1;
+		gameEngine = new Game(6);
+		table = new JTable(gameEngine.getGameMap().getGrid(), columns);
+		initGui();
 	}
 
 	public class SwingAction extends AbstractAction {
@@ -305,7 +395,93 @@ public class MainAppFrame extends JFrame {
 				gameEngine.vision();
 				debug = false;
 			}
-			repaintAll();
+			refresh();
+		}
+	}
+
+	private class SwingAction_5 extends AbstractAction {
+		public SwingAction_5() {
+			putValue(NAME, "Save Game");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			String s = (String) JOptionPane.showInputDialog(contentPane, "Enter a name for the save file",
+					"Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, "");
+
+			// If a string was returned, say so.
+			if ((s != null) && (s.length() > 0)) {
+				gs = new GameSave(gameEngine);
+				gs.saveGame(s);
+				JOptionPane.showMessageDialog(contentPane, "Saved as " + s + ".dat");
+				return;
+			}
+
+			// If you're here, the return value was null/empty.
+			JOptionPane.showMessageDialog(contentPane, "Save canceled");
+		}
+	}
+
+	private class SwingAction_6 extends AbstractAction {
+		public SwingAction_6() {
+			putValue(NAME, "Load Game");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			String s = (String) JOptionPane.showInputDialog(contentPane,
+					"What is the name of the save " + "\nyou would like to load? " + "\n(Don't include extention)",
+					"Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, "");
+
+			// If a string was returned, say so.
+			if ((s != null) && (s.length() > 0)) {
+				gameLoaded = true;
+				gs = new GameSave();
+				gameEngine = gs.loadGame(s);
+				JOptionPane.showMessageDialog(contentPane, "Loaded " + s + ".dat");
+				table = new JTable(gameEngine.getGameMap().getGrid(), columns);
+				initGui();
+				if (debug) {
+					rdbtnmntmDebugMode.setSelected(true);
+					rdbtnmntmMoreVision.setSelected(true);
+					gameEngine.showAll();
+				}
+				if (!debug)
+					rdbtnmntmDebugMode.setSelected(false);
+				rdbtnmntmMoreVision.setSelected(false);
+				refresh();
+				gameEngine.vision();
+				gameLoaded = false;
+				return;
+			}
+
+			// If you're here, the return value was null/empty.
+			JOptionPane.showMessageDialog(contentPane, "Load canceled");
+		}
+	}
+
+	private class SwingAction_7 extends AbstractAction {
+		public SwingAction_7() {
+			putValue(NAME, "New Game");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			newGame();
+			System.out.println("\nNew Game Started");
+		}
+	}
+
+	private class SwingAction_8 extends AbstractAction {
+		public SwingAction_8() {
+			putValue(NAME, "Alternate Vision");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			gameEngine.toggleDiagonalVision();
+			gameEngine.vision();
+			refresh();
 		}
 	}
 }
