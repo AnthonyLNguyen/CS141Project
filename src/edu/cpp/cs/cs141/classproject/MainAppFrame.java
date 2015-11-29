@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.sun.medialib.mlib.Image;
+//import com.sun.medialib.mlib.Image;
 
 import javax.swing.JTable;
 import javax.swing.JButton;

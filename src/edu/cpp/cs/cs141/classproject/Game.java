@@ -22,8 +22,9 @@ public class Game implements Serializable {
 	private ArrayList<Ninja> ninjas = new ArrayList<Ninja>();
 	private int imoves = 0;
 	private int moveLooked = -1;
-	private boolean debugMode = false;
+	private boolean debugMode = false; 
 	private boolean diagonalVision = false;
+	private boolean ninjaAIOn = false;
 
 	/**
 	 * The amount of moves steps in the game. Used to keep of duration of
@@ -153,39 +154,115 @@ public class Game implements Serializable {
 	 * Randomly moves the the ninjas in array {@link #ninjas}
 	 */
 	public void moveNinjas() {
+		boolean hasMoved;
 		for (Ninja n : ninjas) {
-			boolean[] moveableSpaces = gameMap.whereCanMove(n);
-			int choice = (int) (Math.random() * 4);
-			if (moveableSpaces[0] || moveableSpaces[1] || moveableSpaces[2] || moveableSpaces[3]) {
-				while (!moveableSpaces[choice]) {
-					choice = (int) (Math.random() * 4);
-				}
-			} else
-				choice = -1;
+			hasMoved = false;
+			if (ninjaAIOn) {
+				hasMoved = smartNinjaMove(n);
+			}
+			if (!hasMoved) {
+				boolean[] moveableSpaces = gameMap.whereCanMove(n);
+				int choice = (int) (Math.random() * 4);
+				if (moveableSpaces[0] || moveableSpaces[1] || moveableSpaces[2] || moveableSpaces[3]) {
+					while (!moveableSpaces[choice]) {
+						choice = (int) (Math.random() * 4);
+					}
+				} else
+					choice = -1;
 
-			switch (choice) {
-			case 0:
-				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow() + 1, n.getCol());
-				n.setRow(n.getRow() + 1);
-				break;
-			case 1:
-				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow(), n.getCol() + 1);
-				n.setCol(n.getCol() + 1);
-				break;
-			case 2:
-				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow() - 1, n.getCol());
-				n.setRow(n.getRow() - 1);
-				break;
-			case 3:
-				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow(), n.getCol() - 1);
-				n.setCol(n.getCol() - 1);
-				break;
-			default:
-				break;
+				switch (choice) {
+				case 0:
+					gameMap.moveObject(n.getRow(), n.getCol(), n.getRow() + 1, n.getCol());
+					n.setRow(n.getRow() + 1);
+					break;
+				case 1:
+					gameMap.moveObject(n.getRow(), n.getCol(), n.getRow(), n.getCol() + 1);
+					n.setCol(n.getCol() + 1);
+					break;
+				case 2:
+					gameMap.moveObject(n.getRow(), n.getCol(), n.getRow() - 1, n.getCol());
+					n.setRow(n.getRow() - 1);
+					break;
+				case 3:
+					gameMap.moveObject(n.getRow(), n.getCol(), n.getRow(), n.getCol() - 1);
+					n.setCol(n.getCol() - 1);
+					break;
+				default:
+					break;
+				}
 			}
 		}
 		if (debugMode)
 			showAll();
+	}
+
+	private int inNinjaSight(Ninja n) {
+		int row = n.getRow();
+		int col = n.getCol();
+		for (int i = row; i >= 0; i--) {
+			if (gameMap.getObject(i, col) instanceof Room)
+				break;
+			if (gameMap.getObject(i, col) instanceof Player)
+				return 1;
+		}
+		row = n.getRow();
+		col = n.getCol();
+		for (int i = row; i <= 8; i++) {
+			if (gameMap.getObject(i, col) instanceof Room)
+				break;
+			if (gameMap.getObject(i, col) instanceof Player)
+				return 2;
+		}
+		row = n.getRow();
+		col = n.getCol();
+		for (int i = col; i <= 8; i++) {
+			if (gameMap.getObject(row, i) instanceof Room)
+				break;
+			if (gameMap.getObject(row, i) instanceof Player)
+				return 3;
+		}
+		row = n.getRow();
+		col = n.getCol();
+		for (int i = col; i >= 0; i--) {
+			if (gameMap.getObject(row, i) instanceof Room)
+				break;
+			if (gameMap.getObject(row, i) instanceof Player)
+				return 4;
+		}
+		return 0;
+	}
+
+	public boolean smartNinjaMove(Ninja n) {
+		boolean hasMoved = false;
+		switch (inNinjaSight(n)) {
+		case 0:
+			break;
+		case 1:
+			if (gameMap.whereCanMove(n)[1]) {
+				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow() - 1, n.getCol());
+				hasMoved = true;
+			}
+			break;
+		case 2:
+			if (gameMap.whereCanMove(n)[2]) {
+				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow(), n.getCol() + 1);
+				hasMoved = true;
+			}
+			break;
+		case 3:
+			if (gameMap.whereCanMove(n)[3]) {
+				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow() + 1, n.getCol());
+				hasMoved = true;
+			}
+			break;
+		case 4:
+			if (gameMap.whereCanMove(n)[4]) {
+				gameMap.moveObject(n.getRow(), n.getCol(), n.getRow(), n.getCol() - 1);
+				hasMoved = true;
+			}
+			break;
+		}
+		return hasMoved;
 	}
 
 	public Game(int ninjas) {
