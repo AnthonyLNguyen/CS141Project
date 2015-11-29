@@ -195,7 +195,8 @@ public class Game implements Serializable {
 
 	public String stats() {
 		return "Moves:" + moveCount + "\n" + "Ammo:" + player.getNumBullets() + "\n" + "Lives:" + player.getNumLives()
-				+ "\n" + "Level:" + (amountNinjas - 5);
+				+ "\n" + "Level:" + (amountNinjas - 5)
+				+ "\n" + "Ninjas:" + getNumNinjas();
 	}
 
 	public int getAmountNinjas() {
@@ -400,11 +401,6 @@ public class Game implements Serializable {
 		debugMode = true;
 		player.setInvincible(true);
 	}
-<<<<<<< HEAD
-
-	public int getNumNinjas() {
-		return ninjas.size();
-=======
 	
 	public int getNumNinjas(){
 		int numNin = 0;
@@ -413,10 +409,6 @@ public class Game implements Serializable {
 				if (gameMap.getObject(i, j) instanceof Ninja)
 					++numNin;
 		return numNin;
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> master
 	}
 
 	public void hideAll() {

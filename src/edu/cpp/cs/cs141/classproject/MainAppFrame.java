@@ -207,7 +207,7 @@ public class MainAppFrame extends JFrame {
 
 		mnEdit.add(rdbtnmntmMoreVision);
 		statsOutput.setEditable(false);
-		statsOutput.setBounds(603, 515, 99, 64);
+		statsOutput.setBounds(603, 515, 99, 80);
 		contentPane.add(statsOutput);
 		statsOutput.setText(gameEngine.stats());
 
