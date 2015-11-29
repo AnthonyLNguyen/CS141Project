@@ -22,7 +22,7 @@ public class Game implements Serializable {
 	private ArrayList<Ninja> ninjas = new ArrayList<Ninja>();
 	private int imoves = 0;
 	private int moveLooked = -1;
-	private boolean debugMode = false;
+	private boolean debugMode = false; 
 	private boolean diagonalVision = false;
 	private boolean ninjaAIOn = false;
 
