@@ -400,11 +400,6 @@ public class Game implements Serializable {
 		debugMode = true;
 		player.setInvincible(true);
 	}
-<<<<<<< HEAD
-
-	public int getNumNinjas() {
-		return ninjas.size();
-=======
 	
 	public int getNumNinjas(){
 		int numNin = 0;
@@ -413,11 +408,7 @@ public class Game implements Serializable {
 				if (gameMap.getObject(i, j) instanceof Ninja)
 					++numNin;
 		return numNin;
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> master
-	}
+}
 
 	public void hideAll() {
 		gameMap.unrevealAll();
