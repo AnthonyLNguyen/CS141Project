@@ -263,16 +263,7 @@ public class MainAppFrame extends JFrame {
 		gameEngine = new Game(level + 5);
 		table = new JTable(gameEngine.getGameMap().getGrid(), columns);
 		initGui();
-		if (debug) {
-			rdbtnmntmDebugMode.setSelected(true);
-			gameEngine.showAll();
-		}
-		if (vis)
-			rdbtnmntmMoreVision.setSelected(true);
-		if (!debug)
-			rdbtnmntmDebugMode.setSelected(false);
-		if (!vis)
-			rdbtnmntmMoreVision.setSelected(false);
+		resetTicks();
 		refresh();
 		gameEngine.vision();
 	}
@@ -344,6 +335,21 @@ public class MainAppFrame extends JFrame {
 		gameEngine = new Game(6);
 		table = new JTable(gameEngine.getGameMap().getGrid(), columns);
 		initGui();
+	}
+
+	private void resetTicks() {
+		if (debug) {
+			rdbtnmntmDebugMode.setSelected(true);
+			gameEngine.showAll();
+		}
+		if (vis) {
+			rdbtnmntmMoreVision.setSelected(true);
+			gameEngine.setDiagonalVision(true);
+		}
+		if (!debug)
+			rdbtnmntmDebugMode.setSelected(false);
+		if (!vis)
+			rdbtnmntmMoreVision.setSelected(false);
 	}
 
 	public class SwingAction extends AbstractAction {
@@ -451,18 +457,7 @@ public class MainAppFrame extends JFrame {
 				JOptionPane.showMessageDialog(contentPane, "Loaded " + s + ".dat");
 				table = new JTable(gameEngine.getGameMap().getGrid(), columns);
 				initGui();
-				if (debug) {
-					rdbtnmntmDebugMode.setSelected(true);
-					gameEngine.showAll();
-				}
-				if (vis){
-					rdbtnmntmMoreVision.setSelected(true);
-					gameEngine.setDiagonalVision(true);
-				}
-				if (!debug)
-					rdbtnmntmDebugMode.setSelected(false);
-				if (!vis)
-					rdbtnmntmMoreVision.setSelected(false);
+				resetTicks();
 				refresh();
 				gameEngine.vision();
 				gameLoaded = false;
