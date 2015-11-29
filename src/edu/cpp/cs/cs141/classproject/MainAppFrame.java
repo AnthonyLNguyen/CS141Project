@@ -260,9 +260,10 @@ public class MainAppFrame extends JFrame {
 			rdbtnmntmMoreVision.setSelected(true);
 			gameEngine.showAll();
 		}
-		if (!debug)
+		if (!debug) {
 			rdbtnmntmDebugMode.setSelected(false);
-		rdbtnmntmMoreVision.setSelected(false);
+			rdbtnmntmMoreVision.setSelected(false);
+		}
 		refresh();
 		gameEngine.vision();
 	}
@@ -288,7 +289,7 @@ public class MainAppFrame extends JFrame {
 			comboBox.setSelectedIndex(2);
 			break;
 		}
-		
+
 		repaint();
 	}
 
