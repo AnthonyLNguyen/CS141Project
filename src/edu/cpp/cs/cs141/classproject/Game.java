@@ -636,4 +636,12 @@ public class Game implements Serializable {
 	public Player getPlayer() {
 		return player;
 	}
+	
+	public boolean getNinjaAI(){
+		return ninjaAIOn;
+	}
+	
+	public void setNinjaAI(boolean t){
+		ninjaAIOn = t;
+	}
 }
