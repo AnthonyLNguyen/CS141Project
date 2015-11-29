@@ -413,6 +413,9 @@ public class Game implements Serializable {
 				if (gameMap.getObject(i, j) instanceof Ninja)
 					++numNin;
 		return numNin;
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 	}
 
