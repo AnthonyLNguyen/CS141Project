@@ -1,13 +1,11 @@
 package edu.cpp.cs.cs141.classproject;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-//import com.sun.medialib.mlib.Image;
 
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -20,11 +18,7 @@ import java.io.PrintStream;
 import javax.swing.Action;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import java.awt.event.ActionListener;
-import javax.swing.JRadioButton;
-import javax.swing.JToolBar;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -33,9 +27,6 @@ import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import javax.swing.JDesktopPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
