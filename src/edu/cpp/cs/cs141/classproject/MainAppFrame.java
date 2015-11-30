@@ -347,6 +347,7 @@ public class MainAppFrame extends JFrame {
 	}
 
 	public void nextLevel() {
+		JOptionPane.showMessageDialog(contentPane, "You found the documents!");
 		level++;
 		gameEngine = new Game(level + 5);
 		table = new JTable(gameEngine.getGameMap().getGrid(), columns);
@@ -355,7 +356,7 @@ public class MainAppFrame extends JFrame {
 		refresh();
 		gameEngine.vision();
 	}
-
+	
 	public void keybinds(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_UP:
