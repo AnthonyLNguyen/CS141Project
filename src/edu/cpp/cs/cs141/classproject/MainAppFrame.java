@@ -100,6 +100,7 @@ public class MainAppFrame extends JFrame {
 	private final JLabel lbllevel = new JLabel("Level:" + (gameEngine.getAmountNinjas()-5));
 	private final JLabel moveCount = new JLabel("Moves:" + gameEngine.getMoveCount());
 
+	
 	/**
 	 * Launch the application.
 	 */
@@ -160,23 +161,23 @@ public class MainAppFrame extends JFrame {
 
 		btnUp.setToolTipText("UP");
 		btnUp.setAction(controlUP);
-		btnUp.setBounds(732, 436, 52, 29);
+		btnUp.setBounds(725, 474, 52, 29);
 
 		contentPane.add(btnUp);
 		buttonGroup.add(btnDown);
 		btnDown.setAction(controlDOWN);
 
-		btnDown.setBounds(723, 474, 72, 29);
+		btnDown.setBounds(716, 512, 72, 29);
 
 		contentPane.add(btnDown);
 		buttonGroup.add(btnLeft);
 		btnLeft.setAction(controlLEFT);
-		btnLeft.setBounds(793, 474, 72, 29);
+		btnLeft.setBounds(786, 512, 72, 29);
 
 		contentPane.add(btnLeft);
 		buttonGroup.add(btnRight);
 		btnRight.setAction(controlRIGHT);
-		btnRight.setBounds(653, 474, 72, 29);
+		btnRight.setBounds(646, 512, 72, 29);
 
 		contentPane.add(btnRight);
 		gameInfo.setBounds(621, 30, 268, 238);
@@ -194,7 +195,7 @@ public class MainAppFrame extends JFrame {
 		comboBox.setBounds(756, 269, 133, 27);
 
 		contentPane.add(comboBox);
-		label.setBounds(613, 349, 64, 64);
+		label.setBounds(629, 353, 64, 64);
 
 		contentPane.add(label);
 		label.setIcon(new ImageIcon(playerImg));
@@ -234,31 +235,31 @@ public class MainAppFrame extends JFrame {
 		txtpnInstructions.setFont(new Font("Prestige Elite Std", Font.PLAIN, 13));
 		txtpnInstructions.setEditable(false);
 		txtpnInstructions
-				.setText("Arrow Keys = Move\nS = Shoot\nL = Look\nPress Tab a couple times if keys stop working");
-		txtpnInstructions.setBounds(621, 504, 268, 91);
+				.setText("Arrow Keys = Move\nS = Shoot\nL = Look\n");
+		txtpnInstructions.setBounds(621, 553, 268, 53);
 
 		contentPane.add(txtpnInstructions);
-		heart3.setBounds(592, 345, 25, 25);
+		heart3.setBounds(608, 349, 25, 25);
 
 		contentPane.add(heart3);
-		heart2.setBounds(592, 372, 25, 25);
+		heart2.setBounds(608, 376, 25, 25);
 
 		contentPane.add(heart2);
-		heart1.setBounds(592, 399, 25, 25);
+		heart1.setBounds(608, 403, 25, 25);
 
 		contentPane.add(heart1);
-		bullets.setBounds(794, 345, 64, 64);
+		bullets.setBounds(810, 349, 64, 64);
 		
 		contentPane.add(bullets);
 		bulletCount.setFont(new Font("Prestige Elite Std", Font.PLAIN, 13));
-		bulletCount.setBounds(804, 408, 61, 16);
+		bulletCount.setBounds(820, 412, 61, 16);
 		
 		contentPane.add(bulletCount);
-		ninja.setBounds(696, 345, 64, 64);
+		ninja.setBounds(712, 349, 64, 64);
 		
 		contentPane.add(ninja);
 		ninjaCount.setFont(new Font("Prestige Elite Std", Font.PLAIN, 13));
-		ninjaCount.setBounds(706, 408, 61, 16);
+		ninjaCount.setBounds(722, 412, 61, 16);
 		
 		contentPane.add(ninjaCount);
 		lbllevel.setFont(new Font("Prestige Elite Std", Font.PLAIN, 21));
@@ -269,6 +270,41 @@ public class MainAppFrame extends JFrame {
 		moveCount.setBounds(631, 308, 144, 29);
 		
 		contentPane.add(moveCount);
+		
+		
+		
+		
+		btnUp.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				keybinds(e);
+			}
+		});
+		btnDown.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				keybinds(e);
+			}
+		});
+		btnLeft.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				keybinds(e);
+			}
+		});
+		btnRight.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				keybinds(e);
+			}
+		});
+		comboBox.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				keybinds(e);
+			}
+		});
+		
 
 	}
 
