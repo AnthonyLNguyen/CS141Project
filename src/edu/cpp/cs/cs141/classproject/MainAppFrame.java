@@ -33,6 +33,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
 import java.awt.Font;
+import javax.swing.JCheckBoxMenuItem;
 
 public class MainAppFrame extends JFrame {
 
@@ -72,13 +73,13 @@ public class MainAppFrame extends JFrame {
 	private final Action loadGame = new SwingAction_6();
 	private boolean gameLoaded = false;
 	private final JMenu mnEdit = new JMenu("Edit");
-	private final JRadioButtonMenuItem rdbtnmntmDebugMode = new JRadioButtonMenuItem("Debug Mode");
+	private final JCheckBoxMenuItem rdbtnmntmDebugMode = new JCheckBoxMenuItem("Debug Mode");
 	private final JMenuItem mntmNewGame = new JMenuItem("New Game");
 	private final Action newGame = new SwingAction_7();
-	private final JRadioButtonMenuItem rdbtnmntmMoreVision = new JRadioButtonMenuItem("More Vision");
+	private final JCheckBoxMenuItem rdbtnmntmMoreVision = new JCheckBoxMenuItem("More Vision");
 	private final Action altVis = new SwingAction_8();
 	private final JTextPane txtpnInstructions = new JTextPane();
-	private final JRadioButtonMenuItem mntmHardMode = new JRadioButtonMenuItem("Hard Mode");
+	private final JCheckBoxMenuItem mntmHardMode = new JCheckBoxMenuItem("Hard Mode");
 	private final Action action = new SwingAction_9();
 	private boolean hardMode = false;
 	private final JLabel heart3 = new JLabel("");
