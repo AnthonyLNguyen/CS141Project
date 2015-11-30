@@ -299,4 +299,11 @@ public class Map implements Serializable {
 			return false;
 		return grid[p.getRow() + 1][p.getCol()] instanceof Room;
 	}
+	
+	public Object replaceObject(int row1, int col1, int row2, int col2){
+		Object o = removeObject(row2, col2);
+		addObject(row2, col2, getObject(row1, col1));
+		removeObject(row1, col1);
+		return o;
+	}
 }

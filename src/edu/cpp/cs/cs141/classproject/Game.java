@@ -22,7 +22,7 @@ public class Game implements Serializable {
 	private ArrayList<Ninja> ninjas = new ArrayList<Ninja>();
 	private int imoves = 0;
 	private int moveLooked = -1;
-	private boolean debugMode = false; 
+	private boolean debugMode = false;
 	private boolean diagonalVision = false;
 	private boolean ninjaAIOn = false;
 
@@ -140,7 +140,12 @@ public class Game implements Serializable {
 		player.setNumLives(player.getNumLives() - 1);
 		if (player.getNumLives() == 0)
 			loss = true;
-		gameMap.moveObject(player.getRow(), player.getCol(), 8, 0);
+		if (gameMap.getObject(8, 0) instanceof Ninja) {
+			ArrayList<Object> temp = new ArrayList<Object>();
+			temp.add(gameMap.replaceObject(player.getRow(), player.getCol(), 8, 0));
+			gameMap.randomlyAddObjects(temp);
+		} else
+			gameMap.moveObject(player.getRow(), player.getCol(), 8, 0);
 		player.setCol(0);
 		player.setRow(8);
 		vision();
@@ -202,7 +207,7 @@ public class Game implements Serializable {
 		for (int i = row; i >= 0; i--) {
 			if (gameMap.getObject(i, col) instanceof Room)
 				break;
-			if (gameMap.getObject(i, col) instanceof Player) 
+			if (gameMap.getObject(i, col) instanceof Player)
 				return 1;
 		}
 		row = n.getRow();
@@ -210,7 +215,7 @@ public class Game implements Serializable {
 		for (int i = row; i <= 8; i++) {
 			if (gameMap.getObject(i, col) instanceof Room)
 				break;
-			if (gameMap.getObject(i, col) instanceof Player) 
+			if (gameMap.getObject(i, col) instanceof Player)
 				return 3;
 		}
 		row = n.getRow();
@@ -218,16 +223,16 @@ public class Game implements Serializable {
 		for (int i = col; i <= 8; i++) {
 			if (gameMap.getObject(row, i) instanceof Room)
 				break;
-			if (gameMap.getObject(row, i) instanceof Player) 
+			if (gameMap.getObject(row, i) instanceof Player)
 				return 2;
 		}
 		row = n.getRow();
-		col = n.getCol(); 
+		col = n.getCol();
 		for (int i = col; i >= 0; i--) {
 			if (gameMap.getObject(row, i) instanceof Room)
 				break;
 			if (gameMap.getObject(row, i) instanceof Player)
-				return 4;	
+				return 4;
 		}
 		return 0;
 	}
@@ -429,6 +434,7 @@ public class Game implements Serializable {
 
 	/**
 	 * Activates a powerup depending on what powerup is given.
+	 * 
 	 * @param power
 	 */
 	public void playerPowerup(int power) {
@@ -532,21 +538,22 @@ public class Game implements Serializable {
 			Ninja n = null;
 			switch (dir) {
 			case 1:// up
-				while (!bulletTraveled) {
+				while (true) { // !bulletTraveled) {
 					for (int i = row; i >= 0; i--) {
 						if (gameMap.getObject(i, col) instanceof Room) {
 							System.out.println("You shot a room! ):");
-							bulletTraveled = true;
+							// bulletTraveled = true;
 							break;
 						}
 						if (gameMap.getObject(i, col) instanceof Ninja) {
 							n = (Ninja) gameMap.removeObject(i, col);
 							gameMap.addObject(i, col, new EmptySpace());
-							bulletTraveled = true;
+							// bulletTraveled = true;
 							break;
 						}
 					}
-					bulletTraveled = true;
+					// bulletTraveled = true;
+					break;
 				}
 				break;
 			case 2:// down
@@ -644,12 +651,12 @@ public class Game implements Serializable {
 	public Player getPlayer() {
 		return player;
 	}
-	
-	public boolean getNinjaAI(){
+
+	public boolean getNinjaAI() {
 		return ninjaAIOn;
 	}
-	
-	public void setNinjaAI(boolean t){
+
+	public void setNinjaAI(boolean t) {
 		ninjaAIOn = t;
 	}
 }

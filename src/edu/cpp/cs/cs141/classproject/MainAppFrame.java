@@ -36,7 +36,7 @@ import java.awt.Font;
 
 public class MainAppFrame extends JFrame {
 
-	private int level = 1;
+	private int level = 19;
 	private Game gameEngine = new Game(level + 5);
 	private JPanel contentPane;
 	private Object columns[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
