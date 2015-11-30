@@ -19,6 +19,8 @@ public class Map implements Serializable {
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
+	
+	
 	public String toString() {
 		String result = "";
 		for (int i = 0; i < GRID_SIZE; i++) {

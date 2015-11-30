@@ -10,8 +10,10 @@ public class Player implements Serializable{
 	private static final long serialVersionUID = -6775177897769827569L;
 	private int numBullets;
 	private int numLives;
+	
 	private int row;
 	private int col;
+	
 	private boolean isInvincible;
 	
 	public Player(){

@@ -17,10 +17,9 @@ public class Radar extends AbstractPowerUp implements Serializable{
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
+	
+	
 	public String toString() {
-		if (isHidden)
-			return "*";
-		else
-			return "R";
+		return isHidden ? "*" : "R";
 	}
 }
