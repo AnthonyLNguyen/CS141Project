@@ -89,7 +89,8 @@ public class UserInterface {
 				+ "[$]: Briefcase Room\n"
 				+ "[B]: Extra Bullet Power-Up\n"
 				+ "[I]: Invincibility Power-Up\n"
-				+ "[R]: Reveal Briefcase Power-Up\n");
+				+ "[R]: Reveal Briefcase Power-Up\n\n"
+				+ "Type 42 To enter debug mode. 24 to exit debug mode.");
 	}
 
 	/**
