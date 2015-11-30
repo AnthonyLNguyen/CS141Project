@@ -24,9 +24,6 @@ public class EmptySpace implements Serializable{
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		if (isHidden)
-			return "*";
-		else
-			return " ";
+		return isHidden ? "*" : " ";
 	}
 }
