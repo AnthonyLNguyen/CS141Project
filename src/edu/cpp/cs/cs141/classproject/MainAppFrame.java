@@ -117,7 +117,7 @@ public class MainAppFrame extends JFrame {
 	}
 
 	public void start() {
-		setVisible(true);
+		setVisible(true); 
 	}
 
 	public void initGame() {
