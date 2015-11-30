@@ -538,22 +538,16 @@ public class Game implements Serializable {
 			Ninja n = null;
 			switch (dir) {
 			case 1:// up
-				while (true) { // !bulletTraveled) {
-					for (int i = row; i >= 0; i--) {
-						if (gameMap.getObject(i, col) instanceof Room) {
-							System.out.println("You shot a room! ):");
-							// bulletTraveled = true;
-							break;
-						}
-						if (gameMap.getObject(i, col) instanceof Ninja) {
-							n = (Ninja) gameMap.removeObject(i, col);
-							gameMap.addObject(i, col, new EmptySpace());
-							// bulletTraveled = true;
-							break;
-						}
+				for (int i = row; i >= 0; i--) {
+					if (gameMap.getObject(i, col) instanceof Room) {
+						System.out.println("You shot a room! ):");
+						break;
 					}
-					// bulletTraveled = true;
-					break;
+					if (gameMap.getObject(i, col) instanceof Ninja) {
+						n = (Ninja) gameMap.removeObject(i, col);
+						gameMap.addObject(i, col, new EmptySpace());
+						break;
+					}
 				}
 				break;
 			case 2:// down
