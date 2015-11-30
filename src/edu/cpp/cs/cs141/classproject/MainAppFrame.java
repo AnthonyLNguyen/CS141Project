@@ -230,10 +230,11 @@ public class MainAppFrame extends JFrame {
 		mntmHardMode.setAction(action);
 
 		mnEdit.add(mntmHardMode);
+		txtpnInstructions.setFont(new Font("Prestige Elite Std", Font.PLAIN, 13));
 		txtpnInstructions.setEditable(false);
 		txtpnInstructions
 				.setText("Arrow Keys = Move\nS = Shoot\nL = Look\nPress Tab a couple times if keys stop working");
-		txtpnInstructions.setBounds(621, 515, 268, 80);
+		txtpnInstructions.setBounds(621, 504, 268, 91);
 
 		contentPane.add(txtpnInstructions);
 		heart3.setBounds(592, 345, 25, 25);
@@ -248,13 +249,15 @@ public class MainAppFrame extends JFrame {
 		bullets.setBounds(794, 345, 64, 64);
 		
 		contentPane.add(bullets);
-		bulletCount.setBounds(804, 401, 61, 16);
+		bulletCount.setFont(new Font("Prestige Elite Std", Font.PLAIN, 13));
+		bulletCount.setBounds(804, 408, 61, 16);
 		
 		contentPane.add(bulletCount);
 		ninja.setBounds(696, 345, 64, 64);
 		
 		contentPane.add(ninja);
-		ninjaCount.setBounds(706, 401, 61, 16);
+		ninjaCount.setFont(new Font("Prestige Elite Std", Font.PLAIN, 13));
+		ninjaCount.setBounds(706, 408, 61, 16);
 		
 		contentPane.add(ninjaCount);
 		lbllevel.setFont(new Font("Prestige Elite Std", Font.PLAIN, 21));
@@ -301,6 +304,8 @@ public class MainAppFrame extends JFrame {
 
 	public void refresh() {
 		bulletCount.setText("x" + gameEngine.getPlayer().getNumBullets());
+		if (debug)
+			bulletCount.setText("x999");
 		ninjaCount.setText("x" + gameEngine.getNumNinjas());
 		lbllevel.setText("Level:" + (gameEngine.getAmountNinjas()-5));
 		moveCount.setText("Moves:" + gameEngine.getMoveCount());
