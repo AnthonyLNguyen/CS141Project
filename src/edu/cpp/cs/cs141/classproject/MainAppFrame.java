@@ -41,6 +41,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
+import java.awt.Font;
 
 public class MainAppFrame extends JFrame {
 
@@ -64,9 +65,12 @@ public class MainAppFrame extends JFrame {
 	private final JComboBox comboBox = new JComboBox();
 	private final JPanel gameInfo = new JPanel();
 	private final JTextArea output = new JTextArea();
-	private final JTextPane statsOutput = new JTextPane();
 	private final JLabel label = new JLabel("");
-	private java.awt.Image playerImg = new ImageIcon(this.getClass().getResource("/player.jpeg")).getImage();
+	private java.awt.Image playerImg = new ImageIcon(this.getClass().getResource("/player.png")).getImage();
+	private java.awt.Image heartImg = new ImageIcon(this.getClass().getResource("/heart.png")).getImage();
+	private java.awt.Image bulletImg = new ImageIcon(this.getClass().getResource("/bullet.png")).getImage();
+	private java.awt.Image ninjaImg = new ImageIcon(this.getClass().getResource("/ninja.png")).getImage();
+	private java.awt.Image noImg = new ImageIcon(this.getClass().getResource("")).getImage();
 	private final JScrollPane scrollPane = new JScrollPane();
 	private final JMenuBar menuBar = new JMenuBar();
 	private final JMenu mnNewMenu = new JMenu("File");
@@ -86,6 +90,15 @@ public class MainAppFrame extends JFrame {
 	private final JRadioButtonMenuItem mntmHardMode = new JRadioButtonMenuItem("Hard Mode");
 	private final Action action = new SwingAction_9();
 	private boolean hardMode = false;
+	private final JLabel heart3 = new JLabel("");
+	private final JLabel heart2 = new JLabel("");
+	private final JLabel heart1 = new JLabel("");
+	private final JLabel bullets = new JLabel("");
+	private final JLabel bulletCount = new JLabel("x" + gameEngine.getPlayer().getNumBullets());
+	private final JLabel ninja = new JLabel("");
+	private final JLabel ninjaCount = new JLabel("x" + gameEngine.getNumNinjas());
+	private final JLabel lbllevel = new JLabel("Level:" + (gameEngine.getAmountNinjas()-5));
+	private final JLabel moveCount = new JLabel("Moves:" + gameEngine.getMoveCount());
 
 	/**
 	 * Launch the application.
@@ -122,7 +135,7 @@ public class MainAppFrame extends JFrame {
 				keybinds(e);
 			}
 		});
-		setTitle("Game");
+		setTitle("Bob Goes To Work");
 		initGui();
 	}
 
@@ -131,6 +144,7 @@ public class MainAppFrame extends JFrame {
 		redirectSystemStreams();
 		if (!gameLoaded)
 			initGame();
+		refresh();
 		gameEngine.vision();
 		table.setEnabled(false);
 		table.setDefaultRenderer(Object.class, new IconRenderer());
@@ -145,26 +159,26 @@ public class MainAppFrame extends JFrame {
 
 		btnUp.setToolTipText("UP");
 		btnUp.setAction(controlUP);
-		btnUp.setBounds(735, 414, 52, 29);
+		btnUp.setBounds(732, 436, 52, 29);
 
 		contentPane.add(btnUp);
 		buttonGroup.add(btnDown);
 		btnDown.setAction(controlDOWN);
 
-		btnDown.setBounds(726, 452, 72, 29);
+		btnDown.setBounds(723, 474, 72, 29);
 
 		contentPane.add(btnDown);
 		buttonGroup.add(btnLeft);
 		btnLeft.setAction(controlLEFT);
-		btnLeft.setBounds(796, 452, 72, 29);
+		btnLeft.setBounds(793, 474, 72, 29);
 
 		contentPane.add(btnLeft);
 		buttonGroup.add(btnRight);
 		btnRight.setAction(controlRIGHT);
-		btnRight.setBounds(656, 452, 72, 29);
+		btnRight.setBounds(653, 474, 72, 29);
 
 		contentPane.add(btnRight);
-		gameInfo.setBounds(621, 74, 268, 238);
+		gameInfo.setBounds(621, 30, 268, 238);
 
 		contentPane.add(gameInfo);
 		gameInfo.setLayout(null);
@@ -176,13 +190,15 @@ public class MainAppFrame extends JFrame {
 		output.setWrapStyleWord(true);
 		output.setLineWrap(true);
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Move", "Shoot", "Look" }));
-		comboBox.setBounds(735, 324, 133, 27);
+		comboBox.setBounds(756, 269, 133, 27);
 
 		contentPane.add(comboBox);
-		label.setBounds(638, 365, 64, 64);
+		label.setBounds(613, 349, 64, 64);
 
 		contentPane.add(label);
 		label.setIcon(new ImageIcon(playerImg));
+		bullets.setIcon(new ImageIcon(bulletImg));
+		ninja.setIcon(new ImageIcon(ninjaImg));
 		table.setRowSelectionAllowed(false);
 
 		table.setRowHeight(64);
@@ -212,18 +228,43 @@ public class MainAppFrame extends JFrame {
 
 		mnEdit.add(rdbtnmntmMoreVision);
 		mntmHardMode.setAction(action);
-		
+
 		mnEdit.add(mntmHardMode);
 		txtpnInstructions.setEditable(false);
 		txtpnInstructions
 				.setText("Arrow Keys = Move\nS = Shoot\nL = Look\nPress Tab a couple times if keys stop working");
-		txtpnInstructions.setBounds(698, 515, 191, 80);
+		txtpnInstructions.setBounds(621, 515, 268, 80);
 
 		contentPane.add(txtpnInstructions);
-		statsOutput.setEditable(false);
-		statsOutput.setBounds(621, 515, 77, 80);
-		contentPane.add(statsOutput);
-		statsOutput.setText(gameEngine.stats());
+		heart3.setBounds(592, 345, 25, 25);
+
+		contentPane.add(heart3);
+		heart2.setBounds(592, 372, 25, 25);
+
+		contentPane.add(heart2);
+		heart1.setBounds(592, 399, 25, 25);
+
+		contentPane.add(heart1);
+		bullets.setBounds(794, 345, 64, 64);
+		
+		contentPane.add(bullets);
+		bulletCount.setBounds(804, 401, 61, 16);
+		
+		contentPane.add(bulletCount);
+		ninja.setBounds(696, 345, 64, 64);
+		
+		contentPane.add(ninja);
+		ninjaCount.setBounds(706, 401, 61, 16);
+		
+		contentPane.add(ninjaCount);
+		lbllevel.setFont(new Font("Prestige Elite Std", Font.PLAIN, 21));
+		lbllevel.setBounds(631, 280, 144, 29);
+		
+		contentPane.add(lbllevel);
+		moveCount.setFont(new Font("Prestige Elite Std", Font.PLAIN, 21));
+		moveCount.setBounds(631, 308, 144, 29);
+		
+		contentPane.add(moveCount);
 
 	}
 
@@ -259,9 +300,37 @@ public class MainAppFrame extends JFrame {
 	}
 
 	public void refresh() {
+		bulletCount.setText("x" + gameEngine.getPlayer().getNumBullets());
+		ninjaCount.setText("x" + gameEngine.getNumNinjas());
+		lbllevel.setText("Level:" + (gameEngine.getAmountNinjas()-5));
+		moveCount.setText("Moves:" + gameEngine.getMoveCount());
+		lifeTracker();
 		table.repaint();
-		statsOutput.repaint();
-		statsOutput.setText(gameEngine.stats());
+	}
+
+	public void lifeTracker() {
+		switch (gameEngine.getPlayer().getNumLives()) {
+		case 0:
+			heart1.setIcon(new ImageIcon(noImg));
+			heart2.setIcon(new ImageIcon(noImg));
+			heart3.setIcon(new ImageIcon(noImg));
+			break;
+		case 1:
+			heart1.setIcon(new ImageIcon(heartImg));
+			heart2.setIcon(new ImageIcon(noImg));
+			heart3.setIcon(new ImageIcon(noImg));
+			break;
+		case 2:
+			heart1.setIcon(new ImageIcon(heartImg));
+			heart2.setIcon(new ImageIcon(heartImg));
+			heart3.setIcon(new ImageIcon(noImg));
+			break;
+		case 3:
+			heart1.setIcon(new ImageIcon(heartImg));
+			heart2.setIcon(new ImageIcon(heartImg));
+			heart3.setIcon(new ImageIcon(heartImg));
+			break;
+		}
 	}
 
 	public void nextLevel() {
@@ -294,6 +363,8 @@ public class MainAppFrame extends JFrame {
 		case KeyEvent.VK_L:
 			comboBox.setSelectedIndex(2);
 			break;
+		case KeyEvent.VK_F5:
+			newGame();
 		}
 
 		repaint();
@@ -337,10 +408,12 @@ public class MainAppFrame extends JFrame {
 	}
 
 	private void newGame() {
+		System.out.println("\nNew Game Started");
 		level = 1;
 		gameEngine = new Game(6);
 		table = new JTable(gameEngine.getGameMap().getGrid(), columns);
 		initGui();
+		resetTicks();
 	}
 
 	private void resetTicks() {
@@ -352,7 +425,7 @@ public class MainAppFrame extends JFrame {
 			rdbtnmntmMoreVision.setSelected(true);
 			gameEngine.setDiagonalVision(true);
 		}
-		if (hardMode){
+		if (hardMode) {
 			mntmHardMode.setSelected(true);
 			gameEngine.setNinjaAI(true);
 		}
@@ -483,13 +556,12 @@ public class MainAppFrame extends JFrame {
 
 	private class SwingAction_7 extends AbstractAction {
 		public SwingAction_7() {
-			putValue(NAME, "New Game");
+			putValue(NAME, "New Game (F5)");
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 
 		public void actionPerformed(ActionEvent e) {
 			newGame();
-			System.out.println("\nNew Game Started");
 		}
 	}
 
@@ -511,11 +583,13 @@ public class MainAppFrame extends JFrame {
 			refresh();
 		}
 	}
+
 	private class SwingAction_9 extends AbstractAction {
 		public SwingAction_9() {
 			putValue(NAME, "Hard Mode");
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
+
 		public void actionPerformed(ActionEvent e) {
 			if (!hardMode) {
 				gameEngine.setNinjaAI(true);

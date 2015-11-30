@@ -284,6 +284,10 @@ public class Game implements Serializable {
 				+ "\n" + "Level:" + (amountNinjas - 5) + "\n" + "Ninjas:" + getNumNinjas();
 	}
 
+	public int getMoveCount() {
+		return moveCount;
+	}
+
 	public int getAmountNinjas() {
 		return amountNinjas;
 	}
