@@ -97,10 +97,15 @@ public class MainAppFrame extends JFrame {
 	private final JLabel bulletCount = new JLabel("x" + gameEngine.getPlayer().getNumBullets());
 	private final JLabel ninja = new JLabel("");
 	private final JLabel ninjaCount = new JLabel("x" + gameEngine.getNumNinjas());
-	private final JLabel lbllevel = new JLabel("Level:" + (gameEngine.getAmountNinjas()-5));
+	private final JLabel lbllevel = new JLabel("Level:" + (gameEngine.getAmountNinjas() - 5));
 	private final JLabel moveCount = new JLabel("Moves:" + gameEngine.getMoveCount());
+	private final KeyAdapter controls = new KeyAdapter() {
+		@Override
+		public void keyPressed(KeyEvent e) {
+			keybinds(e);
+		}
+	};
 
-	
 	/**
 	 * Launch the application.
 	 */
@@ -118,7 +123,7 @@ public class MainAppFrame extends JFrame {
 	}
 
 	public void start() {
-		setVisible(true); 
+		setVisible(true);
 	}
 
 	public void initGame() {
@@ -131,12 +136,7 @@ public class MainAppFrame extends JFrame {
 	public MainAppFrame() {
 		setResizable(false);
 		setFocusable(true);
-		addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				keybinds(e);
-			}
-		});
+		addKeyListener(controls);
 		setTitle("Bob Goes To Work");
 		initGui();
 	}
@@ -234,8 +234,7 @@ public class MainAppFrame extends JFrame {
 		mnEdit.add(mntmHardMode);
 		txtpnInstructions.setFont(new Font("Prestige Elite Std", Font.PLAIN, 13));
 		txtpnInstructions.setEditable(false);
-		txtpnInstructions
-				.setText("Arrow Keys = Move\nS = Shoot\nL = Look\n");
+		txtpnInstructions.setText("Arrow Keys = Move\nS = Shoot\nL = Look\n");
 		txtpnInstructions.setBounds(621, 553, 268, 53);
 
 		contentPane.add(txtpnInstructions);
@@ -249,62 +248,34 @@ public class MainAppFrame extends JFrame {
 
 		contentPane.add(heart1);
 		bullets.setBounds(810, 349, 64, 64);
-		
+
 		contentPane.add(bullets);
 		bulletCount.setFont(new Font("Prestige Elite Std", Font.PLAIN, 13));
 		bulletCount.setBounds(820, 412, 61, 16);
-		
+
 		contentPane.add(bulletCount);
 		ninja.setBounds(712, 349, 64, 64);
-		
+
 		contentPane.add(ninja);
 		ninjaCount.setFont(new Font("Prestige Elite Std", Font.PLAIN, 13));
 		ninjaCount.setBounds(722, 412, 61, 16);
-		
+
 		contentPane.add(ninjaCount);
 		lbllevel.setFont(new Font("Prestige Elite Std", Font.PLAIN, 21));
 		lbllevel.setBounds(631, 280, 144, 29);
-		
+
 		contentPane.add(lbllevel);
 		moveCount.setFont(new Font("Prestige Elite Std", Font.PLAIN, 21));
 		moveCount.setBounds(631, 308, 144, 29);
-		
+
 		contentPane.add(moveCount);
-		
-		
-		
-		
-		btnUp.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				keybinds(e);
-			}
-		});
-		btnDown.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				keybinds(e);
-			}
-		});
-		btnLeft.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				keybinds(e);
-			}
-		});
-		btnRight.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				keybinds(e);
-			}
-		});
-		comboBox.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				keybinds(e);
-			}
-		});
-		
+
+		// key listeners so any focus will do
+		btnUp.addKeyListener(controls);
+		btnDown.addKeyListener(controls);
+		btnLeft.addKeyListener(controls);
+		btnRight.addKeyListener(controls);
+		comboBox.addKeyListener(controls);
 
 	}
 
@@ -344,7 +315,7 @@ public class MainAppFrame extends JFrame {
 		if (debug)
 			bulletCount.setText("x999");
 		ninjaCount.setText("x" + gameEngine.getNumNinjas());
-		lbllevel.setText("Level:" + (gameEngine.getAmountNinjas()-5));
+		lbllevel.setText("Level:" + (gameEngine.getAmountNinjas() - 5));
 		moveCount.setText("Moves:" + gameEngine.getMoveCount());
 		lifeTracker();
 		table.repaint();
