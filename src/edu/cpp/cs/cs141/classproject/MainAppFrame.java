@@ -274,7 +274,6 @@ public class MainAppFrame extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				output.append(text);
-
 			}
 		});
 	}
