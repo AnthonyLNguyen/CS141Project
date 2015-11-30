@@ -70,8 +70,6 @@ public class Player implements Serializable{
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		if (isInvincible)
-			return "P";
-		return "p";
+		return isInvincible ? "P" : "p";
 	}
 }
