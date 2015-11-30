@@ -128,6 +128,7 @@ public class MainAppFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainAppFrame() {
+		setResizable(false);
 		setFocusable(true);
 		addKeyListener(new KeyAdapter() {
 			@Override
