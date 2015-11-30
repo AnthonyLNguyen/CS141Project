@@ -19,9 +19,6 @@ public class Invincibility extends AbstractPowerUp implements Serializable{
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		if (isHidden)
-			return "*";
-		else
-			return "I";
+		return isHidden ? "*" : "I";
 	}
 }
