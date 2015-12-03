@@ -12,6 +12,13 @@ public class UserInterface {
 		this.gameEngine = gameEngine;
 		userinput = new Scanner(System.in);
 	}
+	
+	public int chooseMode(){
+		System.out.println("Please choose an option: \n"
+				+ "\t[1]Text Based"
+				+ "\n\t[2]GUI Based");
+		return userinput.nextInt();
+	}
 
 	/**
 	 * Welcomes the user with {@link #printWelcomeMessage()} Starts the game

@@ -35,7 +35,7 @@ import javax.swing.JRadioButtonMenuItem;
 import java.awt.Font;
 import javax.swing.JCheckBoxMenuItem;
 
-public class MainAppFrame extends JFrame {
+public class GraphicalUserInterface extends JFrame {
 
 	private int level = 1;
 	private Game gameEngine = new Game(level + 5);
@@ -101,11 +101,11 @@ public class MainAppFrame extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void launch() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainAppFrame frame = new MainAppFrame();
+					GraphicalUserInterface frame = new GraphicalUserInterface();
 					frame.start();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -125,7 +125,7 @@ public class MainAppFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainAppFrame() {
+	public GraphicalUserInterface() {
 		setResizable(false);
 		setFocusable(true);
 		addKeyListener(controls);
