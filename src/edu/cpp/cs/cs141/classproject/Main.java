@@ -5,20 +5,20 @@ public class Main {
 		boolean gameStarted = false;
 		int level = 1;
 		while (true) {
-			UserInterface u = new UserInterface(new Game(5 + level));
+			UserInterface TEXT = new UserInterface(new Game(5 + level));
 			int modeChoice = 1;
 			if (!gameStarted) {
-				modeChoice = u.chooseMode();
+				modeChoice = TEXT.chooseMode();
 				gameStarted = true;
 			}
 				switch (modeChoice) {
 				case 1:
-					u.startGame();
+					TEXT.launch();
 					level++;
 					break;
 				case 2:
-					GraphicalUserInterface m = new GraphicalUserInterface();
-					m.launch();
+					GraphicalUserInterface GUI = new GraphicalUserInterface();
+					GUI.launch();
 					break;
 				}
 			

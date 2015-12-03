@@ -24,7 +24,7 @@ public class UserInterface {
 	 * Welcomes the user with {@link #printWelcomeMessage()} Starts the game
 	 * prompts the user with {@link #mainMenu()}
 	 */
-	public void startGame() {
+	public void launch() {
 		int choice = 1;
 		if(gameEngine.getAmountNinjas() == 6){
 			printWelcomeMessage();
@@ -42,7 +42,7 @@ public class UserInterface {
 				quit = true;
 				help();
 				userinput.nextLine();
-				startGame();
+				launch();
 				break;
 			case 3:
 				quit = true;
