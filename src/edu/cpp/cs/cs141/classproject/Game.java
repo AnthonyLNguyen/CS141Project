@@ -13,8 +13,8 @@ public class Game implements Serializable {
 	 */
 	private static final long serialVersionUID = 9159641963363214314L;
 	private Map gameMap;
-	private boolean isFinished;
-	private boolean loss = false;
+	private boolean isFinished = false;
+	private boolean isLost = false;
 	private boolean isWon = false;
 	private ArrayList<Object> entities = new ArrayList<Object>();
 	private Player player = new Player();
@@ -139,7 +139,7 @@ public class Game implements Serializable {
 
 		player.setNumLives(player.getNumLives() - 1);
 		if (player.getNumLives() == 0)
-			loss = true;
+			isLost = true;
 		if (gameMap.getObject(8, 0) instanceof Ninja) {
 			ArrayList<Object> temp = new ArrayList<Object>();
 			temp.add(gameMap.replaceObject(player.getRow(), player.getCol(), 8, 0));
@@ -619,7 +619,7 @@ public class Game implements Serializable {
 	}
 
 	public boolean getLoss() {
-		return loss;
+		return isLost;
 	}
 
 	public Map getMap() {
